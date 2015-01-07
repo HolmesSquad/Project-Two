@@ -13,8 +13,26 @@ class objects:
         self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
-        
 
+class button:
+
+    def __init__(self, name, text, width, command, bg, x, y):
+        self.name = name
+        self.text = text
+        self.width = width
+        self.command = command
+        self.bg = bg
+        self.x = x
+        self.y = y
+        self.canvas = canvas
+        self.button = Button(self.name, self.text, self.width, self.command, self.bg)
+        self.button.place = (self.x, self.y)
+        
+        
+    def test1(self):
+        print "test1"
+
+button1 = button(main,"Test", 10, button.test1, "Green", 10, 10)
         
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
