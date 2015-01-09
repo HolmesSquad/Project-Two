@@ -26,10 +26,10 @@ class interface:
         self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
         self.nextLevel_button.place(x = 1110, y = 300)
 
-        self.timer_label = Label(name, text = "Timer", width = 10, height = 2, font = ("Arial", 18))
+        self.timer_label = Label(name, text = "Timer: ", width = 10, height = 1, font = ("Arial", 18), anchor = W)
         self.timer_label.place(x = 1110, y = 30)
-
-        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12))
+        
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 3, font = ("Arial", 12), anchor = N)
         self.treasures_label.place(x = 1110, y = 90)
 
     def start(self):
