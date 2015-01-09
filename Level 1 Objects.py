@@ -14,7 +14,7 @@ class objects:
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class light:
+class lights:
 
     def __init__(self,x0,y0,x1,y1,colour):
         self.x0 = x0
