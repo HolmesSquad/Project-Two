@@ -30,7 +30,7 @@ class interface:
         self.timer_label.place(x = 1110, y = 30)
         
         self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 3, font = ("Arial", 12), anchor = N)
-        self.treasures_label.place(x = 1110, y = 90)
+        self.treasures_label.place(x = 1110, y = 80)
 
     def start(self):
         print "Start"
