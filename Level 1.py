@@ -26,11 +26,8 @@ class interface:
         self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
         self.nextLevel_button.place(x = 1110, y = 300)
 
-        self.timer_label = Label(name, text = "Timer", font = ("Arial", 16))
-        self.timer_label.place(x = 1221, y = 30)
-
-        self.timer_labelname= Label(name,text ="Timer", width = 9, font = ("Arial", 16))
-        self.timer_labelname.place(x = 1110, y = 30)
+        self.timer_label = Label(name, text = "Timer", width = 10, height = 2, font = ("Arial", 18))
+        self.timer_label.place(x = 1110, y = 30)
 
         self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12))
         self.treasures_label.place(x = 1110, y = 90)
@@ -44,37 +41,7 @@ class interface:
     def nextLevel(self):
         print "Next Level"
 
-
-def count():
-        global counter, resetpressed, pausepressed
-        counter==counter
-        global RoboFinished
-        RoboFinished==RoboFinished
-        if RoboFinished !=True:
-            counter=counter+1
-            interface.timer_label.config(text=str(counter))
-            interface.timer_label.after(1000,count)
-        elif resetpressed==True:
-            print "Wololol"
-        elif pausepressed==True:
-            print "Wololol 2"
-        else:
-            cstop()
-
-def counter_label():
-        
-        global counter, RoboFinished
-        counter=0
-        RoboFinished=False
-        if counter!=1000000:
-            count()
-
-def cstop():
-        print ("It Finished")
-        
-
 interface = interface(main)
-counter_label()
         
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
