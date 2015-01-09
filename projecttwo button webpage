@@ -1,0 +1,46 @@
+from Tkinter import *
+import webbrowser
+main = Tk(className = "")
+canvas = Canvas(main, width = 1280, height = 720, bg = "White")
+canvas.pack()
+class interface:
+
+    def __init__(self,x,y,length,width,colour,canvas):
+        self.x = x
+        self.y = y
+        self.length = length
+        self.width = width
+        self.colour = colour
+        self.canvas=canvas
+        self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
+
+
+
+class button:
+
+    def __init__(self,start,text,command):
+        self.start=start
+        self.text=text
+        self.command=command
+        self.start_button=Button(start,text="This is a Test",command=self.test1)
+        self.start_button.place(x=1110,y=50)
+        
+        
+        
+
+    
+        
+
+    def test1(self):
+        webbrowser.open("https://www.google.co.uk/",new=0,autoraise=True)
+
+bord1 = interface(0, 0, 20, 720, "Black", canvas)
+bord2 = interface(0, 0, 1280, 20, "Black", canvas)
+bord3 = interface(0, 700, 1280, 20, "Black", canvas)
+bord4 = interface(1000, 0, 280, 720, "Black", canvas)
+
+
+button1=button(main,"Test","1")
+
+
+main.mainloop()
