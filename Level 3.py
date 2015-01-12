@@ -61,7 +61,6 @@ class interface:
         RoboFinished==RoboFinished
         if RoboFinished !=True:
             counter=counter+1
-            print "Checkpoint"
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
         elif resetpressed==True:

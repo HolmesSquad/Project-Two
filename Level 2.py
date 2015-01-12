@@ -1,4 +1,3 @@
-
 from Tkinter import *
 main = Tk(className = "Level 2")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
@@ -61,7 +60,6 @@ class interface:
         RoboFinished==RoboFinished
         if RoboFinished !=True:
             counter=counter+1
-            print "Checkpoint"
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
         elif resetpressed==True:
