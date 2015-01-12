@@ -1,4 +1,5 @@
 from Tkinter import *
+import random
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -228,7 +229,7 @@ object26 = objects(870.0,680.0,210.0,25.0, "Red",True,canvas)
 c3po = Robot(0, 0, speed = 1, size=20, colour='cyan')
 c3po.RandomPosition()
 c3po.drawRobot()
-c3po.Move()
+#c3po.Move()
 
 
 
