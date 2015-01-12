@@ -2,6 +2,15 @@ from Tkinter import *
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+def DFS(route, start): #Graph and start node as arguments
+    path=[] #List of nodes in the path 
+    queue=[start] #Queue list 
+    while queue: #While list is not empty
+        v=queue.pop(0) #Remove node from list
+        if v not in path: #If node v has not been checked yet
+            path=path+[v] #Add node to path list
+            queue=route[v]+queue #Add node's neighbors at the beginning of the list 
+    return path
 class objects:
 
     def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
@@ -78,12 +87,86 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+class Road:
+    def __init__(self,name,x,y,width,height):
+        self.name=name
+        self.x1=x
+        self.y1=y
+        self.x2=x+width
+        self.y2=y+height
+        self.width=width
+        self.height=height
+        self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill="darkgrey", width=0)
 
+class Robot:
+    def __init__(self,x,y,speed=1.0,size=20,colour='blue'):
+        self.x1=x
+        self.y1=y
+        self.x2=x+size
+        self.y2=y+size
+        self.colour=colour
+        self.speed=speed
+        self.size=size
+        self._vx=0
+        self._vy=0
+    def drawRobot(self):
+        self.canvas=canvas
+        self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
+    #Give the robot a random position (Use this before drawing the robot)
+    def RandomPosition(self):
+        RandRoad=random.choice(Roads) #Select a random road
+        #If road is vertical set robot to be horizontally centered in this road and in a random vertical position
+        if RandRoad.width<RandRoad.height:
+            self.x1=RandRoad.x1+((RandRoad.width-self.size)/2)
+            self.x2=self.x1+self.size
+            self.y1=random.randrange((RandRoad.y1+(self.size/2)),(RandRoad.y2-(self.size*1.5)))
+            self.y2=self.y1+self.size
+        #If road is horizonal set robot to be vertically centered and in a random horizontal position.
+        elif RandRoad.height<RandRoad.width:
+            self.y1=RandRoad.y1+((RandRoad.height-self.size)/2)
+            self.y2=self.y1+self.size
+            self.x1=random.randrange((RandRoad.x1+(self.size/2)),(RandRoad.x2-self.size))
+            self.x2=self.x1+self.size
+    def CheckPosition(self):
+        for road in Roads:
+            if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
+                return road.name
+
+
+
+    def Move(self):
+        
+        route = {'Road1':['B', 'C'], 'B':['E'], 'C':['E', 'D'], 'D':['E'], 'E':['F'], 'F':[]} #Connectivity 
+        print 'DFS path: ', DFS(route, self.CheckPosition())
 interface = interface(main)
 interface = interface.counter_label(interface)
         
-Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
-Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
+#Roads
+Road1=Road('Road1',10,45,1070,40)
+Road2=Road('Road2',10,45,40,630)
+Road3=Road('Road3',1040,45,40,480)
+Road4=Road('Road4',945,45,40,190)
+Road5=Road('Road5',945,195,135,40)
+Road6=Road('Road6',10,195,900,40)
+Road7=Road('Road7',870,45,40,190)
+Road8=Road('Road8',479,45,40,190)
+Road9=Road('Road9',404,45,40,115)
+Road10=Road('Road10',10,120,434,40)
+Road11=Road('Road11',231.25,120,40,405)
+Road12=Road('Road12',479,120,431,40)
+Road13=Road('Road13',10,340,1070,40)
+Road14=Road('Road14',10,485,1070,40)
+Road15=Road('Road15',450.25,195,40,330)
+Road16=Road('Road16',10,560,900,40)
+Road17=Road('Road17',326,485,40,115)
+Road18=Road('Road18',717,485,40,115)
+Road19=Road('Road19',10,635,900,40)
+Road20=Road('Road20',230.25,560,40,115)
+Road21=Road('Road21',479,560,40,115)
+Road22=Road('Road22',870,560,40,115)
+
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
+
 #Top Row
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",False,canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",False,canvas)
@@ -142,7 +225,10 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",False,canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",True,canvas)
 
-
+c3po = Robot(0, 0, speed = 1, size=20, colour='cyan')
+c3po.RandomPosition()
+c3po.drawRobot()
+c3po.Move()
 
 
 
