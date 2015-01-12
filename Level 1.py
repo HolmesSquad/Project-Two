@@ -2,6 +2,12 @@ from Tkinter import *
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+global resetpressed
+resetpressed=False
+global pausepressed
+pausepressed=False
+global programispaused
+programispaused= False
 class objects:
 
     def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
@@ -44,11 +50,14 @@ class interface:
     def start(self):
         print "Start"
 
-    def pause(self):
-        print "Pause"
+    def pause(main):
+        programispaused=True
+        main.negcounter()
 
-    def reset(self):
-        print "Reset"
+    def reset(main):
+        global counter, resetpressed, RoboFinished
+        counter=-1
+        resetpressed=True
 
     def nextLevel(self):
         print "Next Level"
@@ -56,20 +65,22 @@ class interface:
     def count(main):
         global counter, resetpressed, pausepressed
         counter==counter
-        count=0
         global RoboFinished
         RoboFinished==RoboFinished
-        if RoboFinished !=True:
+       
+        if (RoboFinished !=True):
             counter=counter+1
-            print "Checkpoint"
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
         elif resetpressed==True:
-            print "Wololol"
+            print resetpressed
+            counter=0
+            resetpressed=False
         elif pausepressed==True:
             print "Wololol 2"
         else:
-            cstop()
+            print "help"
+            main.cstop()
 
     def counter_label(main,self):
         
@@ -78,6 +89,13 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+    def negcounter(main):
+        global programispaused
+        programispaused=True
+        if programispaused==True:
+            global counter
+            counter=counter-1
+            main.timerShow_label.after(1000, main.negcounter) 
 
 interface = interface(main)
 interface=interface.counter_label(interface)
