@@ -18,7 +18,10 @@ class interface:
 
     def __init__(self, name):
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
-        self.start_button.place(x = 1110, y = 200)
+        self.start_button.place(x = 1110, y = 150)
+
+        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
+        self.pause_button.place(x = 1110, y = 200)
 
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
@@ -26,17 +29,23 @@ class interface:
         self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
         self.nextLevel_button.place(x = 1110, y = 300)
 
-        self.timer_label = Label(name, text = "Timer", font = ("Arial", 16))
-        self.timer_label.place(x = 1221, y = 30)
+        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
+        self.timerShow_label.place(x = 1170, y = 30)
 
-        self.timer_labelname= Label(name,text ="Timer", width = 9, font = ("Arial", 16))
-        self.timer_labelname.place(x = 1110, y = 30)
+        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
+        self.timer_label.place(x = 1110, y = 30)
 
-        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12))
-        self.treasures_label.place(x = 1110, y = 90)
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
+        self.treasures_label.place(x = 1110, y = 70)
+
+        self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
+        self.treasureShow_label.place(x = 1110, y = 100)
 
     def start(self):
         print "Start"
+
+    def pause(self):
+        print "Pause"
 
     def reset(self):
         print "Reset"
@@ -44,16 +53,17 @@ class interface:
     def nextLevel(self):
         print "Next Level"
 
-
-def count():
+    def count(main):
         global counter, resetpressed, pausepressed
         counter==counter
+        count=0
         global RoboFinished
         RoboFinished==RoboFinished
         if RoboFinished !=True:
             counter=counter+1
-            interface.timer_label.config(text=str(counter))
-            interface.timer_label.after(1000,count)
+            print "Checkpoint"
+            main.timerShow_label.config(text = str(counter))
+            main.timerShow_label.after(1000, main.count) 
         elif resetpressed==True:
             print "Wololol"
         elif pausepressed==True:
@@ -61,20 +71,16 @@ def count():
         else:
             cstop()
 
-def counter_label():
+    def counter_label(main,self):
         
-        global counter, RoboFinished
-        counter=0
-        RoboFinished=False
-        if counter!=1000000:
-            count()
-
-def cstop():
-        print ("It Finished")
-        
+            global counter, RoboFinished
+            counter=0
+            RoboFinished=False
+            if counter!=1000000:
+                interface.count()
 
 interface = interface(main)
-counter_label()
+interface = interface.counter_label(interface)
               
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
