@@ -14,7 +14,7 @@ class objects:
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class light:
+class lights:
 
     def __init__(self,x0,y0,x1,y1,colour):
         self.x0 = x0
@@ -46,8 +46,8 @@ pave4 = objects(519.0,85.0,351.0,35.0,"Light Grey",False,canvas)
 object7 = objects(524.0,90.0,341.0,25.0,"Red",False,canvas)
 pave5 = objects(910.0,85.0,35.0,150.0,"Light Grey",False,canvas)
 object8 = objects(915.0,90.0,25.0,140.0,"Red",False,canvas)
-pave6 = objects(985.0,85.0,35.0,110.0,"Light Grey",False,canvas)
-object9 = objects(990.0,90.0,25.0,100.0, "Red",False,canvas)
+pave6 = objects(985.0,85.0,55.0,110.0,"Light Grey",False,canvas)
+object9 = objects(990.0,90.0,45.0,100.0, "Red",False,canvas)
 
 #Third Row
 pave7 = objects(50.0,160.0,180.25,35.0,"Light Grey", False,canvas)
