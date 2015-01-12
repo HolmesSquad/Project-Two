@@ -53,32 +53,34 @@ class interface:
     def nextLevel(self):
         print "Next Level"
 
-def count():
-    global counter, resetpressed, pausepressed
-    counter==counter
-    global RoboFinished
-    RoboFinished==RoboFinished
-    if RoboFinished !=True:
-        counter=counter+1
-        interface.timerShow_label.config(text = str(counter))
-        interface.timerShow_label.after(1000, count)
-    elif resetpressed==True:
-        print "Wololol"
-    elif pausepressed==True:
-        print "Wololol 2"
-    else:
-        cstop()
+    def count(main):
+        global counter, resetpressed, pausepressed
+        counter==counter
+        count=0
+        global RoboFinished
+        RoboFinished==RoboFinished
+        if RoboFinished !=True:
+            counter=counter+1
+            print "Checkpoint"
+            main.timerShow_label.config(text = str(counter))
+            main.timerShow_label.after(1000, main.count) 
+        elif resetpressed==True:
+            print "Wololol"
+        elif pausepressed==True:
+            print "Wololol 2"
+        else:
+            cstop()
 
-def counter_label():
+    def counter_label(main,self):
         
-        global counter, RoboFinished
-        counter=0
-        RoboFinished=False
-        if counter!=1000000:
-            count()
+            global counter, RoboFinished
+            counter=0
+            RoboFinished=False
+            if counter!=1000000:
+                interface.count()
 
 interface = interface(main)
-counter_label()
+interface = interface.counter_label(interface)
         
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
