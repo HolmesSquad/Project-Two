@@ -189,10 +189,29 @@ object26 = objects(870.0,680.0,210.0,25.0, "Red",False,canvas)
 
 ListOfLandmarks = (object4, object13,object19,object20)
 
+#Column 1
 Light1 = lights(20.0,130.0,40,150,"Green")
 Light2 = lights(20.0,205.0,40,225,"Green")
+Light3 = lights(20.0, 350.0, 40, 370.0, "Green")
+Light4 = lights(20.0, 495, 40, 515, "Green")
+Light5 = lights(20.0, 570, 40, 590, "Green")
 
+#Column 2
+Light6 = lights(240, 130, 260, 150, "Green")
+Light7 = lights(240, 205, 260, 225, "Green")
+Light8 = lights(240, 350, 260, 370, "Green")
+Light9 = lights(240, 495, 260, 515, "Green")
+Light10 = lights(240, 570, 260, 590, "Green")
+Light11 = lights(240, 645, 260, 665, "Green")
 
+#Column 3
+Light12 = lights(415, 55, 435, 75, "Green")
+Light13 = lights(335, 495, 355, 515, "Green")
+Light14 = lights(335, 570, 355, 590, "Green")
+
+#Column 4
+Light15 = lights(490, 55, 510, 75, "Green")
+Light16 = lights(490, 
 
 
 
