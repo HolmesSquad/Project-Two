@@ -1,9 +1,10 @@
 from Tkinter import *
 import random
+import math
+import time
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
-
 def DFS(route, start, end): #Graph and start node as arguments
     path=[] #List of nodes in the path 
     queue=[start] #Queue list 
@@ -15,9 +16,6 @@ def DFS(route, start, end): #Graph and start node as arguments
             path=path+[v] #Add node to path list
             queue=route[v]+queue #Add node's neighbors at the beginning of the list 
     return path
-
-
-
 class objects:
 
     def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
@@ -30,21 +28,72 @@ class objects:
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class light:
+class interface:
 
-    def __init__(self,x0,y0,x1,y1,colour):
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+    def __init__(self, name):
+        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
+        self.start_button.place(x = 1110, y = 150)
 
+        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
+        self.pause_button.place(x = 1110, y = 200)
 
+        self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
+        self.reset_button.place(x = 1110, y = 250)
 
+        self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
+        self.nextLevel_button.place(x = 1110, y = 300)
 
+        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
+        self.timerShow_label.place(x = 1170, y = 30)
+
+        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
+        self.timer_label.place(x = 1110, y = 30)
+
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
+        self.treasures_label.place(x = 1110, y = 70)
+
+        self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
+        self.treasureShow_label.place(x = 1110, y = 100)
+
+    def start(self):
+        print "Start"
+
+    def pause(self):
+        print "Pause"
+
+    def reset(self):
+        print "Reset"
+
+    def nextLevel(self):
+        print "Next Level"
+
+    def count(main):
+        global counter, resetpressed, pausepressed
+        counter==counter
+        count=0
+        global RoboFinished
+        RoboFinished==RoboFinished
+        if RoboFinished !=True:
+            counter=counter+1
+            print "Checkpoint"
+            main.timerShow_label.config(text = str(counter))
+            main.timerShow_label.after(1000, main.count) 
+        elif resetpressed==True:
+            print "Wololol"
+        elif pausepressed==True:
+            print "Wololol 2"
+        else:
+            cstop()
+
+    def counter_label(main,self):
+        
+            global counter, RoboFinished
+            counter=0
+            RoboFinished=False
+            if counter!=1000000:
+                interface.count()
 class Road:
-    def __init__(self,name,x,y,width,height):
+    def __init__(self,name,x,y,width,height,colour="darkgrey"):
         self.name=name
         self.x1=x
         self.y1=y
@@ -52,7 +101,7 @@ class Road:
         self.y2=y+height
         self.width=width
         self.height=height
-        self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill="darkgrey", width=0)
+        self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill=colour, width=0)
 
 class Robot:
     def __init__(self,x,y,speed=1.0,size=20,colour='blue'):
@@ -63,8 +112,6 @@ class Robot:
         self.colour=colour
         self.speed=speed
         self.size=size
-        self._vx=0
-        self._vy=0
     def drawRobot(self):
         self.canvas=canvas
         self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
@@ -86,34 +133,38 @@ class Robot:
     def CheckPosition(self):
         for road in Roads:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
-                return road.name
-
-
-
+                return road
     def Move(self):
+        global bot1
+        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
+        Route=list(DFS(city, self.CheckPosition(), Road1))
+        for a in range (0,len(Route)):
+            NextRoad=Route[1]
+            if NextRoad.height>NextRoad.width:
+                print "Test 4"
+                x_destination=NextRoad.x1+NextRoad.width/2
+                if x_destination>(self.x1+(self.size/2)):
+                    print "Test 3"
+                    for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
+                        print "Test 1"
+                        self.x1+=self.speed
+                        self.x2+=self.speed
+                        time.sleep(0.1)
+                        canvas.update()
+                elif x_destination<(self.x1+(self.size/2)):
+                    for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
+                        print "Test 2"
+                        self.x1-=self.speed
+                        self.x2-=self.speed
+                        canvas.update()
+            else:
+                print "Test 5"
+                y_destination=NextRoad.y1+(NextRoad.height/2)
+            
+interface = interface(main)
+interface = interface.counter_label(interface)
         
-        route = {'Road1':['B', 'C'], 'B':['E'], 'C':['E', 'D'], 'D':['E'], 'E':['F'], 'F':[]} #Connectivity 
-        print 'DFS path: ', DFS(route, self.CheckPosition())
-
-'''class button:
-
-    def __init__(self, name, text, width, command, bg, x, y):
-        self.name = name
-        self.text = text
-        self.width = width
-        self.command = command
-        self.bg = bg
-        self.x = x
-        self.y = y
-        self.canvas = canvas
-        self.button = Button(self.name, self.text, self.width, self.command, self.bg)
-        self.button.place = (self.x, self.y)
-        
-        
-    def test1(self):
-        print "test1"
-
-button1 = button(main,"Test", 10, button.test1, "Green", 10, 10)'''
+#Roads
 Road1=Road('Road1',10,45,1070,40)
 Road2=Road('Road2',10,45,40,630)
 Road3=Road('Road3',1040,45,40,480)
@@ -207,20 +258,12 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",False,canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",False,canvas)
 
-ListOfLandmarks = (object4, object13,object19,object20)
-'''r2d2 = Robot(0, 0, speed = 1, colour='yellow')
-c3po = Robot(0, 0, speed = 1, size=20, colour='cyan')
-r2d2.RandomPosition()
+c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
-r2d2.drawRobot() 
 c3po.drawRobot()
-c3po.Move()'''
-'''Light1 = lights(20.0,130.0,40,150,"Green")
-Light2 = lights(20.0,205.0,40,225,"Green")'''
-
-route1 = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
-print DFS(route1, Road21, Road1)
+c3po.Move()
 
 
 
 main.mainloop()
+
