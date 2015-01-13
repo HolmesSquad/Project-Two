@@ -8,6 +8,8 @@ global pausepressed
 pausepressed=False
 global programispaused
 programispaused= False
+global paused
+paused = False
 class objects:
 
     def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
@@ -26,7 +28,7 @@ class interface:
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
-        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
+        self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
         self.pause_button.place(x = 1110, y = 200)
 
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
@@ -48,16 +50,34 @@ class interface:
         self.treasureShow_label.place(x = 1110, y = 100)
 
     def start(self):
+        global resetpressed, RoboFinished
         print "Start"
-
+        interface.start_button.place_forget()
+        interface.counter_label(interface)
     def pause(main):
-        programispaused=True
-        main.negcounter()
+        global paused, programispaused, pausebuffer
+        if paused:
+            programispaused=False
+            print "unpausing"
+        else:
+            pausebuffer=1
+            main.pause_button.place_forget()
+            programispaused=True
+            print "pausing"
+            print programispaused
+            main.negcounter()
+            
+        paused= not paused
+            
 
     def reset(main):
         global counter, resetpressed, RoboFinished
-        counter=-1
+        counter=0
+        main.timerShow_label.config(text = str(counter))
         resetpressed=True
+        interface.start_button.place(x = 1110, y = 150)
+        RoboFinished=True
+        
 
     def nextLevel(self):
         print "Next Level"
@@ -90,15 +110,18 @@ class interface:
             if counter!=1000000:
                 interface.count()
     def negcounter(main):
-        global programispaused
-        programispaused=True
+        global programispaused, counter, pausebuffer
         if programispaused==True:
-            global counter
             counter=counter-1
-            main.timerShow_label.after(1000, main.negcounter) 
+            pausebuffer=pausebuffer-1
+            if pausebuffer<0:
+                main.pause_button.place(x = 1110, y = 200)
+            
+            main.timerShow_label.after(1000, main.negcounter)
+        else: print "placeholder"
 
 interface = interface(main)
-interface=interface.counter_label(interface)
+
     
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
