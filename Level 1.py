@@ -129,7 +129,6 @@ class interface:
         global programispaused, counter, pausebuffer
         if programispaused==True:
             counter=counter-1
-<<<<<<< HEAD
             pausebuffer=pausebuffer-1
             if pausebuffer<0:
                 main.pause_button.place(x = 1110, y = 200)
@@ -139,14 +138,6 @@ class interface:
 
 interface = interface(main)
 
-    
-=======
-            main.timerShow_label.after(1000, main.negcounter)
-
-interface = interface(main)
-interface=interface.counter_label(interface)
-
->>>>>>> origin/Interface
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
 
@@ -242,9 +233,7 @@ Light14 = lights(335, 570, 355, 590, "Green")
 
 #Column 4
 Light15 = lights(490, 55, 510, 75, "Green")
-Light16 = lights(490, 
-
+Light16 = lights(490, 130, 510, 150, "Green")
 
 
 main.mainloop()
-
