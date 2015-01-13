@@ -40,6 +40,12 @@ class interface:
         self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
         self.treasureShow_label.place(x = 1110, y = 100)
 
+        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.robot1Score_label.place(x = 1110, y = 350)
+
+        self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
+        self.robot1Score_label.place(x = 1110, y = 370)
+
     def start(self):
         print "Start"
 
