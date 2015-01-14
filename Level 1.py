@@ -70,30 +70,25 @@ class interface:
         print "Start"
         interface.start_button.place_forget()
         interface.counter_label(interface)
+
     def pause(main):
         global paused, programispaused, pausebuffer
         if paused:
-            programispaused=False
-            print "unpausing"
+            programispaused = False
         else:
-            pausebuffer=1
+            pausebuffer = 1
             main.pause_button.place_forget()
-            programispaused=True
-            print "pausing"
-            print programispaused
-            main.negcounter()
-            
-        paused= not paused
-            
+            programispaused = True
+            main.negcounter()          
+        paused = not paused            
 
     def reset(main):
         global counter, resetpressed, RoboFinished
-        counter=0
+        counter = 0
         main.timerShow_label.config(text = str(counter))
-        resetpressed=True
+        resetpressed = True
         interface.start_button.place(x = 1110, y = 150)
-        RoboFinished=True
-        
+        RoboFinished = True
 
     def nextLevel(self):
         print "Next Level"
@@ -103,16 +98,15 @@ class interface:
         counter==counter
         global RoboFinished
         RoboFinished==RoboFinished
-       
-        if (RoboFinished !=True):
+        if (RoboFinished != True):
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed==True:
+        elif resetpressed == True:
             print resetpressed
             counter=0
-            resetpressed=False
-        elif pausepressed==True:
+            resetpressed= False
+        elif pausepressed== True:
             print "Wololol 2"
         else:
             print "help"
@@ -125,6 +119,7 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+                
     def negcounter(main):
         global programispaused, counter, pausebuffer
         if programispaused==True:
@@ -132,7 +127,6 @@ class interface:
             pausebuffer=pausebuffer-1
             if pausebuffer<0:
                 main.pause_button.place(x = 1110, y = 200)
-            
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
 
