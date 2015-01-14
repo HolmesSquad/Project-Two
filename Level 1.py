@@ -141,6 +141,7 @@ interface = interface(main)
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",canvas)
 
+#Objects & Landmarks
 #Top Row
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
@@ -171,18 +172,18 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
 object13 = landmarks(55.0,240.0,170.25,95.0, "Blue", canvas)
-pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey",canvas)
-object14 = objects(275.0, 240.0,170.0,95.0, "Red",canvas)
-pave12 = objects(490.25,235.0,549.75,105.0, "Light Grey",canvas)
-object15 = objects(495.25,240.0,539.75,95.0, "Red",canvas)
+pave11 = objects(270.25, 235.0, 199.25,105.0, "Light Grey",canvas)
+object14 = objects(275.0, 240.0,189.0,95.0, "Red",canvas)
+pave12 = objects(524.25,235.0,510.75,105.0, "Light Grey",canvas)
+object15 = objects(529.25,240.0,500.75,95.0, "Red",canvas)
 
 #Fifth Row
 pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey",canvas)
 object27 = objects(55.0,385.0,170.25,95.0, "Red", canvas)
-pave22 = objects(270.25, 380.0, 180.25,105.0, "Light Grey",canvas)
-object28 = objects(275.0, 385.0,170.0,95.0, "Red",canvas)
-pave23 = objects(490.25,380.0,549.75,105.0, "Light Grey",canvas)
-object29 = landmarks(495.25,385.0,539.75,95.0, "Blue",canvas)
+pave22 = objects(270.25, 380.0, 199.25,105.0, "Light Grey",canvas)
+object28 = objects(275.0, 385.0,189.0,95.0, "Red",canvas)
+pave23 = objects(524.25,380.0,510.75,105.0, "Light Grey",canvas)
+object29 = landmarks(529.0,385.0,500.75,95.0, "Blue",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
@@ -209,7 +210,7 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
-
+#Lights
 #Column 1
 Light1 = lights(20.0,130.0,40,150,"Green")
 Light2 = lights(20.0,205.0,40,225,"Green")
