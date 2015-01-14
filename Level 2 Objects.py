@@ -45,18 +45,18 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", False,canvas)
 object13 = objects(55.0,240.0,170.25,95.0, "Red", False,canvas)
-pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey", False, canvas)
-object14 = objects(275.0, 240.0,170.0,95.0, "Red", False, canvas)
-pave12 = objects(490.25,235.0,549.75,105.0, "Light Grey", False, canvas)
-object15 = objects(495.25,240.0,539.75,95.0, "Red", False, canvas)
+pave11 = objects(270.25, 235.0, 199.25,105.0, "Light Grey", False, canvas)
+object14 = objects(275.0, 240.0,189.0,95.0, "Red", False, canvas)
+pave12 = objects(524.25,235.0,510.75,105.0, "Light Grey", False, canvas)
+object15 = objects(529.25,240.0,500.75,95.0, "Red", False, canvas)
 
 #Fifth Row
 pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey", False,canvas)
 object27 = objects(55.0,385.0,170.25,95.0, "Red", False,canvas)
-pave22 = objects(270.25, 380.0, 180.25,105.0, "Light Grey", False, canvas)
-object28 = objects(275.0, 385.0,170.0,95.0, "Red", False, canvas)
-pave23 = objects(490.25,380.0,549.75,105.0, "Light Grey", False, canvas)
-object29 = objects(495.25,385.0,539.75,95.0, "Red", False, canvas)
+pave22 = objects(270.25, 380.0, 199.25,105.0, "Light Grey", False, canvas)
+object28 = objects(275.0, 385.0,189.0,95.0, "Red", False, canvas)
+pave23 = objects(524.25,380.0,510.75,105.0, "Light Grey", False, canvas)
+object29 = objects(529.25,385.0,500.75,95.0, "Red", False, canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", False,canvas)
