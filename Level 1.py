@@ -41,17 +41,30 @@ class interface:
         self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
         self.treasureShow_label.place(x = 1110, y = 100)
 
-    def start(self):
+     def start(self):
+        global resetpressed, RoboFinished
         print "Start"
+        interface.start_button.place_forget()
+        interface.counter_label(interface)
 
     def pause(main):
-        programispaused=True
-        main.negcounter()
+        global paused, programispaused, pausebuffer
+        if paused:
+            programispaused = False
+        else:
+            pausebuffer = 1
+            main.pause_button.place_forget()
+            programispaused = True
+            main.negcounter()          
+        paused = not paused            
 
     def reset(main):
         global counter, resetpressed, RoboFinished
-        counter=-1
-        resetpressed=True
+        counter = 0
+        main.timerShow_label.config(text = str(counter))
+        resetpressed = True
+        interface.start_button.place(x = 1110, y = 150)
+        RoboFinished = True
 
     def nextLevel(self):
         print "Next Level"
@@ -61,16 +74,15 @@ class interface:
         counter==counter
         global RoboFinished
         RoboFinished==RoboFinished
-       
-        if (RoboFinished !=True):
+        if (RoboFinished != True):
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed==True:
+        elif resetpressed == True:
             print resetpressed
             counter=0
-            resetpressed=False
-        elif pausepressed==True:
+            resetpressed= False
+        elif pausepressed== True:
             print "Wololol 2"
         else:
             print "help"
@@ -83,17 +95,19 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+                
     def negcounter(main):
-        global programispaused
-        programispaused=True
+        global programispaused, counter, pausebuffer
         if programispaused==True:
-            global counter
             counter=counter-1
-            main.timerShow_label.after(1000, main.negcounter) 
+            pausebuffer=pausebuffer-1
+            if pausebuffer<0:
+                main.pause_button.place(x = 1110, y = 200)
+            main.timerShow_label.after(1000, main.negcounter)
+        else: print "placeholder"
 
 interface = interface(main)
-interface=interface.counter_label(interface)
-    
+
 
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
