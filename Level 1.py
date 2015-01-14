@@ -12,13 +12,13 @@ global paused
 paused = False
 class objects:
 
-    def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
+    def __init__(self,x,y,length,width,colour,canvas):
+        global ObjectList
         self.x = x
         self.y = y
         self.length = length
         self.width = width
         self.colour = colour
-        self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
