@@ -14,7 +14,7 @@ def DFS(route, start, end): #Graph and start node as arguments
             return path
         if v not in path: #If node v has not been checked yet
             path=path+[v] #Add node to path list
-            queue=route[v]+queue #Add node's neighbors at the beginning of the list 
+            queue=route[v]+queue #Add node's neighbors at the beginning of the list
     return path
 class objects:
 
@@ -135,32 +135,55 @@ class Robot:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
     def Move(self):
-        global bot1
-        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
-        Route=list(DFS(city, self.CheckPosition(), Road1))
-        for a in range (0,len(Route)):
-            NextRoad=Route[1]
+        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3,Road11], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
+        Route=list(DFS(city, self.CheckPosition(), Road12))
+        Route.append(Road12)
+        IteminRoute=0
+        print len(Route)
+        while IteminRoute<len(Route):
+            NextRoad=Route[IteminRoute]
+            print Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
                 print "Test 4"
                 x_destination=NextRoad.x1+NextRoad.width/2
+                print "X Destination:"+str(x_destination)
                 if x_destination>(self.x1+(self.size/2)):
                     print "Test 3"
                     for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
-                        print "Test 1"
                         self.x1+=self.speed
                         self.x2+=self.speed
-                        time.sleep(0.1)
-                        canvas.update()
-                elif x_destination<(self.x1+(self.size/2)):
-                    for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+                else: # x_destination<(self.x1+(self.size/2))
+                    for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
                         print "Test 2"
                         self.x1-=self.speed
                         self.x2-=self.speed
-                        canvas.update()
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
             else:
                 print "Test 5"
                 y_destination=NextRoad.y1+(NextRoad.height/2)
-            
+                print "Y Destination:"+str(y_destination)
+                if y_destination>(self.y1+(self.size/2)):
+                    print "Test 7"
+                    for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
+                        self.y1+=self.speed
+                        self.y2+=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+                else: #if y_destination<(self.x1+(self.size/2))
+                    for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
+                        print "Test 8"
+                        self.y1-=self.speed
+                        self.y2-=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+            IteminRoute+=1
 interface = interface(main)
 interface = interface.counter_label(interface)
         
@@ -262,6 +285,9 @@ c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
 c3po.Move()
+'''for t in range (0,300):
+    c3po.Move()
+    time.sleep(0.1)'''
 
 
 
