@@ -22,6 +22,12 @@ class objects:
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
+class landmarks(objects):
+   
+    def TreasurePicker(self):
+        num=random.choice(LandMarkList)
+        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
+
 class lights:
 
     def __init__(self,x0,y0,x1,y1,colour):
