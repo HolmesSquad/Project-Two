@@ -1,3 +1,6 @@
+import random
+import math
+import time
 from Tkinter import *
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
