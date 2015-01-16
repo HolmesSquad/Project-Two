@@ -1,4 +1,5 @@
 from Tkinter import *
+import webbrowser
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -70,10 +71,13 @@ class interface:
 
         self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
         self.robot1Score_label.place(x = 1110, y = 370)
+
+        self.info_label1=Label(name, text="", width=16, font = ("Arial", 12))
+        
         
     def start(self):
         global resetpressed, RoboFinished
-        print "Start"
+        
         interface.start_button.place_forget()
         interface.counter_label(interface)
 
@@ -85,7 +89,8 @@ class interface:
             pausebuffer = 1
             main.pause_button.place_forget()
             programispaused = True
-            main.negcounter()          
+            main.negcounter()
+            
         paused = not paused            
 
     def reset(main):
@@ -98,6 +103,7 @@ class interface:
 
     def nextLevel(self):
         print "Next Level"
+        #self.open_website()
 
     def count(main):
         global counter, resetpressed, pausepressed
@@ -108,15 +114,8 @@ class interface:
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed == True:
-            print resetpressed
-            counter=0
-            resetpressed= False
-        elif pausepressed== True:
-            print "Wololol 2"
         else:
-            print "help"
-            main.cstop()
+            main.counter_stop()
 
     def counter_label(main,self):
         
@@ -135,6 +134,13 @@ class interface:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
+
+    def counter_stop(main,self):
+        main.info_label.config(text="The Robot has found the last treasure")
+        self.info_label1.place(x = 1110, y = 670)
+
+    #def open_website(main):
+        #webbrowser.open_new((www.google.co.uk))
 
 interface = interface(main)
 
