@@ -240,5 +240,7 @@ Light19 = lights(490, 490, 510, 510, "Green")
 Light20 = lights(490, 570, 510, 590, "Green")
 Light21 = lights(490, 645, 510, 665, "Green")
 
+#Column 5
+Light22 = lights(730, 490, 750, 510, "Green")
 
 main.mainloop()
