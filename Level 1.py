@@ -41,7 +41,7 @@ class interface:
         self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
         self.treasureShow_label.place(x = 1110, y = 100)
 
-     def start(self):
+    def start(self):
         global resetpressed, RoboFinished
         print "Start"
         interface.start_button.place_forget()
@@ -80,9 +80,9 @@ class interface:
             main.timerShow_label.after(1000, main.count) 
         elif resetpressed == True:
             print resetpressed
-            counter=0
-            resetpressed= False
-        elif pausepressed== True:
+            counter = 0
+            resetpressed = False
+        elif pausepressed == True:
             print "Wololol 2"
         else:
             print "help"
@@ -142,8 +142,6 @@ object11 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
 pave10 = objects(50.0,235.0,180.25,250.0, "Light Grey", False,canvas)
 object12 = objects(55.0,240.0,170.25,240.0, "Red", False,canvas)
 
-
-
 #Fifth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", False,canvas)
 object16 = objects(55.0,530.0,266.5,25.0, "Red", False,canvas)
@@ -168,9 +166,6 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",False,canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",True,canvas)
-
-
-
 
 
 main.mainloop()
