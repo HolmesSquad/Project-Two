@@ -40,7 +40,7 @@ class objects:
 class landmarks(objects):
    
     def TreasurePicker(self):
-        num=random.choice(LandMarkList)
+        num=random.choice(ListOfLandmarks)
         Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
 
 class lights:
@@ -340,6 +340,9 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
+
+ListOfLandmarks = (object4, object13,object19,object20)
+object4.TreasurePicker()
 
 #Lights
 #Column 1
