@@ -237,7 +237,8 @@ Light16 = lights(490, 130, 510, 150, "Green")
 Light17 = lights(490, 210, 510, 230, "Green")
 Light18 = lights(490, 350, 510, 370, "Green")
 Light19 = lights(490, 490, 510, 510, "Green")
-Light20 = lights(490, 540, 510, 560, "Green")
+Light20 = lights(490, 570, 510, 590, "Green")
+Light21 = lights(490, 645, 510, 665, "Green")
 
 
 main.mainloop()
