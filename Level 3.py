@@ -1,4 +1,5 @@
 from Tkinter import *
+import random
 main = Tk(className = "Level 3")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -13,7 +14,19 @@ class objects:
         self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
-
+class landmarks(objects):
+    def TreasurePicker(self):
+        num1=random.choice(ListOfLandmarks)
+        Treasure=canvas.create_rectangle(num1.x,num1.y,num1.x+num1.length,num1.y+num1.width,fill="yellow")
+        ListOfLandmarks.remove(num1)
+        num2=random.choice(ListOfLandmarks)
+        Treasure=canvas.create_rectangle(num2.x,num2.y,num2.x+num2.length,num2.y+num2.width,fill="yellow")
+        ListOfLandmarks.remove(num2)
+        num3=random.choice(ListOfLandmarks)
+        Treasure=canvas.create_rectangle(num3.x,num3.y,num3.x+num3.length,num3.y+num3.width,fill="yellow")
+        ListOfTreasures.append(num1)
+        ListOfTreasures.append(num2)
+        ListOfTreasures.append(num3)
 class interface:
 
     def __init__(self, name):
@@ -117,7 +130,7 @@ pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",False,canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",False,canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",False,canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",False,canvas)
-object4 = objects(870.0,15.0,210.0,25.0, "Red",False,canvas)
+object4 = landmarks(870.0,15.0,210.0,25.0, "blue",False,canvas)
 
 #second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey", False,canvas)
@@ -133,13 +146,13 @@ object9 = objects(990.0,90.0,25.0,100.0, "Red",False,canvas)
 
 #Third Row
 pave7 = objects(50.0,160.0,394.25,35.0,"Light Grey", False,canvas)
-object10 = objects(55.0,165.0,384.0,25.0,"Red", False,canvas)
+object10 = landmarks(55.0,165.0,384.0,25.0,"blue", False,canvas)
 pave9 = objects(519.0,160.0,351.0,35.0,"Light Grey",False,canvas)
 object12 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
 
 #Fourth Row
 pave10 = objects(10.0,235.0,220.25,105.0, "Light Grey", False,canvas)
-object13 = objects(15.0,240.0,210.25,95.0, "Red", False,canvas)
+object13 = landmarks(15.0,240.0,210.25,95.0, "blue", False,canvas)
 pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey", False, canvas)
 object14 = objects(275.0, 240.0,170.0,95.0, "Red", False, canvas)
 pave12 = objects(490.25,235.0,589.75,105.0, "Light Grey", False, canvas)
@@ -157,15 +170,15 @@ object29 = objects(495.25,385.0,539.75,95.0, "Red", False, canvas)
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", False,canvas)
 object16 = objects(55.0,530.0,266.5,25.0, "Red", False,canvas)
 pave14 = objects(366.0,525.0,391.0,35.0, "Light Grey", False,canvas)
-object17 = objects(371.0,530.0,381.0,25.0,"Red", False,canvas)
+object17 = landmarks(371.0,530.0,381.0,25.0,"Blue", False,canvas)
 pave15 = objects(757.0,525.0,153.0,35.0, "Light Grey", False,canvas)
 object18 = objects(762.0,530.0,143.0,25.0,"Red",False,canvas)
 pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey", False,canvas)
-object19 = objects(915.0,530.0,160.0,140.0, "Red", True, canvas)
+object19 = landmarks(915.0,530.0,160.0,140.0, "blue", True, canvas)
 
 #Seventh Row
 pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey", False,canvas)
-object20 = objects(55.0,605.0,170.0,25.0, "Red", False, canvas)
+object20 = landmarks(55.0,605.0,170.0,25.0, "Blue", False, canvas)
 pave18 = objects(271.25,600.0,207.75,35.0, "Light Grey", False,canvas)
 object21 = objects(276.25,605.0,197.75,25.0, "Red", False, canvas)
 pave19 = objects(519.0,600.0,351.0,35.0,"Light Grey", False,canvas)
@@ -177,6 +190,7 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,500.0,25.0, "Red",False,canvas)
 
-ListOfLandmarks = (object4, object13,object19,object20)
-
+ListOfLandmarks = [object4, object17,object19,object20,object10]
+ListOfTreasures = []
+object4.TreasurePicker()
 main.mainloop()
