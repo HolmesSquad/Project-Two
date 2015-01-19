@@ -64,6 +64,8 @@ class interface:
 
     def nextLevel(self):
         print "Next Level"
+       # self.open_website()
+        print ListOfLandmarks
 
     def count(main):
         global counter, resetpressed, pausepressed
@@ -75,10 +77,6 @@ class interface:
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed==True:
-            print "Wololol"
-        elif pausepressed==True:
-            print "Wololol 2"
         else:
             cstop()
 
@@ -89,6 +87,31 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+
+    #def open_website(main): still have to add parsing landmarkid variable to this function
+        
+        #if TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True &&:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #elif TreasurePresent=True:
+         #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
+        #else:
+         #   print ("Error: ID not matched with website")
 
 interface = interface(main)
 interface = interface.counter_label(interface)

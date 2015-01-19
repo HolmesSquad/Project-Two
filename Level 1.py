@@ -1,5 +1,8 @@
 from Tkinter import *
 import webbrowser
+import random
+import math
+import time
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -11,6 +14,19 @@ global programispaused
 programispaused= False
 global paused
 paused = False
+
+def DFS(route, start, end): #Graph and start node as arguments
+    path=[] #List of nodes in the path 
+    queue=[start] #Queue list 
+    while queue: #While list is not empty
+        v=queue.pop(0) #Remove node from list
+        if v == end:
+            return path
+        if v not in path: #If node v has not been checked yet
+            path=path+[v] #Add node to path list
+            queue=route[v]+queue #Add node's neighbors at the beginning of the list
+    return path
+
 class objects:
 
     def __init__(self,x,y,length,width,colour,canvas):
@@ -98,7 +114,11 @@ class interface:
 
     def nextLevel(self):
         print "Next Level"
+<<<<<<< HEAD
         
+=======
+        self.open_website()
+>>>>>>> 21acadb6083898c617ef0f78a649650d5bee2e98
 
     def count(main):
         global counter, resetpressed, pausepressed
@@ -135,6 +155,7 @@ class interface:
         main.info_label.config(text="The Robot has found the last treasure")
         self.info_label1.place(x = 1110, y = 670)
 
+<<<<<<< HEAD
     
 
 class lights(interface):
@@ -156,11 +177,133 @@ class lights(interface):
             
        
                
+=======
+    def open_website(main,self):
+        webbrowser.open_new(www.google.co.uk)
+
+class Road:
+    def __init__(self,name,x,y,width,height,colour="darkgrey"):
+        self.name=name
+        self.x1=x
+        self.y1=y
+        self.x2=x+width
+        self.y2=y+height
+        self.width=width
+        self.height=height
+        self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill=colour, width=0)
+
+class Robot:
+    def __init__(self,x,y,speed=1.0,size=20,colour='blue'):
+        self.x1=x
+        self.y1=y
+        self.x2=x+size
+        self.y2=y+size
+        self.colour=colour
+        self.speed=speed
+        self.size=size
+    def drawRobot(self):
+        self.canvas=canvas
+        self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
+    #Give the robot a random position (Use this before drawing the robot)
+    def RandomPosition(self):
+        RandRoad=random.choice(Roads) #Select a random road
+        #If road is vertical set robot to be horizontally centered in this road and in a random vertical position
+        if RandRoad.width<RandRoad.height:
+            self.x1=RandRoad.x1+((RandRoad.width-self.size)/2)
+            self.x2=self.x1+self.size
+            self.y1=random.randrange((RandRoad.y1+(self.size/2)),(RandRoad.y2-(self.size*1.5)))
+            self.y2=self.y1+self.size
+        #If road is horizonal set robot to be vertically centered and in a random horizontal position.
+        elif RandRoad.height<RandRoad.width:
+            self.y1=RandRoad.y1+((RandRoad.height-self.size)/2)
+            self.y2=self.y1+self.size
+            self.x1=random.randrange((RandRoad.x1+(self.size/2)),(RandRoad.x2-self.size))
+            self.x2=self.x1+self.size
+    def CheckPosition(self):
+        for road in Roads:
+            if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
+                return road
+    def Move(self):
+        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3,Road11], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
+        Route=list(DFS(city, self.CheckPosition(), Road12))
+        Route.append(Road12)
+        IteminRoute=0
+        print len(Route)
+        while IteminRoute<len(Route):
+            NextRoad=Route[IteminRoute]
+            print Route[IteminRoute]
+            if NextRoad.height>NextRoad.width:
+                print "Test 4"
+                x_destination=NextRoad.x1+NextRoad.width/2
+                print "X Destination:"+str(x_destination)
+                if x_destination>(self.x1+(self.size/2)):
+                    print "Test 3"
+                    for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
+                        self.x1+=self.speed
+                        self.x2+=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+                else: # x_destination<(self.x1+(self.size/2))
+                    for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
+                        print "Test 2"
+                        self.x1-=self.speed
+                        self.x2-=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+            else:
+                print "Test 5"
+                y_destination=NextRoad.y1+(NextRoad.height/2)
+                print "Y Destination:"+str(y_destination)
+                if y_destination>(self.y1+(self.size/2)):
+                    print "Test 7"
+                    for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
+                        self.y1+=self.speed
+                        self.y2+=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+                else: #if y_destination<(self.x1+(self.size/2))
+                    for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
+                        print "Test 8"
+                        self.y1-=self.speed
+                        self.y2-=self.speed
+                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                        self.canvas.update()
+                        time.sleep(0.01)
+            IteminRoute+=1
+>>>>>>> 21acadb6083898c617ef0f78a649650d5bee2e98
 
 interface = interface(main)
 
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
-Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",canvas)
+
+#Roads
+Road1=Road('Road1',10,45,1070,40)
+Road2=Road('Road2',10,45,40,630)
+Road3=Road('Road3',1040,45,40,480)
+Road4=Road('Road4',945,45,40,190)
+Road5=Road('Road5',945,195,135,40)
+Road6=Road('Road6',10,195,900,40)
+Road7=Road('Road7',870,45,40,190)
+Road8=Road('Road8',479,45,40,190)
+Road9=Road('Road9',404,45,40,115)
+Road10=Road('Road10',10,120,434,40)
+Road11=Road('Road11',231.25,120,40,405)
+Road12=Road('Road12',479,120,431,40)
+Road13=Road('Road13',10,340,1070,40)
+Road14=Road('Road14',10,485,1070,40)
+Road15=Road('Road15',450.25,195,40,330)
+Road16=Road('Road16',10,560,900,40)
+Road17=Road('Road17',326,485,40,115)
+Road18=Road('Road18',717,485,40,115)
+Road19=Road('Road19',10,635,900,40)
+Road20=Road('Road20',230.25,560,40,115)
+Road21=Road('Road21',479,560,40,115)
+Road22=Road('Road22',870,560,40,115)
+
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
 
 #Objects & Landmarks
 #Top Row
@@ -257,12 +400,34 @@ Light15 = lights(490, 55, 510, 75, "Green")
 Light16 = lights(490, 130, 510, 150, "Green")
 Light17 = lights(490, 210, 510, 230, "Green")
 Light18 = lights(490, 350, 510, 370, "Green")
-Light19 = lights(490, 490, 510, 510, "Green")
+Light19 = lights(490, 495, 510, 515, "Green")
 Light20 = lights(490, 570, 510, 590, "Green")
 Light21 = lights(490, 645, 510, 665, "Green")
 
 #Column 5
-Light22 = lights(730, 490, 750, 510, "Green")
+Light22 = lights(725, 495, 745, 515, "Green")
+Light23 = lights(725, 570, 745, 590, "Green")
+
+#Column 6
+Light24 = lights(880, 55, 900, 75, "Green")
+Light25 = lights(880, 130, 900, 150, "Green")
+
+#Column 7
+Light26 = lights(955, 55, 975, 75, "Green")
+
+#Column 8
+Light27 = lights(1040, 205, 1060, 225, "Green")
+Light28 = lights(1040, 350, 1060, 370, "Green")
+
+
+#Robot
+c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
+c3po.RandomPosition()
+c3po.drawRobot()
+c3po.Move()
+'''for t in range (0,300):
+    c3po.Move()
+    time.sleep(0.1)'''
 
 Light1.change_colour()
 canvas.update()
