@@ -114,11 +114,6 @@ class interface:
 
     def nextLevel(self):
         print "Next Level"
-<<<<<<< HEAD
-        
-=======
-        self.open_website()
->>>>>>> 21acadb6083898c617ef0f78a649650d5bee2e98
 
     def count(main):
         global counter, resetpressed, pausepressed
@@ -155,8 +150,6 @@ class interface:
         main.info_label.config(text="The Robot has found the last treasure")
         self.info_label1.place(x = 1110, y = 670)
 
-<<<<<<< HEAD
-    
 
 class lights(interface):
 
@@ -177,7 +170,7 @@ class lights(interface):
             
        
                
-=======
+
     def open_website(main,self):
         webbrowser.open_new(www.google.co.uk)
 
@@ -273,7 +266,6 @@ class Robot:
                         self.canvas.update()
                         time.sleep(0.01)
             IteminRoute+=1
->>>>>>> 21acadb6083898c617ef0f78a649650d5bee2e98
 
 interface = interface(main)
 
