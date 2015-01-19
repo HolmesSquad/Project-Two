@@ -29,15 +29,10 @@ class landmarks(objects):
         num=random.choice(LandMarkList)
         Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
 
-class lights:
 
-    def __init__(self,x0,y0,x1,y1,colour):
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+
+        
 
 class interface:
 
@@ -103,7 +98,7 @@ class interface:
 
     def nextLevel(self):
         print "Next Level"
-        #self.open_website()
+        
 
     def count(main):
         global counter, resetpressed, pausepressed
@@ -113,6 +108,7 @@ class interface:
         if (RoboFinished != True):
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
+            #lights.change_colour()
             main.timerShow_label.after(1000, main.count) 
         else:
             main.counter_stop()
@@ -139,8 +135,27 @@ class interface:
         main.info_label.config(text="The Robot has found the last treasure")
         self.info_label1.place(x = 1110, y = 670)
 
-    #def open_website(main):
-        #webbrowser.open_new((www.google.co.uk))
+    
+
+class lights(interface):
+
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def change_colour(self):
+
+        
+            self.colour ="Red"
+            print Light1
+            print "sgf;ljbsae"
+            
+       
+               
 
 interface = interface(main)
 
@@ -248,5 +263,8 @@ Light21 = lights(490, 645, 510, 665, "Green")
 
 #Column 5
 Light22 = lights(730, 490, 750, 510, "Green")
+
+Light1.change_colour()
+canvas.update()
 
 main.mainloop()
