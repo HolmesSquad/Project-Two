@@ -20,7 +20,7 @@ def DFS(route, start, end): #Graph and start node as arguments
     while queue: #While list is not empty
         v=queue.pop(0) #Remove node from list
         if v == end:
-            return path
+            return path+[v]
         if v not in path: #If node v has not been checked yet
             path=path+[v] #Add node to path list
             queue=route[v]+queue #Add node's neighbors at the beginning of the list
@@ -40,9 +40,23 @@ class objects:
 class landmarks(objects):
     
     def TreasurePicker(self):
+        global num
         num=random.choice(ListOfLandmarks)
         Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
-        
+
+def TreasureChecker():
+    if num == ListOfLandmarks[0]:
+        TreasureLocation = Road1
+        return TreasureLocation
+    elif num == ListOfLandmarks[1]:
+        TreasureLocation = Road2
+        return TreasureLocation
+    elif num == ListOfLandmarks[2]:
+        TreasureLocation = Road22
+        return TreasureLocation
+    else:
+        TreasureLocation = Road19
+        return TreasureLocation
 
 class lights:
 
@@ -195,7 +209,7 @@ class Robot:
                 return road
     def Move(self):
         city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3,Road11], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
-        global Treasure1
+        Treasure1 = TreasureChecker()
         Route=list(DFS(city, self.CheckPosition(), Treasure1))
         Route.append(Treasure1)
         IteminRoute=0
@@ -343,7 +357,7 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
-ListOfLandmarks = (object4, object13,object19,object20)
+ListOfLandmarks = [object4, object13,object19,object20]
 object4.TreasurePicker()
 
 #Lights
