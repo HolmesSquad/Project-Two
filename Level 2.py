@@ -18,14 +18,17 @@ class objects:
 class landmarks(objects):
     def TreasurePicker(self):
         num1=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num1.x,num1.y,num1.x+num1.length,num1.y+num1.width,fill="yellow")
+        Treasure1=canvas.create_rectangle(num1.x,num1.y,num1.x+num1.length,num1.y+num1.width,fill="yellow")
         ListOfLandmarks.remove(num1)
         num2=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num2.x,num2.y,num2.x+num2.length,num2.y+num2.width,fill="yellow")
+        Treasure2=canvas.create_rectangle(num2.x,num2.y,num2.x+num2.length,num2.y+num2.width,fill="yellow")
         ListOfLandmarks.remove(num2)
         num3=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num3.x,num3.y,num3.x+num3.length,num3.y+num3.width,fill="yellow")
-        ListOfLandmarks.remove(num3)
+        Treasure3=canvas.create_rectangle(num3.x,num3.y,num3.x+num3.length,num3.y+num3.width,fill="yellow")
+        ListOfLandmarks.append(num1)
+        ListOfLandmarks.append(num2)
+
+
 class interface:
 
     def __init__(self, name):
@@ -53,11 +56,12 @@ class interface:
         self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
         self.treasureShow_label.place(x = 1110, y = 100)
 
-      def start(self):
+    def start(self):
         global resetpressed, RoboFinished
         print "Start"
         interface.start_button.place_forget()
         interface.counter_label(interface)
+        
 
     def pause(main):
         global paused, programispaused, pausebuffer
@@ -186,6 +190,6 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,500.0,25.0, "Red",False,canvas)
 
-ListOfLandmarks = (object4, object13,object19,object20,object15)
+ListOfLandmarks = [object4, object13,object19,object20,object15]
 object4.TreasurePicker()
 main.mainloop()
