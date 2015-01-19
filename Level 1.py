@@ -376,12 +376,25 @@ Light15 = lights(490, 55, 510, 75, "Green")
 Light16 = lights(490, 130, 510, 150, "Green")
 Light17 = lights(490, 210, 510, 230, "Green")
 Light18 = lights(490, 350, 510, 370, "Green")
-Light19 = lights(490, 490, 510, 510, "Green")
+Light19 = lights(490, 495, 510, 515, "Green")
 Light20 = lights(490, 570, 510, 590, "Green")
 Light21 = lights(490, 645, 510, 665, "Green")
 
 #Column 5
-Light22 = lights(730, 490, 750, 510, "Green")
+Light22 = lights(725, 495, 745, 515, "Green")
+Light23 = lights(725, 570, 745, 590, "Green")
+
+#Column 6
+Light24 = lights(880, 55, 900, 75, "Green")
+Light25 = lights(880, 130, 900, 150, "Green")
+
+#Column 7
+Light26 = lights(955, 55, 975, 75, "Green")
+
+#Column 8
+Light27 = lights(1040, 205, 1060, 225, "Green")
+Light28 = lights(1040, 350, 1060, 370, "Green")
+
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
