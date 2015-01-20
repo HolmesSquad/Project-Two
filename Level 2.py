@@ -153,12 +153,10 @@ pave9 = objects(519.0,160.0,351.0,35.0,"Light Grey",False,canvas)
 object12 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
 
 #Fourth Row
-pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", False,canvas)
-object13 = landmarks(55.0,240.0,170.25,95.0, "Blue", False,canvas)
-pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey", False, canvas)
-object14 = objects(275.0, 240.0,170.0,95.0, "Red", False, canvas)
-pave12 = objects(490.25,235.0,549.75,105.0, "Light Grey", False, canvas)
-object15 = landmarks(495.25,240.0,539.75,95.0, "Blue", False, canvas)
+pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
+object13 = objects(55.0,240.0,170.25,95.0, "Red", canvas)
+pave12 = objects(270.25,235.0,765.75,105.0, "Light Grey", canvas)
+object15 = objects(275.0,240.0,755.75,95.0, "Red", canvas)
 
 #Fifth Row
 pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey", False,canvas)
