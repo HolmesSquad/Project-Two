@@ -5,29 +5,28 @@ canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
 class objects:
 
-    def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
+    def __init__(self,x,y,length,width,colour,canvas):
         self.x = x
         self.y = y
         self.length = length
         self.width = width
         self.colour = colour
-        self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
         
-class landmarks(objects):
-    def TreasurePicker(self):
-        num1=random.choice(ListOfLandmarks)
-        Treasure1=canvas.create_rectangle(num1.x,num1.y,num1.x+num1.length,num1.y+num1.width,fill="yellow")
-        ListOfLandmarks.remove(num1)
-        num2=random.choice(ListOfLandmarks)
-        Treasure2=canvas.create_rectangle(num2.x,num2.y,num2.x+num2.length,num2.y+num2.width,fill="yellow")
-        ListOfLandmarks.remove(num2)
-        num3=random.choice(ListOfLandmarks)
-        Treasure3=canvas.create_rectangle(num3.x,num3.y,num3.x+num3.length,num3.y+num3.width,fill="yellow")
-        ListOfLandmarks.append(num1)
-        ListOfLandmarks.append(num2)
+class Landmarks(objects):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
 
+class Treasure(objects):
+    
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        
+        self.Found = Found
+        self.points = points
 
 class interface:
 
@@ -124,70 +123,81 @@ class interface:
 
 interface = interface(main)
 
-Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
-Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
+Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey",canvas)
+Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",canvas)
 
 #Top Row
-pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",False,canvas)
-object1 = objects(10.0,15.0,200.0, 25.0, "Red",False,canvas)
-object2 = objects(290.0,15.0,200.0,25.0, "Red",False,canvas)
-object3 = objects(580.0,15.0,200.0,25.0, "Red",False,canvas)
-object4 = landmarks(870.0,15.0,210.0,25.0, "Blue",False,canvas)
+pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
+object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
+object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
+object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
+object4 = objects(870.0,15.0,210.0,25.0, "red",canvas)
 
 #second row
-pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey", False,canvas)
-object5 = objects(55.0,90.0,344.0,25.0,"Red", False, canvas)
-pave3 = objects(444.0,85.0,35.0,110.0,"Light Grey", False,canvas)
-object6 = objects(449.0,90.0,25.0,100.0, "Red",False,canvas)
-pave4 = objects(519.0,85.0,351.0,35.0,"Light Grey",False,canvas)
-object7 = objects(524.0,90.0,341.0,25.0,"Red",False,canvas)
-pave5 = objects(910.0,85.0,35.0,150.0,"Light Grey",False,canvas)
-object8 = objects(915.0,90.0,25.0,140.0,"Red",False,canvas)
-pave6 = objects(985.0,85.0,35.0,110.0,"Light Grey",False,canvas)
-object9 = objects(990.0,90.0,25.0,100.0, "Red",False,canvas)
+pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey",canvas)
+object5 = objects(55.0,90.0,344.0,25.0,"Red",canvas)
+pave3 = objects(444.0,85.0,35.0,110.0,"Light Grey",canvas)
+object6 = objects(449.0,90.0,25.0,100.0, "Red",canvas)
+pave4 = objects(519.0,85.0,351.0,35.0,"Light Grey",canvas)
+object7 = objects(524.0,90.0,341.0,25.0,"Red",canvas)
+pave5 = objects(910.0,85.0,35.0,150.0,"Light Grey",canvas)
+object8 = objects(915.0,90.0,25.0,140.0,"Red",canvas)
+pave6 = objects(985.0,85.0,35.0,110.0,"Light Grey",canvas)
+object9 = objects(990.0,90.0,25.0,100.0, "Red",canvas)
 
 #Third Row
-pave7 = objects(50.0,160.0,394.25,35.0,"Light Grey", False,canvas)
-object10 = objects(55.0,165.0,384.0,25.0,"Red", False,canvas)
-pave9 = objects(519.0,160.0,351.0,35.0,"Light Grey",False,canvas)
-object12 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
+pave7 = objects(50.0,160.0,394.25,35.0,"Light Grey",canvas)
+object10 = objects(55.0,165.0,384.0,25.0,"Red",canvas)
+pave9 = objects(519.0,160.0,351.0,35.0,"Light Grey",canvas)
+object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 
 #Fourth Row
-pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
+pave10 = objects(50.0,235.0,180.25,105.0,"Light Grey", canvas)
 object13 = objects(55.0,240.0,170.25,95.0, "Red", canvas)
 pave12 = objects(270.25,235.0,765.75,105.0, "Light Grey", canvas)
 object15 = objects(275.0,240.0,755.75,95.0, "Red", canvas)
 
 #Fifth Row
-pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey", False,canvas)
-object27 = objects(55.0,385.0,170.25,95.0, "Red", False,canvas)
-pave22 = objects(270.25, 380.0, 180.25,105.0, "Light Grey", False, canvas)
-object28 = objects(275.0, 385.0,170.0,95.0, "Red", False, canvas)
-pave23 = objects(490.25,380.0,549.75,105.0, "Light Grey", False, canvas)
-object29 = objects(495.25,385.0,539.75,95.0, "Red", False, canvas)
+pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey",canvas)
+object27 = objects(55.0,385.0,170.25,95.0, "Red",canvas)
+pave22 = objects(270.25, 380.0, 180.25,105.0, "Light Grey",canvas)
+object28 = objects(275.0, 385.0,170.0,95.0, "Red",canvas)
+pave23 = objects(490.25,380.0,549.75,105.0, "Light Grey",canvas)
+object29 = objects(495.25,385.0,539.75,95.0, "Red",canvas)
 
 #Sixth Row
-pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", False,canvas)
-object16 = objects(55.0,530.0,266.5,25.0, "Red", False,canvas)
-pave14 = objects(366.0,525.0,544.0,35.0, "Light Grey", False,canvas)
-object17 = objects(371.0,530.0,534.0,25.0,"Red", False,canvas)
-pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey", False,canvas)
-object19 = landmarks(915.0,530.0,160.0,140.0, "Blue", True, canvas)
+pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
+object16 = objects(55.0,530.0,266.5,25.0, "Red",canvas)
+pave14 = objects(366.0,525.0,544.0,35.0, "Light Grey",canvas)
+object17 = objects(371.0,530.0,534.0,25.0,"Red",canvas)
+pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey",canvas)
+object19 = objects(915.0,530.0,160.0,140.0, "red",canvas)
 
 #Seventh Row
-pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey", False,canvas)
-object20 = landmarks(55.0,605.0,170.0,25.0, "Blue", False, canvas)
-pave18 = objects(271.25,600.0,207.75,35.0, "Light Grey", False,canvas)
-object21 = objects(276.25,605.0,197.75,25.0, "Red", False, canvas)
-pave19 = objects(519.0,600.0,351.0,35.0,"Light Grey", False,canvas)
-object22 = objects(524,605,341.0,25.0, "Red", False,canvas)
+pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey",canvas)
+object20 = objects(55.0,605.0,170.0,25.0, "red",canvas)
+pave18 = objects(271.25,600.0,207.75,35.0, "Light Grey",canvas)
+object21 = objects(276.25,605.0,197.75,25.0, "Red",canvas)
+pave19 = objects(519.0,600.0,351.0,35.0,"Light Grey",canvas)
+object22 = objects(524,605,341.0,25.0, "Red",canvas)
 
 #Eighth Row
-pave20 = objects(10.0,675.0,1070.0,35.0, "Light Grey",False,canvas)
-object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
-object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
-object25 = objects(580.0,680.0,500.0,25.0, "Red",False,canvas)
+pave20 = objects(10.0,675.0,1070.0,35.0, "Light Grey",canvas)
+object23 = objects(10.0,680.0,200.0, 25.0, "Red",canvas)
+object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
+object25 = objects(580.0,680.0,500.0,25.0, "Red",canvas)
 
-ListOfLandmarks = [object4, object13,object19,object20,object15]
-object4.TreasurePicker()
+#Landmarks
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kate",False)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",True)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Phil",False)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rayann",True)
+Landmark7 = Landmarks(590.25,363.0,10.0,20.0,"blue",canvas,"Mark",False)
+
+#Treasures
+Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure2 = Treasure(860.25,358.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
 main.mainloop()
