@@ -112,9 +112,17 @@ class interface:
          #   webbrowser.open("www.google.co.uk",new=1,autoraise=True)
         #else:
          #   print ("Error: ID not matched with website")
+class lights(interface):
 
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+        
 interface = interface(main)
-interface = interface.counter_label(interface)
               
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
@@ -127,7 +135,7 @@ object2 = objects(290.0,15.0,200.0,25.0, "Red",False,canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",False,canvas)
 object4 = objects(870.0,15.0,210.0,25.0, "Red",False,canvas)
 
-#second row
+#Second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey", False,canvas)
 object5 = objects(55.0,90.0,344.0,25.0,"Red", False, canvas)
 pave3 = objects(444.0,85.0,35.0,110.0,"Light Grey", False,canvas)
@@ -148,18 +156,16 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",False,canvas)
 #Fourth Row
 pave10 = objects(10.0,235.0,220.25,105.0, "Light Grey", False,canvas)
 object13 = objects(15.0,240.0,210.25,95.0, "Red", False,canvas)
-pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey", False, canvas)
-object14 = objects(275.0, 240.0,170.0,95.0, "Red", False, canvas)
-pave12 = objects(490.25,235.0,589.75,105.0, "Light Grey", False, canvas)
-object15 = objects(495.25,240.0,579.75,95.0, "Red", False, canvas)
+pave11 = objects(270.25, 235.0, 210.25,105.0, "Light Grey", False, canvas)
+object14 = objects(275.0, 240.0,200.0,95.0, "Red", False, canvas)
+pave12 = objects(519.0,235.0,559.75,105.0, "Light Grey", False, canvas)
+object15 = objects(524.0,240.0,555.75,95.0, "Red", False, canvas)
 
 #Fifth Row
-pave21 = objects(50.0,380.0,400.25,105.0, "Light Grey", False,canvas)
-object27 = objects(55.0,385.0,390.25,95.0, "Red", False,canvas)
-#pave22 = objects(270.25, 380.0, 180.25,105.0, "Light Grey", False, canvas)
-#object28 = objects(275.0, 385.0,170.0,95.0, "Red", False, canvas)
-pave23 = objects(490.25,380.0,549.75,105.0, "Light Grey", False, canvas)
-object29 = objects(495.25,385.0,539.75,95.0, "Red", False, canvas)
+pave21 = objects(50.0,380.0,430.25,105.0, "Light Grey", False,canvas)
+object27 = objects(55.0,385.0,420.25,95.0, "Red", False,canvas)
+pave23 = objects(519.0,380.0,559.75,105.0, "Light Grey", False, canvas)
+object29 = objects(524.0,385.0,555.75,95.0, "Red", False, canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", False,canvas)
@@ -185,6 +191,35 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,500.0,25.0, "Red",False,canvas)
 
-ListOfLandmarks = (object4, object13,object19,object20)
+#Lights
+#Column 1
+Light1 = lights(20, 130, 40, 150, "Green")
+Light2 = lights(20, 495, 40, 515, "Green")
+Light3 = lights(20.0, 570, 40, 590, "Green")
+
+#Column 2
+Light4 = lights(240, 205, 260, 225, "Green")
+Light5 = lights(240, 350, 260, 370, "Green")
+Light6 = lights(240, 570, 260, 590, "Green")
+Light7 = lights(240, 645, 260, 665, "Green")
+
+#Column 3
+Light8 = lights(415, 55, 435, 75, "Green")
+Light9 = lights(335, 495, 355, 515, "Green")
+Light10 = lights(335, 570, 355, 590, "Green")
+
+#Column 4
+Light11 = lights(490, 55, 510, 75, "Green")
+Light12 = lights(490, 130, 510, 150, "Green")
+Light13 = lights(490, 210, 510, 230, "Green")
+Light14 = lights(490, 350, 510, 370, "Green")
+Light15 = lights(490, 495, 510, 515, "Green")
+Light16 = lights(490, 570, 510, 590, "Green")
+Light17 = lights(490, 645, 510, 665, "Green")
+
+#Column 5
+Light18 = lights(955, 55, 975, 75, "Green")
+
+
 
 main.mainloop()
