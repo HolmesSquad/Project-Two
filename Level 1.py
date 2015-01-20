@@ -80,7 +80,6 @@ class interface:
 
         self.info_label1=Label(name, text="", width=16, font = ("Arial", 12))
         
-        
     def start(self):
         global resetpressed, RoboFinished
         
@@ -156,20 +155,9 @@ class lights(interface):
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
 
-<<<<<<< HEAD
     def change_colour(self, colour):
         canvas.itemconfig(self.object, fill=colour)
         canvas.update()
-     
-def open_website(main,self):
-    webbrowser.open_new(www.google.co.uk)
-=======
-    def change_colour(self):
-
-            self.colour ="Red"
-            print Light1
-            print "sgf;ljbsae"
->>>>>>> origin/Interface
 
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
