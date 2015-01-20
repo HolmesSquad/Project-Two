@@ -161,18 +161,12 @@ class lights(interface):
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
 
-    def change_colour(self):
-
-        
-            self.colour ="Red"
-            print Light1
-            print "sgf;ljbsae"
-            
-       
-               
-
-    def open_website(main,self):
-        webbrowser.open_new(www.google.co.uk)
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
+     
+def open_website(main,self):
+    webbrowser.open_new(www.google.co.uk)
 
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
@@ -411,7 +405,10 @@ Light26 = lights(955, 55, 975, 75, "Green")
 Light27 = lights(1040, 205, 1060, 225, "Green")
 Light28 = lights(1040, 350, 1060, 370, "Green")
 
-
+#change_colour()
+Light1.change_colour("Red")
+canvas.update()
+print Light1.colour
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
@@ -421,7 +418,6 @@ c3po.Move()
     c3po.Move()
     time.sleep(0.1)'''
 
-Light1.change_colour()
-canvas.update()
+
 
 main.mainloop()
