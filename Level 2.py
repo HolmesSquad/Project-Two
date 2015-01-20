@@ -160,7 +160,6 @@ class lights(interface):
 interface = interface(main)
 
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
-Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
 
 #Top Row
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",False,canvas)
