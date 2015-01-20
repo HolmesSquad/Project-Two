@@ -43,12 +43,7 @@ class landmarks(objects):
    
     def TreasurePicker(self):
         num=random.choice(LandMarkList)
-        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
-
-
-
-
-        
+        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")      
 
 class interface:
 
@@ -163,13 +158,9 @@ class lights(interface):
 
     def change_colour(self):
 
-        
             self.colour ="Red"
             print Light1
-            print "sgf;ljbsae"
-            
-       
-               
+            print "sgf;ljbsae"               
 
     def open_website(main,self):
         webbrowser.open_new(www.google.co.uk)
@@ -417,9 +408,6 @@ c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
 c3po.Move()
-'''for t in range (0,300):
-    c3po.Move()
-    time.sleep(0.1)'''
 
 Light1.change_colour()
 canvas.update()

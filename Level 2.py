@@ -1,25 +1,58 @@
 from Tkinter import *
+import webbrowser
+import random
+import math
+import time
+
 main = Tk(className = "Level 2")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+global resetpressed
+resetpressed=False
+global pausepressed
+pausepressed=False
+global programispaused
+programispaused= False
+global paused
+paused = False
+
+def DFS(route, start, end): #Graph and start node as arguments
+    path=[] #List of nodes in the path 
+    queue=[start] #Queue list 
+    while queue: #While list is not empty
+        v=queue.pop(0) #Remove node from list
+        if v == end:
+            return path
+        if v not in path: #If node v has not been checked yet
+            path=path+[v] #Add node to path list
+            queue=route[v]+queue #Add node's neighbors at the beginning of the list
+    return path
+
 class objects:
 
-    def __init__(self,x,y,length,width,colour,TreasurePresent,canvas):
+    def __init__(self,x,y,length,width,colour,canvas):
+        global ObjectList
         self.x = x
         self.y = y
         self.length = length
         self.width = width
         self.colour = colour
-        self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
+
+class landmarks(objects):
+   
+    def TreasurePicker(self):
+        num=random.choice(LandMarkList)
+        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
+        
 class interface:
 
     def __init__(self, name):
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
-        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
+        self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
         self.pause_button.place(x = 1110, y = 200)
 
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
@@ -46,14 +79,34 @@ class interface:
         self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
         self.robot1Score_label.place(x = 1110, y = 370)
 
+        self.info_label1=Label(name, text="", width=16, font = ("Arial", 12))
+        
+        
     def start(self):
-        print "Start"
+        global resetpressed, RoboFinished
+        
+        interface.start_button.place_forget()
+        interface.counter_label(interface)
 
-    def pause(self):
-        print "Pause"
+    def pause(main):
+        global paused, programispaused, pausebuffer
+        if paused:
+            programispaused = False
+        else:
+            pausebuffer = 1
+            main.pause_button.place_forget()
+            programispaused = True
+            main.negcounter()
+            
+        paused = not paused            
 
-    def reset(self):
-        print "Reset"
+    def reset(main):
+        global counter, resetpressed, RoboFinished
+        counter = 0
+        main.timerShow_label.config(text = str(counter))
+        resetpressed = True
+        interface.start_button.place(x = 1110, y = 150)
+        RoboFinished = True
 
     def nextLevel(self):
         print "Next Level"
@@ -61,19 +114,15 @@ class interface:
     def count(main):
         global counter, resetpressed, pausepressed
         counter==counter
-        count=0
         global RoboFinished
         RoboFinished==RoboFinished
-        if RoboFinished !=True:
+        if (RoboFinished != True):
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
+            #lights.change_colour()
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed==True:
-            print "Wololol"
-        elif pausepressed==True:
-            print "Wololol 2"
         else:
-            cstop()
+            main.counter_stop()
 
     def counter_label(main,self):
         
@@ -82,11 +131,35 @@ class interface:
             RoboFinished=False
             if counter!=1000000:
                 interface.count()
+                
+    def negcounter(main):
+        global programispaused, counter, pausebuffer
+        if programispaused==True:
+            counter=counter-1
+            pausebuffer=pausebuffer-1
+            if pausebuffer<0:
+                main.pause_button.place(x = 1110, y = 200)
+            main.timerShow_label.after(1000, main.negcounter)
+        else: print "placeholder"
+
+    def counter_stop(main,self):
+        main.info_label.config(text="The Robot has found the last treasure")
+        self.info_label1.place(x = 1110, y = 670)
+
+
+class lights(interface):
+
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
 
 interface = interface(main)
-interface = interface.counter_label(interface)
 
-Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", False, canvas)
+Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",False,canvas)
 
 #Top Row
