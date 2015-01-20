@@ -160,10 +160,7 @@ class lights(interface):
 
             self.colour ="Red"
             print Light1
-            print "sgf;ljbsae"               
-
-    def open_website(main,self):
-        webbrowser.open_new(www.google.co.uk)
+            print "sgf;ljbsae"
 
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
