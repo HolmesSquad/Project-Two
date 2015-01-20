@@ -14,6 +14,10 @@ global programispaused
 programispaused= False
 global paused
 paused = False
+global counter
+counter=1
+global randomColourChanger
+randomColourChanger=0
 
 def DFS(route, start, end): #Graph and start node as arguments
     path=[] #List of nodes in the path 
@@ -117,7 +121,7 @@ class interface:
         if (RoboFinished != True):
             counter=counter+1
             main.timerShow_label.config(text = str(counter))
-            #lights.change_colour()
+            flipColour()
             main.timerShow_label.after(1000, main.count) 
         else:
             main.counter_stop()
@@ -175,6 +179,7 @@ class Robot:
         self.x1=x
         self.y1=y
         self.x2=x+size
+        
         self.y2=y+size
         self.colour=colour
         self.speed=speed
@@ -211,44 +216,49 @@ class Robot:
             NextRoad=Route[IteminRoute]
             print Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
-                print "Test 4"
+                #print "Test 4"
                 x_destination=NextRoad.x1+NextRoad.width/2
                 print "X Destination:"+str(x_destination)
                 if x_destination>(self.x1+(self.size/2)):
-                    print "Test 3"
+                    
+                    #print "Test 3"
                     for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
                         self.x1+=self.speed
                         self.x2+=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
+                        
                         time.sleep(0.01)
                 else: # x_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
-                        print "Test 2"
+                        # print "Test 2"
                         self.x1-=self.speed
                         self.x2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
+                        
                         time.sleep(0.01)
             else:
-                print "Test 5"
+                #print "Test 5"
                 y_destination=NextRoad.y1+(NextRoad.height/2)
                 print "Y Destination:"+str(y_destination)
                 if y_destination>(self.y1+(self.size/2)):
-                    print "Test 7"
+                   # print "Test 7"
                     for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
                         self.y1+=self.speed
                         self.y2+=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
+                        
                         time.sleep(0.01)
                 else: #if y_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
-                        print "Test 8"
+                        #print "Test 8"
                         self.y1-=self.speed
                         self.y2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
+                        
                         time.sleep(0.01)
             IteminRoute+=1
 
@@ -353,27 +363,27 @@ object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
 #Lights
 #Column 1
-Light1 = lights(20.0,130.0,40,150,"Green")
-Light2 = lights(20.0,205.0,40,225,"Green")
-Light3 = lights(20.0, 350.0, 40, 370.0, "Green")
+Light1 = lights(20.0,130.0,40,150,"Green") #Used in group 1
+Light2 = lights(20.0,205.0,40,225,"Green") #Used in group 2
+Light3 = lights(20.0, 350.0, 40, 370.0, "Green")#Used in group 3
 Light4 = lights(20.0, 495, 40, 515, "Green")
 Light5 = lights(20.0, 570, 40, 590, "Green")
 
 #Column 2
 Light6 = lights(240, 130, 260, 150, "Green")
 Light7 = lights(240, 205, 260, 225, "Green")
-Light8 = lights(240, 350, 260, 370, "Green")
-Light9 = lights(240, 495, 260, 515, "Green")
-Light10 = lights(240, 570, 260, 590, "Green")
+Light8 = lights(240, 350, 260, 370, "Green")#Used in group 1
+Light9 = lights(240, 495, 260, 515, "Green")#Used in group 2
+Light10 = lights(240, 570, 260, 590, "Green")#Used in group 3
 Light11 = lights(240, 645, 260, 665, "Green")
 
 #Column 3
 Light12 = lights(415, 55, 435, 75, "Green")
-Light13 = lights(335, 495, 355, 515, "Green")
-Light14 = lights(335, 570, 355, 590, "Green")
+Light13 = lights(335, 495, 355, 515, "Green")#Used in group 1
+Light14 = lights(335, 570, 355, 590, "Green")#Used in group 2
 
 #Column 4
-Light15 = lights(490, 55, 510, 75, "Green")
+Light15 = lights(490, 55, 510, 75, "Green")#Used in group 3
 Light16 = lights(490, 130, 510, 150, "Green")
 Light17 = lights(490, 210, 510, 230, "Green")
 Light18 = lights(490, 350, 510, 370, "Green")
@@ -390,16 +400,114 @@ Light24 = lights(880, 55, 900, 75, "Green")
 Light25 = lights(880, 130, 900, 150, "Green")
 
 #Column 7
-Light26 = lights(955, 55, 975, 75, "Green")
+Light26 = lights(955, 55, 975, 75, "Green")#Used in group 1
 
 #Column 8
-Light27 = lights(1040, 205, 1060, 225, "Green")
-Light28 = lights(1040, 350, 1060, 370, "Green")
+Light27 = lights(1040, 205, 1060, 225, "Green")#Used in group 2
+Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 
-#change_colour()
-Light1.change_colour("Red")
-canvas.update()
-print Light1.colour
+#changing colour
+
+def flipColour():
+    
+    
+    randomColourChanger=random.randrange(1,7)
+    print randomColourChanger
+    #group 1
+    if randomColourChanger==1:
+        Light1.change_colour("Red")
+        Light8.change_colour("Red")
+        Light13.change_colour("Red")
+        Light26.change_colour("Red")
+        canvas.update()
+    else:
+        Light1.change_colour("Green")
+        Light8.change_colour("Green")
+        Light13.change_colour("Green")
+        Light26.change_colour("Green")
+        canvas.update()
+
+    #group 2
+    if randomColourChanger==2:
+            Light2.change_colour("Red")
+            Light9.change_colour("Red")
+            Light14.change_colour("Red")
+            Light27.change_colour("Red")
+            canvas.update()
+    else:
+            Light2.change_colour("Green")
+            Light9.change_colour("Green")
+            Light14.change_colour("Green")
+            Light27.change_colour("Green")
+            canvas.update()
+    #group 3
+    if randomColourChanger==3:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 4
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 5
+    if randomColourChanger==4:
+            Light4.change_colour("Red")
+            Light11.change_colour("Red")
+            Light16.change_colour("Red")
+            Light25.change_colour("Red")
+            canvas.update()
+    else:
+            Light4.change_colour("Green")
+            Light11.change_colour("Green")
+            Light16.change_colour("Green")
+            Light25.change_colour("Green")
+            canvas.update()
+    #group 6
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 7
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    
+
+
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
