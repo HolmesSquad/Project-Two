@@ -209,4 +209,33 @@ Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
 Treasure4 = Treasure(90.0,138.0,10.0,5.0,"dark green", canvas, False,100)
 Treasure5 = Treasure(800.0,578.0,10.0,5.0,"dark green",canvas,False,100)
 
+#Lights
+#Column 1
+Light1 = lights(20, 130, 40, 150, "Green")
+Light2 = lights(20, 495, 40, 515, "Green")
+Light3 = lights(20.0, 570, 40, 590, "Green")
+
+#Column 2
+Light4 = lights(240, 205, 260, 225, "Green")
+Light5 = lights(240, 350, 260, 370, "Green")
+Light6 = lights(240, 570, 260, 590, "Green")
+Light7 = lights(240, 645, 260, 665, "Green")
+
+#Column 3
+Light8 = lights(415, 55, 435, 75, "Green")
+Light9 = lights(335, 495, 355, 515, "Green")
+Light10 = lights(335, 570, 355, 590, "Green")
+
+#Column 4
+Light11 = lights(490, 55, 510, 75, "Green")
+Light12 = lights(490, 130, 510, 150, "Green")
+Light13 = lights(490, 210, 510, 230, "Green")
+Light14 = lights(490, 350, 510, 370, "Green")
+Light15 = lights(490, 495, 510, 515, "Green")
+Light16 = lights(490, 570, 510, 590, "Green")
+Light17 = lights(490, 645, 510, 665, "Green")
+
+#Column 5
+Light18 = lights(955, 55, 975, 75, "Green")
+
 main.mainloop()
