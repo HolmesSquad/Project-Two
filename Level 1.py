@@ -355,9 +355,11 @@ object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 #Landmarks
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True)
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False)
-Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kate",False)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False)
-Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Phil",False)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True)
+
 #Treasures
 Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
 
