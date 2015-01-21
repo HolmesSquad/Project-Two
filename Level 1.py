@@ -5,6 +5,7 @@ import time
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+
 global resetpressed
 resetpressed=False
 global pausepressed
