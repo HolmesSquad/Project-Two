@@ -111,8 +111,10 @@ class interface:
         RoboFinished = True
 
     def nextLevel(self):
-        print "Next Level"
-
+        main.destroy()
+        import Level_2
+        
+        
     def count(main):
         global counter, resetpressed, pausepressed
         counter==counter
