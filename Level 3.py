@@ -14,19 +14,19 @@ class objects:
         self.TreasurePresent = TreasurePresent
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
-class landmarks(objects):
-    def TreasurePicker(self):
-        num1=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num1.x,num1.y,num1.x+num1.length,num1.y+num1.width,fill="yellow")
-        ListOfLandmarks.remove(num1)
-        num2=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num2.x,num2.y,num2.x+num2.length,num2.y+num2.width,fill="yellow")
-        ListOfLandmarks.remove(num2)
-        num3=random.choice(ListOfLandmarks)
-        Treasure=canvas.create_rectangle(num3.x,num3.y,num3.x+num3.length,num3.y+num3.width,fill="yellow")
-        ListOfTreasures.append(num1)
-        ListOfTreasures.append(num2)
-        ListOfTreasures.append(num3)
+class Landmarks(objects):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
+
+class Treasure(objects):
+    
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        
+        self.Found = Found
+        self.points = points
 class interface:
 
     def __init__(self, name):
@@ -190,7 +190,23 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",False,canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",False,canvas)
 object25 = objects(580.0,680.0,500.0,25.0, "Red",False,canvas)
 
-ListOfLandmarks = [object4, object17,object19,object20,object10]
-ListOfTreasures = []
-object4.TreasurePicker()
+#Landmarks
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",True)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True)
+Landmark7 = Landmarks(590.25,363.0,10.0,20.0,"blue",canvas,"Mark",False)
+Landmark8 = Landmarks(90.0,143.0,10.0,20.0,"blue",canvas,"Roshel",True)
+Landmark9 = Landmarks(366.0,583.0,10.0,20.0,"blue",canvas,"Lucy",False)
+Landmark10 = Landmarks(800,583.0,10.0,20.0,"blue",canvas,"Ben",True)
+
+#Treasures
+Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure2 = Treasure(860.25,358.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure4 = Treasure(90.0,138.0,10.0,5.0,"dark green", canvas, False,100)
+Treasure5 = Treasure(800.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+
 main.mainloop()
