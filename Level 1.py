@@ -160,6 +160,7 @@ class interface:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
+
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
         self.name=name
@@ -212,11 +213,11 @@ class Robot:
             NextRoad=Route[IteminRoute]
             print Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
-                print "Test 4"
+                #print "Test 4"
                 x_destination=NextRoad.x1+NextRoad.width/2
                 print "X Destination:"+str(x_destination)
                 if x_destination>(self.x1+(self.size/2)):
-                    print "Test 3"
+                    #print "Test 3"
                     for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
                         self.x1+=self.speed
                         self.x2+=self.speed
@@ -225,18 +226,18 @@ class Robot:
                         time.sleep(0.01)
                 else: # x_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
-                        print "Test 2"
+                        #print "Test 2"
                         self.x1-=self.speed
                         self.x2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
                         time.sleep(0.01)
             else:
-                print "Test 5"
+                #print "Test 5"
                 y_destination=NextRoad.y1+(NextRoad.height/2)
                 print "Y Destination:"+str(y_destination)
                 if y_destination>(self.y1+(self.size/2)):
-                    print "Test 7"
+                    #print "Test 7"
                     for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
                         self.y1+=self.speed
                         self.y2+=self.speed
@@ -245,13 +246,14 @@ class Robot:
                         time.sleep(0.01)
                 else: #if y_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
-                        print "Test 8"
+                        #print "Test 8"
                         self.y1-=self.speed
                         self.y2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
                         time.sleep(0.01)
             IteminRoute+=1
+
 interface = interface(main)
 
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
@@ -328,7 +330,6 @@ object29 = objects(529.0,385.0,500.75,95.0, "red",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
-
 object16 = objects(55.0,530.0,266.5,25.0, "Red",canvas)
 pave14 = objects(366.0,525.0,351.0,35.0, "Light Grey",canvas)
 object17 = objects(371.0,530.0,341.0,25.0,"Red",canvas)
@@ -413,7 +414,5 @@ c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
 c3po.Move()
-'''for t in range (0,300):
-    c3po.Move()
-    time.sleep(0.1)'''
+
 main.mainloop()
