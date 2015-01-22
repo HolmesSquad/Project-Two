@@ -14,17 +14,21 @@ programispaused= False
 global paused
 paused = False
 
-def DFS(route, start, end): #Graph and start node as arguments
-    path=[] #List of nodes in the path 
-    queue=[start] #Queue list 
-    while queue: #While list is not empty
-        v=queue.pop(0) #Remove node from list
-        if v == end:
-            return path+[v]
-        if v not in path: #If node v has not been checked yet
-            path=path+[v] #Add node to path list
-            queue=route[v]+queue #Add node's neighbors at the beginning of the list
-    return path
+def BFS(route, start, end):
+    queue = [(start, [start])]
+    while queue:
+        (vertex, path) = queue.pop(0)
+        for next in route[vertex] - set(path):
+            if next == end:
+                yield path + [next]
+            else:
+                queue.append((next, path + [next]))
+
+def ShortestPath(route, start, end):
+    try:
+        return next(BFS(route, start, end))
+    except StopIteration:
+        return None
 
 class objects:
     def __init__(self,x,y,length,width,colour,canvas):
@@ -208,9 +212,30 @@ class Robot:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
     def Move(self):
-        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3,Road11], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
+        city = {Road1:set([Road2, Road9, Road7, Road4, Road3]),
+                Road2:set([Road1,Road10,Road5,Road13,Road14,Road16, Road19]),
+                Road3:set([Road1,Road5,Road13,Road14]),
+                Road4:set([Road1,Road5]),
+                Road5:set([Road3, Road4]),
+                Road6:set([Road2,Road11,Road8,Road15,Road7]),
+                Road7:set([Road6,Road12,Road1]),
+                Road8:set([Road1,Road12,Road6]),
+                Road9:set([Road1,Road10]),
+                Road10:set([Road9,Road2,Road11]),
+                Road11:set([Road10,Road6,Road13, Road14]),
+                Road12:set([Road8,Road7]),
+                Road13:set([Road2,Road11,Road15,Road3]),
+                Road14:set([Road2,Road17,Road15,Road18, Road3,Road11]),
+                Road15:set([Road6,Road13,Road14]),
+                Road16:set([Road2,Road20,Road17,Road21,Road8,Road22]),
+                Road17:set([Road14,Road16]),
+                Road18:set([Road14,Road16]),
+                Road19:set([Road19,Road20,Road21,Road22]),
+                Road20:set([Road16,Road19]),
+                Road21:set([Road16,Road19]),
+                Road22:set([Road16,Road19])}
         Treasure1 = TreasureChecker()
-        Route=list(DFS(city, self.CheckPosition(), Treasure1))
+        Route=ShortestPath(city, self.CheckPosition(), Treasure1)
         Route.append(Treasure1)
         IteminRoute=0
         print len(Route)
