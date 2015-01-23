@@ -232,18 +232,16 @@ class Robot:
                 return road
     def TreasureChecker(self):
         ShortestRouteLength=100
-        LandmarkWithTreasure = []
         for landmark in ListOfLandmarks:
             if landmark.treasure==True:
-                if len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)<ShortestRouteLength):
-                       ShortestRouteLength=len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)
-                       Treasure1=landmark.Road
-                LandmarkWithTreasure.append[landmark]
-        len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)
-        
+                Route=ShortestPath(self.city,self.CheckPosition(),landmark.Road)
+                if len(Route)<ShortestRouteLength:
+                    TreasureA=landmark.Road
+                    ShortestRouteLength=len(Route)
+        return TreasureA
                 
     def Move(self):
-        Treasure1 = TreasureChecker()
+        Treasure1 = self.TreasureChecker()
         Route=ShortestPath(self.city, self.CheckPosition(), Treasure1)
         #Route.append(Treasure1)
         IteminRoute=0
