@@ -156,7 +156,7 @@ pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
-object4 = objects(870.0,15.0,210.0,25.0, "blue",canvas)
+object4 = objects(870.0,15.0,210.0,25.0, "Red",canvas)
 
 #second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey", canvas)
@@ -172,13 +172,13 @@ object9 = objects(990.0,90.0,25.0,100.0, "Red",canvas)
 
 #Third Row
 pave7 = objects(50.0,160.0,394.25,35.0,"Light Grey", canvas)
-object10 = objects(55.0,165.0,384.0,25.0,"blue", canvas)
+object10 = objects(55.0,165.0,384.0,25.0,"Red", canvas)
 pave9 = objects(519.0,160.0,351.0,35.0,"Light Grey",canvas)
 object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 
 #Fourth Row
 pave10 = objects(10.0,235.0,220.25,105.0, "Light Grey", canvas)
-object13 = objects(15.0,240.0,210.25,95.0, "blue", canvas)
+object13 = objects(15.0,240.0,210.25,95.0, "Red", canvas)
 pave11 = objects(270.25, 235.0, 180.25,105.0, "Light Grey", canvas)
 object14 = objects(275.0, 240.0,170.0,95.0, "Red", canvas)
 pave12 = objects(490.25,235.0,589.75,105.0, "Light Grey", canvas)
@@ -196,15 +196,15 @@ object29 = objects(495.25,385.0,539.75,95.0, "Red",  canvas)
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey", canvas)
 object16 = objects(55.0,530.0,266.5,25.0, "Red", canvas)
 pave14 = objects(366.0,525.0,391.0,35.0, "Light Grey", canvas)
-object17 = objects(371.0,530.0,381.0,25.0,"Blue", canvas)
+object17 = objects(371.0,530.0,381.0,25.0,"Red", canvas)
 pave15 = objects(757.0,525.0,153.0,35.0, "Light Grey", canvas)
 object18 = objects(762.0,530.0,143.0,25.0,"Red",canvas)
 pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey", canvas)
-object19 = objects(915.0,530.0,160.0,140.0, "blue", canvas)
+object19 = objects(915.0,530.0,160.0,140.0, "Red", canvas)
 
 #Seventh Row
 pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey", canvas)
-object20 = objects(55.0,605.0,170.0,25.0, "Blue", canvas)
+object20 = objects(55.0,605.0,170.0,25.0, "Red", canvas)
 pave18 = objects(271.25,600.0,207.75,35.0, "Light Grey", canvas)
 object21 = objects(276.25,605.0,197.75,25.0, "Red",  canvas)
 pave19 = objects(519.0,600.0,351.0,35.0,"Light Grey", canvas)
