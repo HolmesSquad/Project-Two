@@ -212,22 +212,21 @@ class Robot:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
     def Move(self):
-        city = {Road1:set([Road2, Road9, Road7, Road4, Road3]),
+        city = {Road1:set([Road2, Road9, Road7, Road4, Road3, Road15]),
                 Road2:set([Road1,Road10,Road5,Road13,Road14,Road16, Road19]),
                 Road3:set([Road1,Road5,Road13,Road14]),
                 Road4:set([Road1,Road5]),
                 Road5:set([Road3, Road4]),
-                Road6:set([Road2,Road11,Road8,Road15,Road7]),
+                Road6:set([Road2,Road11,Road15,Road7]),
                 Road7:set([Road6,Road12,Road1]),
-                Road8:set([Road1,Road12,Road6]),
                 Road9:set([Road1,Road10]),
                 Road10:set([Road9,Road2,Road11]),
                 Road11:set([Road10,Road6,Road13, Road14]),
-                Road12:set([Road8,Road7]),
+                Road12:set([Road7, Road15]),
                 Road13:set([Road2,Road11,Road15,Road3]),
                 Road14:set([Road2,Road17,Road15,Road18, Road3,Road11]),
                 Road15:set([Road6,Road13,Road14]),
-                Road16:set([Road2,Road20,Road17,Road21,Road8,Road22]),
+                Road16:set([Road2,Road20,Road17,Road21,Road22]),
                 Road17:set([Road14,Road16]),
                 Road18:set([Road14,Road16]),
                 Road19:set([Road19,Road20,Road21,Road22]),
@@ -236,7 +235,7 @@ class Robot:
                 Road22:set([Road16,Road19])}
         Treasure1 = TreasureChecker()
         Route=ShortestPath(city, self.CheckPosition(), Treasure1)
-        Route.append(Treasure1)
+        #Route.append(Treasure1)
         IteminRoute=0
         print len(Route)
         while IteminRoute<len(Route):
@@ -283,35 +282,37 @@ class Robot:
                         self.canvas.update()
                         time.sleep(0.01)
             IteminRoute+=1
+        #Move to position of landmark on road
+        
 interface = interface(main)
 
-Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
+#Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
 
 #Roads
-Road1=Road('Road1',10,45,1070,40)
+Road1=Road('Road1',10,45,1070,40) 
 Road2=Road('Road2',10,45,40,630)
 Road3=Road('Road3',1040,45,40,480)
 Road4=Road('Road4',945,45,40,190)
 Road5=Road('Road5',945,195,135,40)
 Road6=Road('Road6',10,195,900,40)
 Road7=Road('Road7',870,45,40,190)
-Road8=Road('Road8',479,45,40,190)
 Road9=Road('Road9',404,45,40,115)
 Road10=Road('Road10',10,120,434,40)
 Road11=Road('Road11',231.25,120,40,405)
 Road12=Road('Road12',479,120,431,40)
 Road13=Road('Road13',10,340,1070,40)
 Road14=Road('Road14',10,485,1070,40)
-Road15=Road('Road15',450.25,195,40,330)
+Road15=Road('Road15',479,45,40,480)
 Road16=Road('Road16',10,560,900,40)
 Road17=Road('Road17',326,485,40,115)
 Road18=Road('Road18',717,485,40,115)
 Road19=Road('Road19',10,635,900,40)
 Road20=Road('Road20',230.25,560,40,115)
-Road21=Road('Road21',479,560,40,115)
-Road22=Road('Road22',870,560,40,115)
+Road21=Road('Road21',479,560,40,115) 
+Road22=Road('Road22',870,560,40,115) 
+Road20=Road('Road20',230.25,560,40,115)
 
-Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
 
 #Objects & Landmarks
 #Top Row
@@ -330,8 +331,8 @@ pave4 = objects(519.0,85.0,351.0,35.0,"Light Grey",canvas)
 object7 = objects(524.0,90.0,341.0,25.0,"Red",canvas)
 pave5 = objects(910.0,85.0,35.0,150.0,"Light Grey",canvas)
 object8 = objects(915.0,90.0,25.0,140.0,"Red",canvas)
-pave6 = objects(985.0,85.0,35.0,110.0,"Light Grey",canvas)
-object9 = objects(990.0,90.0,25.0,100.0, "Red",canvas)
+pave6 = objects(985.0,85.0,55.0,110.0,"Light Grey",canvas)
+object9 = objects(990.0,90.0,45.0,100.0, "Red",canvas)
 
 #Third Row
 pave7 = objects(50.0,160.0,180.25,35.0,"Light Grey", canvas)
@@ -344,18 +345,18 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
 object13 = landmarks(55.0,240.0,170.25,95.0, "Blue", canvas)
-pave11 = objects(270.25, 235.0, 199.25,105.0, "Light Grey",canvas)
-object14 = objects(275.0, 240.0,189.0,95.0, "Red",canvas)
-pave12 = objects(524.25,235.0,510.75,105.0, "Light Grey",canvas)
-object15 = objects(529.25,240.0,500.75,95.0, "Red",canvas)
+pave11 = objects(270.25, 235.0, 208.75,105.0, "Light Grey",canvas)
+object14 = objects(275.0, 240.0,198.5,95.0, "Red",canvas)
+pave12 = objects(524.25,235.0,515.75,105.0, "Light Grey",canvas)
+object15 = objects(529.25,240.0,505.75,95.0, "Red",canvas)
 
 #Fifth Row
 pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey",canvas)
 object27 = objects(55.0,385.0,170.25,95.0, "Red", canvas)
-pave22 = objects(270.25, 380.0, 199.25,105.0, "Light Grey",canvas)
-object28 = objects(275.0, 385.0,189.0,95.0, "Red",canvas)
-pave23 = objects(524.25,380.0,510.75,105.0, "Light Grey",canvas)
-object29 = landmarks(529.0,385.0,500.75,95.0, "Blue",canvas)
+pave22 = objects(270.25, 380.0, 208.75,105.0, "Light Grey",canvas)
+object28 = objects(275.0, 385.0,198.5,95.0, "Red",canvas)
+pave23 = objects(524.25,380.0,515.75,105.0, "Light Grey",canvas)
+object29 = landmarks(529.0,385.0,505.75,95.0, "Blue",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
@@ -422,4 +423,3 @@ c3po.Move()
     c3po.Move()
     time.sleep(0.1)'''
 main.mainloop()
-
