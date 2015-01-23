@@ -58,8 +58,11 @@ class interface:
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
-        self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
-        self.nextLevel_button.place(x = 1110, y = 300)
+        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
+        self.level1_button.place(x = 1110, y = 300)
+
+        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
+        self.level3_button.place(x = 1110, y = 350)
 
         self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
         self.timerShow_label.place(x = 1170, y = 30)
@@ -74,10 +77,10 @@ class interface:
         self.treasureShow_label.place(x = 1110, y = 100)
 
         self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 350)
+        self.robot1Score_label.place(x = 1110, y = 400)
 
         self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
-        self.robot1Score_label.place(x = 1110, y = 370)
+        self.robot1Score_label.place(x = 1110, y = 420)
 
         self.info_label1=Label(name, text="", width=16, font = ("Arial", 12))
         
@@ -108,8 +111,13 @@ class interface:
         interface.start_button.place(x = 1110, y = 150)
         RoboFinished = True
 
-    def nextLevel(self):
-        print "Next Level"
+    def level1(self):
+        main.destroy()
+        import Level_1
+
+    def level3(self):
+        main.destroy()
+        import Level_3
 
     def count(main):
         global counter, resetpressed, pausepressed

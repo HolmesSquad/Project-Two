@@ -25,8 +25,11 @@ class interface:
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
-        self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
-        self.nextLevel_button.place(x = 1110, y = 300)
+        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
+        self.level1_button.place(x = 1110, y = 300)
+
+        self.level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
+        self.level2_button.place(x = 1110, y = 350)
 
         self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
         self.timerShow_label.place(x = 1170, y = 30)
@@ -41,16 +44,16 @@ class interface:
         self.treasureShow_label.place(x = 1110, y = 100)
 
         self.robot1Score_label = Label(name, text = "Robot 1 Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 350)
+        self.robot1Score_label.place(x = 1110, y = 400)
 
         self.robot1ScoreShow_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
-        self.robot1ScoreShow_label.place(x = 1110, y = 370)
+        self.robot1ScoreShow_label.place(x = 1110, y = 420)
 
         self.robot2Score_label = Label(name, text = "Robot 2 Score: ", width = 16, font = ("Arial", 12), anchor = N)
-        self.robot2Score_label.place(x = 1110, y = 420)
+        self.robot2Score_label.place(x = 1110, y = 470)
 
         self.robot2ScoreShow_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
-        self.robot2ScoreShow_label.place(x = 1110, y = 440)
+        self.robot2ScoreShow_label.place(x = 1110, y = 490)
         
     def start(self):
         print "Start"
@@ -61,10 +64,13 @@ class interface:
     def reset(self):
         print "Reset"
 
-    def nextLevel(self):
-        print "Next Level"
-       # self.open_website()
-        print ListOfLandmarks
+    def level1(self):
+        main.destroy()
+        import Level_1
+
+    def level2(self):
+        main.destroy()
+        import Level_2        
 
     def count(main):
         global counter, resetpressed, pausepressed
