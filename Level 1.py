@@ -5,6 +5,7 @@ import time
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+
 global resetpressed
 resetpressed=False
 global pausepressed
@@ -38,29 +39,24 @@ class objects:
         self.length = length
         self.width = width
         self.colour = colour
-        self.canvas=canvas
+        self.canvas=canvas   
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class landmarks(objects):
+class Landmarks(objects):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
+        self.Road=Road
+        
+class Treasure(objects):
     
-    def TreasurePicker(self):
-        global num
-        num=random.choice(ListOfLandmarks)
-        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")
-
-def TreasureChecker():
-    if num == ListOfLandmarks[0]:
-        TreasureLocation = Road1
-        return TreasureLocation
-    elif num == ListOfLandmarks[1]:
-        TreasureLocation = Road2
-        return TreasureLocation
-    elif num == ListOfLandmarks[2]:
-        TreasureLocation = Road22
-        return TreasureLocation
-    else:
-        TreasureLocation = Road19
-        return TreasureLocation
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        
+        self.Found = Found
+        self.points = points
+        
 
 class lights:
 
@@ -80,7 +76,7 @@ class interface:
 
         self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
         self.pause_button.place(x = 1110, y = 200)
-
+#ndmarks(
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
@@ -169,6 +165,7 @@ class interface:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
+
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
         self.name=name
@@ -181,6 +178,7 @@ class Road:
         self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill=colour, width=0)
 
 class Robot:
+    
     def __init__(self,x,y,speed=1.0,size=20,colour='blue'):
         self.x1=x
         self.y1=y
@@ -189,6 +187,27 @@ class Robot:
         self.colour=colour
         self.speed=speed
         self.size=size
+        self.city = {Road1:set([Road2, Road9, Road7, Road4, Road3, Road15]),
+                    Road2:set([Road1,Road10,Road5,Road13,Road14,Road16, Road19]),
+                    Road3:set([Road1,Road5,Road13,Road14]),
+                    Road4:set([Road1,Road5]),
+                    Road5:set([Road3, Road4]),
+                    Road6:set([Road2,Road11,Road15,Road7]),
+                    Road7:set([Road6,Road12,Road1]),
+                    Road9:set([Road1,Road10]),
+                    Road10:set([Road9,Road2,Road11]),
+                    Road11:set([Road10,Road6,Road13, Road14]),
+                    Road12:set([Road7, Road15]),
+                    Road13:set([Road2,Road11,Road15,Road3]),
+                    Road14:set([Road2,Road17,Road15,Road18, Road3,Road11]),
+                    Road15:set([Road6,Road13,Road14]),
+                    Road16:set([Road2,Road20,Road17,Road21,Road22]),
+                    Road17:set([Road14,Road16]),
+                    Road18:set([Road14,Road16]),
+                    Road19:set([Road19,Road20,Road21,Road22]),
+                    Road20:set([Road16,Road19]),
+                    Road21:set([Road16,Road19]),
+                    Road22:set([Road16,Road19])}
     def drawRobot(self):
         self.canvas=canvas
         self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
@@ -211,30 +230,21 @@ class Robot:
         for road in Roads:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
+    def TreasureChecker(self):
+        ShortestRouteLength=100
+        LandmarkWithTreasure = []
+        for landmark in ListOfLandmarks:
+            if landmark.treasure==True:
+                if len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)<ShortestRouteLength):
+                       ShortestRouteLength=len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)
+                       Treasure1=landmark.Road
+                LandmarkWithTreasure.append[landmark]
+        len(ShortestPath(self.city,self.CheckPosition(),landmark.Road)
+        
+                
     def Move(self):
-        city = {Road1:set([Road2, Road9, Road7, Road4, Road3, Road15]),
-                Road2:set([Road1,Road10,Road5,Road13,Road14,Road16, Road19]),
-                Road3:set([Road1,Road5,Road13,Road14]),
-                Road4:set([Road1,Road5]),
-                Road5:set([Road3, Road4]),
-                Road6:set([Road2,Road11,Road15,Road7]),
-                Road7:set([Road6,Road12,Road1]),
-                Road9:set([Road1,Road10]),
-                Road10:set([Road9,Road2,Road11]),
-                Road11:set([Road10,Road6,Road13, Road14]),
-                Road12:set([Road7, Road15]),
-                Road13:set([Road2,Road11,Road15,Road3]),
-                Road14:set([Road2,Road17,Road15,Road18, Road3,Road11]),
-                Road15:set([Road6,Road13,Road14]),
-                Road16:set([Road2,Road20,Road17,Road21,Road22]),
-                Road17:set([Road14,Road16]),
-                Road18:set([Road14,Road16]),
-                Road19:set([Road19,Road20,Road21,Road22]),
-                Road20:set([Road16,Road19]),
-                Road21:set([Road16,Road19]),
-                Road22:set([Road16,Road19])}
         Treasure1 = TreasureChecker()
-        Route=ShortestPath(city, self.CheckPosition(), Treasure1)
+        Route=ShortestPath(self.city, self.CheckPosition(), Treasure1)
         #Route.append(Treasure1)
         IteminRoute=0
         print len(Route)
@@ -286,8 +296,6 @@ class Robot:
         
 interface = interface(main)
 
-#Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
-
 #Roads
 Road1=Road('Road1',10,45,1070,40) 
 Road2=Road('Road2',10,45,40,630)
@@ -320,7 +328,7 @@ pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
-object4 = landmarks(870.0,15.0,210.0,25.0, "Blue",canvas)
+object4 = objects(870.0,15.0,210.0,25.0, "Red",canvas)
 
 #second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey",canvas)
@@ -344,7 +352,7 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
-object13 = landmarks(55.0,240.0,170.25,95.0, "Blue", canvas)
+object13 = objects(55.0,240.0,170.25,95.0, "red", canvas)
 pave11 = objects(270.25, 235.0, 208.75,105.0, "Light Grey",canvas)
 object14 = objects(275.0, 240.0,198.5,95.0, "Red",canvas)
 pave12 = objects(524.25,235.0,515.75,105.0, "Light Grey",canvas)
@@ -356,7 +364,7 @@ object27 = objects(55.0,385.0,170.25,95.0, "Red", canvas)
 pave22 = objects(270.25, 380.0, 208.75,105.0, "Light Grey",canvas)
 object28 = objects(275.0, 385.0,198.5,95.0, "Red",canvas)
 pave23 = objects(524.25,380.0,515.75,105.0, "Light Grey",canvas)
-object29 = landmarks(529.0,385.0,505.75,95.0, "Blue",canvas)
+object29 = objects(529.0,385.0,505.75,95.0, "Red",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
@@ -366,7 +374,7 @@ object17 = objects(371.0,530.0,341.0,25.0,"Red",canvas)
 pave15 = objects(757.0,525.0,153.0,35.0, "Light Grey", canvas)
 object18 = objects(762.0,530.0,143.0,25.0,"Red",canvas)
 pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey",canvas)
-object19 = landmarks(915.0,530.0,160.0,140.0, "Blue",canvas)
+object19 = objects(915.0,530.0,160.0,140.0, "Red",canvas)
 
 #Seventh Row
 pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey",canvas)
@@ -383,13 +391,21 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
-ListOfLandmarks = [object4, object13,object19,object20]
-object4.TreasurePicker()
+#Landmarks
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True,Road12)
+ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6]
+#Treasures
+Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
 
 #Lights
 #Column 1
-Light1 = lights(20.0,130.0,40,150,"Green")
-Light2 = lights(20.0,205.0,40,225,"Green")
+Light1 = lights(20.0,130.0,40,150,"Green") 
+Light2 = lights(20.0,205.0,40,225,"Green") 
 Light3 = lights(20.0, 350.0, 40, 370.0, "Green")
 Light4 = lights(20.0, 495, 40, 515, "Green")
 Light5 = lights(20.0, 570, 40, 590, "Green")
@@ -412,14 +428,29 @@ Light15 = lights(490, 55, 510, 75, "Green")
 Light16 = lights(490, 130, 510, 150, "Green")
 Light17 = lights(490, 210, 510, 230, "Green")
 Light18 = lights(490, 350, 510, 370, "Green")
-Light19 = lights(490, 490, 510, 510, "Green")
+Light19 = lights(490, 495, 510, 515, "Green")
+Light20 = lights(490, 570, 510, 590, "Green")
+Light21 = lights(490, 645, 510, 665, "Green")
+
+#Column 5
+Light22 = lights(725, 495, 745, 515, "Green")
+Light23 = lights(725, 570, 745, 590, "Green")
+
+#Column 6
+Light24 = lights(880, 55, 900, 75, "Green")
+Light25 = lights(880, 130, 900, 150, "Green")
+
+#Column 7
+Light26 = lights(955, 55, 975, 75, "Green")
+
+#Column 8
+Light27 = lights(1040, 205, 1060, 225, "Green")
+Light28 = lights(1040, 350, 1060, 370, "Green")
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
 c3po.Move()
-'''for t in range (0,300):
-    c3po.Move()
-    time.sleep(0.1)'''
+
 main.mainloop()
