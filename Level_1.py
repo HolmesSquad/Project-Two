@@ -52,16 +52,6 @@ class Treasure(objects):#The Treasure class inherits the attributes of the objec
         self.points = points
         
 
-class lights:
-
-    def __init__(self,x0,y0,x1,y1,colour):
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
-
 class interface:
 
     def __init__(self, name):
@@ -167,6 +157,20 @@ class interface:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
+
+class lights(interface):
+
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
 
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
@@ -415,6 +419,105 @@ Light26 = lights(955, 55, 975, 75, "Green")
 #Column 8
 Light27 = lights(1040, 205, 1060, 225, "Green")
 Light28 = lights(1040, 350, 1060, 370, "Green")
+
+#change light colour
+def flipColour():
+    
+    
+    randomColourChanger=random.randrange(1,7)
+    print randomColourChanger
+    #group 1
+    if randomColourChanger==1:
+        Light1.change_colour("Red")
+        Light8.change_colour("Red")
+        Light13.change_colour("Red")
+        Light26.change_colour("Red")
+        canvas.update()
+    else:
+        Light1.change_colour("Green")
+        Light8.change_colour("Green")
+        Light13.change_colour("Green")
+        Light26.change_colour("Green")
+        canvas.update()
+
+    #group 2
+    if randomColourChanger==2:
+            Light2.change_colour("Red")
+            Light9.change_colour("Red")
+            Light14.change_colour("Red")
+            Light27.change_colour("Red")
+            canvas.update()
+    else:
+            Light2.change_colour("Green")
+            Light9.change_colour("Green")
+            Light14.change_colour("Green")
+            Light27.change_colour("Green")
+            canvas.update()
+    #group 3
+    if randomColourChanger==3:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 4
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 5
+    if randomColourChanger==4:
+            Light4.change_colour("Red")
+            Light11.change_colour("Red")
+            Light16.change_colour("Red")
+            Light25.change_colour("Red")
+            canvas.update()
+    else:
+            Light4.change_colour("Green")
+            Light11.change_colour("Green")
+            Light16.change_colour("Green")
+            Light25.change_colour("Green")
+            canvas.update()
+    #group 6
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
+    #group 7
+    if randomColourChanger==4:
+            Light3.change_colour("Red")
+            Light10.change_colour("Red")
+            Light15.change_colour("Red")
+            Light28.change_colour("Red")
+            canvas.update()
+    else:
+            Light3.change_colour("Green")
+            Light10.change_colour("Green")
+            Light15.change_colour("Green")
+            Light28.change_colour("Green")
+            canvas.update()
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
