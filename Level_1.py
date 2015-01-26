@@ -4,6 +4,7 @@ import random
 import math
 import time
 main = Tk(className = "Level 1")
+
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
 global resetpressed
@@ -14,10 +15,10 @@ global programispaused
 programispaused= False
 global paused
 paused = False
-global counter
-counter=1
-global randomColourChanger
-randomColourChanger=0
+global randomColourChangerYellow
+randomColourChangerYellow=0
+global colourChanger
+colourChanger=0
 
 def DFS(route, start, end): #Graph and start node as arguments
     path=[] #List of nodes in the path 
@@ -123,12 +124,17 @@ class interface:
              
         
     def count(main):
-        global counter, resetpressed, pausepressed
+        global counter, resetpressed, pausepressed, colourChanger
         counter==counter
         global RoboFinished
         RoboFinished==RoboFinished
         if (RoboFinished != True):
             counter=counter+1
+            if colourChanger!=12:
+                colourChanger=colourChanger+1
+                print ("colourChanger",colourChanger)
+            else:
+                colourChanger=0
             main.timerShow_label.config(text = str(counter))
             flipColour()
             main.timerShow_label.after(1000, main.count) 
@@ -420,102 +426,97 @@ Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 def flipColour():
     
     
-    randomColourChanger=random.randrange(1,7)
-    print randomColourChanger
+
     #group 1
-    if randomColourChanger==1:
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
         Light1.change_colour("Red")
+        Light2.change_colour("Red")
+        Light3.change_colour("Red")
+        Light4.change_colour("Red")
+        Light5.change_colour("Red")
+        Light6.change_colour("Red")
+        Light7.change_colour("Red")
         Light8.change_colour("Red")
+        Light9.change_colour("Red")
+        Light10.change_colour("Red")
+        Light11.change_colour("Red")
+        Light12.change_colour("Red")
         Light13.change_colour("Red")
+        Light14.change_colour("Red")
+        Light15.change_colour("Red")
+        Light16.change_colour("Red")
+        Light17.change_colour("Red")
+        Light18.change_colour("Red")
+        Light19.change_colour("Red")
+        Light20.change_colour("Red")
+        Light21.change_colour("Red")
+        Light22.change_colour("Red")
+        Light23.change_colour("Red")
+        Light24.change_colour("Red")
+        Light25.change_colour("Red")
         Light26.change_colour("Red")
+        Light27.change_colour("Red")
+        Light28.change_colour("Red")
         canvas.update()
-    else:
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        Light1.change_colour("Yellow")
+        Light2.change_colour("Yellow")
+        Light3.change_colour("Yellow")
+        Light4.change_colour("Yellow")
+        Light5.change_colour("Yellow")
+        Light6.change_colour("Yellow")
+        Light7.change_colour("Yellow")
+        Light8.change_colour("Yellow")
+        Light9.change_colour("Yellow")
+        Light10.change_colour("Yellow")
+        Light11.change_colour("Yellow")
+        Light12.change_colour("Yellow")
+        Light13.change_colour("Yellow")
+        Light14.change_colour("Yellow")
+        Light15.change_colour("Yellow")
+        Light16.change_colour("Yellow")
+        Light17.change_colour("Yellow")
+        Light18.change_colour("Yellow")
+        Light19.change_colour("Yellow")
+        Light20.change_colour("Yellow")
+        Light21.change_colour("Yellow")
+        Light22.change_colour("Yellow")
+        Light23.change_colour("Yellow")
+        Light24.change_colour("Yellow")
+        Light25.change_colour("Yellow")
+        Light26.change_colour("Yellow")
+        Light27.change_colour("Yellow")
+        Light28.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
         Light1.change_colour("Green")
+        Light2.change_colour("Green")
+        Light3.change_colour("Green")
+        Light4.change_colour("Green")
+        Light5.change_colour("Green")
+        Light6.change_colour("Green")
+        Light7.change_colour("Green")
         Light8.change_colour("Green")
+        Light9.change_colour("Green")
+        Light10.change_colour("Green")
+        Light11.change_colour("Green")
+        Light12.change_colour("Green")
         Light13.change_colour("Green")
+        Light14.change_colour("Green")
+        Light15.change_colour("Green")
+        Light16.change_colour("Green")
+        Light17.change_colour("Green")
+        Light18.change_colour("Green")
+        Light19.change_colour("Green")
+        Light20.change_colour("Green")
+        Light21.change_colour("Green")
+        Light22.change_colour("Green")
+        Light23.change_colour("Green")
+        Light24.change_colour("Green")
+        Light25.change_colour("Green")
         Light26.change_colour("Green")
-        canvas.update()
-
-    #group 2
-    if randomColourChanger==2:
-            Light2.change_colour("Red")
-            Light9.change_colour("Red")
-            Light14.change_colour("Red")
-            Light27.change_colour("Red")
-            canvas.update()
-    else:
-            Light2.change_colour("Green")
-            Light9.change_colour("Green")
-            Light14.change_colour("Green")
-            Light27.change_colour("Green")
-            canvas.update()
-    #group 3
-    if randomColourChanger==3:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 4
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 5
-    if randomColourChanger==4:
-            Light4.change_colour("Red")
-            Light11.change_colour("Red")
-            Light16.change_colour("Red")
-            Light25.change_colour("Red")
-            canvas.update()
-    else:
-            Light4.change_colour("Green")
-            Light11.change_colour("Green")
-            Light16.change_colour("Green")
-            Light25.change_colour("Green")
-            canvas.update()
-    #group 6
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 7
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    
-
+        Light27.change_colour("Green")
+        Light28.change_colour("Green")
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
