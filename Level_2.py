@@ -27,10 +27,11 @@ class objects: #class that defines the objects that populate the map
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
         
 class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,visited):
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
+        self.visited=visited
 
 class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
     
@@ -230,16 +231,16 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,500.0,25.0, "Red",canvas)
 
 #Landmarks
-Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False)
-Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True)
-Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False)
-Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",True)
-Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False)
-Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True)
-Landmark7 = Landmarks(590.25,363.0,10.0,20.0,"blue",canvas,"Mark",False)
-Landmark8 = Landmarks(90.0,143.0,10.0,20.0,"blue",canvas,"Roshel",True)
-Landmark9 = Landmarks(366.0,583.0,10.0,20.0,"blue",canvas,"Lucy",False)
-Landmark10 = Landmarks(800,583.0,10.0,20.0,"blue",canvas,"Ben",True)
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False,False)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True,False)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,False)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",True,False)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,False)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True,False)
+Landmark7 = Landmarks(590.25,363.0,10.0,20.0,"blue",canvas,"Mark",False,False)
+Landmark8 = Landmarks(90.0,143.0,10.0,20.0,"blue",canvas,"Roshel",True,False)
+Landmark9 = Landmarks(366.0,583.0,10.0,20.0,"blue",canvas,"Lucy",False,False)
+Landmark10 = Landmarks(800,583.0,10.0,20.0,"blue",canvas,"Ben",True,False)
 
 #Treasures
 Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
