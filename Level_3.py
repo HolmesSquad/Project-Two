@@ -2,6 +2,19 @@ from Tkinter import *
 main = Tk(className = "Level 3")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
+global resetpressed
+resetpressed=False
+global pausepressed
+pausepressed=False
+global programispaused
+programispaused= False
+global paused
+paused = False
+global randomColourChangerYellow
+randomColourChangerYellow=0
+global colourChanger
+colourChanger=0
+
 class objects:
 
     def __init__(self,x,y,length,width,colour,canvas):
@@ -56,8 +69,11 @@ class interface:
         self.robot2ScoreShow_label.place(x = 1110, y = 490)
         
     def start(self):
-        print "Start"
-
+        global resetpressed, RoboFinished
+        
+        interface.start_button.place_forget()
+        interface.counter_label(interface)
+        
     def pause(self):
         print "Pause"
 
@@ -73,17 +89,23 @@ class interface:
         import Level_2        
 
     def count(main):
-        global counter, resetpressed, pausepressed
+        global counter, resetpressed, pausepressed, colourChanger
         counter==counter
-        count=0
         global RoboFinished
         RoboFinished==RoboFinished
-        if RoboFinished !=True:
+        if (RoboFinished != True):
             counter=counter+1
+            if colourChanger!=11:
+                colourChanger=colourChanger+1
+                print ("colourChanger",colourChanger)
+            else:
+                colourChanger=0
             main.timerShow_label.config(text = str(counter))
+            flipColour()
             main.timerShow_label.after(1000, main.count) 
         else:
-            cstop()
+            main.counter_stop()
+
 
     def counter_label(main,self):
         
@@ -127,6 +149,10 @@ class lights(interface):
         self.y1 = y1
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
 
 interface = interface(main)
               
@@ -225,5 +251,140 @@ Light17 = lights(490, 645, 510, 665, "Green")
 
 #Column 5
 Light18 = lights(955, 55, 975, 75, "Green")
+
+def flipColour():
+    
+
+    
+    
+        #group 1
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=False
+        Light1.change_colour("Red")
+        Light8.change_colour("Red")
+        Light13.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        Light1.change_colour("Yellow")
+        Light8.change_colour("Yellow")
+        Light13.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6  or colourChanger==5 : 
+        Light1.change_colour("Green")
+        Light8.change_colour("Green")
+        Light13.change_colour("Green")
+        canvas.update()
+            
+
+      #group 2
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light2.change_colour("Red")
+        Light9.change_colour("Red")
+        Light14.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light2.change_colour("Yellow")
+        Light9.change_colour("Yellow")
+        Light14.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        Light2.change_colour("Green")
+        Light9.change_colour("Green")
+        Light14.change_colour("Green")
+        canvas.update()
+
+    
+        #group 3
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light3.change_colour("Red")
+        Light10.change_colour("Red")
+        Light15.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light3.change_colour("Yellow")
+        Light10.change_colour("Yellow")
+        Light15.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        Light3.change_colour("Green")
+        Light10.change_colour("Green")
+        Light15.change_colour("Green")
+        canvas.update()
+
+    
+        #group 4
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light4.change_colour("Red")
+        Light11.change_colour("Red")
+        Light16.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light4.change_colour("Yellow")
+        Light11.change_colour("Yellow")
+        Light16.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        robot_wait=False
+        Light4.change_colour("Green")
+        Light11.change_colour("Green")
+        Light16.change_colour("Green")
+        canvas.update()
+
+        #group 5
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light5.change_colour("Red")
+        Light12.change_colour("Red")
+        Light17.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light5.change_colour("Yellow")
+        Light12.change_colour("Yellow")
+        Light17.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        robot_wait=False
+        Light5.change_colour("Green")
+        Light12.change_colour("Green")
+        Light17.change_colour("Green")
+        canvas.update()
+
+        #group 6
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light6.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light6.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        robot_wait=False
+        Light6.change_colour("Green")
+        canvas.update()
+            
+        #group 7
+    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+        robot_wait=True
+        Light7.change_colour("Red")
+        Light18.change_colour("Red")
+        canvas.update()
+    if colourChanger==4 or colourChanger==10 or colourChanger==11:
+        robot_wait=False
+        Light7.change_colour("Yellow")
+        Light18.change_colour("Yellow")
+        canvas.update()
+    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+        robot_wait=False
+        Light7.change_colour("Green")
+        Light18.change_colour("Green")
+        canvas.update()
 
 main.mainloop()
