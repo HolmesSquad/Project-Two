@@ -3,7 +3,7 @@ import random
 main = Tk(className = "Level 2")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
-class objects:
+class objects: #class that defines the objects that populate the map
 
     def __init__(self,x,y,length,width,colour,canvas):
         self.x = x
@@ -14,13 +14,13 @@ class objects:
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
         
-class Landmarks(objects):
+class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
     def __init__(self,x,y,length,width,colour,canvas,Id,treasure):
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
 
-class Treasure(objects):
+class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
     
     def __init__(self,x,y,length,width,colour,canvas,Found,points):
         objects.__init__(self,x,y,length,width,colour,canvas)
