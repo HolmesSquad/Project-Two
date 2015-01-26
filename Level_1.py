@@ -19,6 +19,8 @@ global randomColourChangerYellow
 randomColourChangerYellow=0
 global colourChanger
 colourChanger=0
+global robowait
+robowait=False
 
 def BFS(route, start, end):
     queue = [(start, [start])]
@@ -142,7 +144,7 @@ class interface:
         RoboFinished==RoboFinished
         if (RoboFinished != True):
             counter=counter+1
-            stopTheBot()
+            
             if colourChanger!=4:
                 colourChanger=colourChanger+1
                 print ("colourChanger",colourChanger)
@@ -307,10 +309,12 @@ class Robot:
             print self.Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
                 print "Test 4"
+                stopTheBot()
                 x_destination=NextRoad.x1+NextRoad.width/2
                 print "X Destination:"+str(x_destination)
                 if x_destination>(self.x1+(self.size/2)):
                     print "Test 3"
+                    stopTheBot()
                     for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
                         self.x1+=self.speed
                         self.x2+=self.speed
@@ -320,6 +324,7 @@ class Robot:
                 else: # x_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
                         print "Test 2"
+                        stopTheBot()
                         self.x1-=self.speed
                         self.x2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
@@ -327,10 +332,12 @@ class Robot:
                         time.sleep(0.01)
             else:
                 print "Test 5"
+                stopTheBot()
                 y_destination=NextRoad.y1+(NextRoad.height/2)
                 print "Y Destination:"+str(y_destination)
                 if y_destination>(self.y1+(self.size/2)):
                     print "Test 7"
+                    stopTheBot()
                     for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
                         self.y1+=self.speed
                         self.y2+=self.speed
@@ -340,6 +347,7 @@ class Robot:
                 else: #if y_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
                         print "Test 8"
+                        stopTheBot()
                         self.y1-=self.speed
                         self.y2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
@@ -523,26 +531,36 @@ Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 #changing colour
 
 
+
 def stopTheBot():
-    if ( (c3po.x1>20) and (c3po.x1<50) and (c3po.y1>130) and(Light1.y1<160) ) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
+
+    print c3po.x1
+    print c3po.y1
+    print c3po.x2
+    print c3po.y2
+    if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
         c3po.speed=0.001
-    if (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==Light7.y1) or (c3po.x1==Light8.x1 and c3po.y1==Light8.y1) or (c3po.x1==Light9.x1 and c3po.y1==Light9.y1) or (c3po.x1==Light10.x1 and c3po.y1==Light10.y1):
+    elif (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==Light7.y1) or (c3po.x1==Light8.x1 and c3po.y1==Light8.y1) or (c3po.x1==Light9.x1 and c3po.y1==Light9.y1) or (c3po.x1==Light10.x1 and c3po.y1==Light10.y1):
         c3po.speed=0.001
-    if (c3po.x1==Light11.x1 and c3po.y1==Light11.y1) or (c3po.x1==Light12.x1 and c3po.y1==Light12.y1) or (c3po.x1==Light13.x1 and c3po.y1==Light13.y1) or (c3po.x1==Light14.x1 and c3po.y1==Light14.y1) or (c3po.x1==Light15.x1 and c3po.y1==Light15.y1):
+    elif (c3po.x1==Light11.x1 and c3po.y1==Light11.y1) or (c3po.x1==Light12.x1 and c3po.y1==Light12.y1) or (c3po.x1==Light13.x1 and c3po.y1==Light13.y1) or (c3po.x1==Light14.x1 and c3po.y1==Light14.y1) or (c3po.x1==Light15.x1 and c3po.y1==Light15.y1):
         c3po.speed=0.001
-    if (c3po.x1==Light16.x1 and c3po.y1==Light16.y1) or (c3po.x1==Light17.x1 and c3po.y1==Light17.y1) or (c3po.x1==Light18.x1 and c3po.y1==Light18.y1) or (c3po.x1==Light19.x1 and c3po.y1==Light19.y1) or (c3po.x1==Light20.x1 and c3po.y1==Light20.y1):
+    elif (c3po.x1==Light16.x1 and c3po.y1==Light16.y1) or (c3po.x1==Light17.x1 and c3po.y1==Light17.y1) or (c3po.x1==Light18.x1 and c3po.y1==Light18.y1) or (c3po.x1==Light19.x1 and c3po.y1==Light19.y1) or (c3po.x1==Light20.x1 and c3po.y1==Light20.y1):
         c3po.speed=0.001
-    if (c3po.x1==Light21.x1 and c3po.y1==Light21.y1) or (c3po.x1==Light22.x1 and c3po.y1==Light22.y1) or (c3po.x1==Light23.x1 and c3po.y1==Light23.y1) or (c3po.x1==Light24.x1 and c3po.y1==Light24.y1) or (c3po.x1==Light25.x1 and c3po.y1==Light25.y1):
+    elif (c3po.x1==Light21.x1 and c3po.y1==Light21.y1) or (c3po.x1==Light22.x1 and c3po.y1==Light22.y1) or (c3po.x1==Light23.x1 and c3po.y1==Light23.y1) or (c3po.x1==Light24.x1 and c3po.y1==Light24.y1) or (c3po.x1==Light25.x1 and c3po.y1==Light25.y1):
         c3po.speed=0.001
-    if (c3po.x1==Light26.x1 and c3po.y1==Light26.y1) or (c3po.x1==Light27.x1 and c3po.y1==Light27.y1) or (c3po.x1==Light28.x1 and c3po.y1==Light28.y1):
+    elif (c3po.x1==Light26.x1 and c3po.y1==Light26.y1) or (c3po.x1==Light27.x1 and c3po.y1==Light27.y1) or (c3po.x1==Light28.x1 and c3po.y1==Light28.y1):
         c3po.speed=0.001
+    else: c3po.speed=1.0
 
 def flipColour():
+    global robowait
+    
     
     
 
     #group 1
     if colourChanger==1 or colourChanger==2:
+        robowait=True
         Light1.change_colour("Red")
         Light2.change_colour("Red")
         Light3.change_colour("Red")
@@ -573,7 +591,8 @@ def flipColour():
         Light28.change_colour("Red")
         canvas.update()
     if colourChanger==3 or colourChanger==4:
-        #c3po.speed=1
+        c3po.speed=1
+        robowait=False
         Light1.change_colour("Green")
         Light2.change_colour("Green")
         Light3.change_colour("Green")
