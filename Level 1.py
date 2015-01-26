@@ -2,6 +2,7 @@ from Tkinter import *
 import random
 import math
 import time
+import tkMessageBox
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -208,6 +209,7 @@ class Robot:
                     Road20:set([Road16,Road19]),
                     Road21:set([Road16,Road19]),
                     Road22:set([Road16,Road19])}
+        self.Route=[]
     def drawRobot(self):
         self.canvas=canvas
         self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
@@ -234,21 +236,51 @@ class Robot:
         ShortestRouteLength=100
         for landmark in ListOfLandmarks:
             if landmark.treasure==True:
-                Route=ShortestPath(self.city,self.CheckPosition(),landmark.Road)
-                if len(Route)<ShortestRouteLength:
+                self.Route=ShortestPath(self.city,self.CheckPosition(),landmark.Road)
+                if len(self.Route)<ShortestRouteLength:
                     TreasureA=landmark.Road
-                    ShortestRouteLength=len(Route)
+                    self.ClosestLandmark=landmark
+                    ShortestRouteLength=len(self.Route)
         return TreasureA
-                
+    def Pathfinder(self):
+        self.Route=ShortestPath(self.city, self.CheckPosition(), self.TreasureChecker())
+        self.NextRoad=self.Route[1]
+        print len(self.Route)
     def Move(self):
-        Treasure1 = self.TreasureChecker()
-        Route=ShortestPath(self.city, self.CheckPosition(), Treasure1)
-        #Route.append(Treasure1)
-        IteminRoute=0
-        print len(Route)
-        while IteminRoute<len(Route):
-            NextRoad=Route[IteminRoute]
-            print Route[IteminRoute]
+        '''if self.NextRoad.height>self.NextRoad.width:
+            x_destination=self.NextRoad.x1+self.NextRoad.width/2
+            if x_destination>(self.x1+(self.size/2)):
+                self.vx=self.speed
+                self.vy=0
+            elif x_destination<(self.x1+(self.size/2)):
+                self.vx=-self.speed
+                self.vy=0
+            else:
+                self.Route.remove(self.NextRoad)
+        elif self.NextRoad.height<self.NextRoad.width:
+            y_destination=self.NextRoad.y1+(self.NextRoad.height/2)
+            if y_destination>(self.y1+(self.size/2)):
+                self.vy=self.speed
+                self.vx=0
+            elif y_destination<(self.x1+(self.size/2)):
+                self.vy=-self.speed
+                self.vx=0
+            else:
+                if len(self.Route)==2:
+                    print "Now Find Treasure on Road"
+                else:
+                    self.Route.remove(self.NextRoad)
+                    self.x1+=self.vx
+                    self.x2+=self.vx
+                    self.y1+=self.vy
+                    self.y2+=self.vy
+                    self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                    self.canvas.update()
+        print self.Route'''
+        IteminRoute = 0
+        while IteminRoute<len(self.Route):
+            NextRoad=self.Route[IteminRoute]
+            print self.Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
                 print "Test 4"
                 x_destination=NextRoad.x1+NextRoad.width/2
@@ -260,7 +292,7 @@ class Robot:
                         self.x2+=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
-                        time.sleep(0.01)
+                        time.sleep(0.001)
                 else: # x_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
                         print "Test 2"
@@ -291,7 +323,25 @@ class Robot:
                         time.sleep(0.01)
             IteminRoute+=1
         #Move to position of landmark on road
-        
+        #if self.CheckPosition() == self.TreasureChecker():
+
+        if self.ClosestLandmark.x>(self.x1+(self.size/2)):
+            for t in range(0,int(self.ClosestLandmark.x-self.x1)):
+                self.x1+=self.speed
+                self.x2+=self.speed
+                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                self.canvas.update()
+                time.sleep(0.01)
+        elif self.ClosestLandmark.x<(self.x1+(self.size/2)):
+            for t in range(0,int(self.x1-self.ClosestLandmark.x)):
+                self.x1-=self.speed
+                self.x2-=self.speed
+                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                self.canvas.update()
+                time.sleep(0.01)
+        elif self.x1+(self.size/2)==TreasureSpot:
+            tkMessageBox.showinfo(title="Greetings", message="Hello World!")
+
 interface = interface(main)
 
 #Roads
@@ -389,14 +439,22 @@ object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
+
+'''#TreasureSpot
+global TreasureSpot
+TreasureSpot = canvas.create_rectangle(368.0,485.0,423.0, 525.0, fill="yellow")
+x1,y1,x2,y2 = canvas.coords(TreasureSpot)
+TreasureSpot = x1+((x2-x1)/2)'''
+
 #Landmarks
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
 Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
 Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
-Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True,Road12)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,Road12)
 ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6]
+
 #Treasures
 Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
 
@@ -449,6 +507,11 @@ Light28 = lights(1040, 350, 1060, 370, "Green")
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
+c3po.Pathfinder()
 c3po.Move()
-
+#r2d2 = Robot(0, 0, speed = 1, size=20, colour='cyan')
+#r2d2.RandomPosition()
+#r2d2.drawRobot()
+#r2d2.Pathfinder()
+#r2d2.Move()
 main.mainloop()
