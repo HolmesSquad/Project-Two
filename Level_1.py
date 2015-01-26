@@ -426,17 +426,17 @@ Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 
 
 def stopTheBot():
-    if (c3po.x1==Light1.x1 and c3po.y1==Light1.y1) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
+    if ((c3po.x1+10)==(Light1.x1+10) and (c3po.y1+10)==(Light1.y1+10)) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
         c3po.speed=0.001
-    if (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==light7.y1) or (c3po.x1==light8.x1 and c3po.y1==light8.y1) or (c3po.x1==light9.x1 and c3po.y1==light9.y1) or (c3po.x1==light10.x1 and c3po.y1==light10.y1):
+    if (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==Light7.y1) or (c3po.x1==Light8.x1 and c3po.y1==Light8.y1) or (c3po.x1==Light9.x1 and c3po.y1==Light9.y1) or (c3po.x1==Light10.x1 and c3po.y1==Light10.y1):
         c3po.speed=0.001
-    if (c3po.x1==light11.x1 and c3po.y1==light11.y1) or (c3po.x1==light12.x1 and c3po.y1==light12.y1) or (c3po.x1==light13.x1 and c3po.y1==light13.y1) or (c3po.x1==light14.x1 and c3po.y1==light14.y1) or (c3po.x1==light15.x1 and c3po.y1==light15.y1):
+    if (c3po.x1==Light11.x1 and c3po.y1==Light11.y1) or (c3po.x1==Light12.x1 and c3po.y1==Light12.y1) or (c3po.x1==Light13.x1 and c3po.y1==Light13.y1) or (c3po.x1==Light14.x1 and c3po.y1==Light14.y1) or (c3po.x1==Light15.x1 and c3po.y1==Light15.y1):
         c3po.speed=0.001
-    if (c3po.x1==light16.x1 and c3po.y1==light16.y1) or (c3po.x1==light17.x1 and c3po.y1==light17.y1) or (c3po.x1==light18.x1 and c3po.y1==light18.y1) or (c3po.x1==light19.x1 and c3po.y1==light19.y1) or (c3po.x1==light20.x1 and c3po.y1==light20.y1):
+    if (c3po.x1==Light16.x1 and c3po.y1==Light16.y1) or (c3po.x1==Light17.x1 and c3po.y1==Light17.y1) or (c3po.x1==Light18.x1 and c3po.y1==Light18.y1) or (c3po.x1==Light19.x1 and c3po.y1==Light19.y1) or (c3po.x1==Light20.x1 and c3po.y1==Light20.y1):
         c3po.speed=0.001
-    if (c3po.x1==light21.x1 and c3po.y1==light21.y1) or (c3po.x1==light22.x1 and c3po.y1==light22.y1) or (c3po.x1==light23.x1 and c3po.y1==light23.y1) or (c3po.x1==light24.x1 and c3po.y1==light24.y1) or (c3po.x1==light25.x1 and c3po.y1==light25.y1):
+    if (c3po.x1==Light21.x1 and c3po.y1==Light21.y1) or (c3po.x1==Light22.x1 and c3po.y1==Light22.y1) or (c3po.x1==Light23.x1 and c3po.y1==Light23.y1) or (c3po.x1==Light24.x1 and c3po.y1==Light24.y1) or (c3po.x1==Light25.x1 and c3po.y1==Light25.y1):
         c3po.speed=0.001
-    if (c3po.x1==light26.x1 and c3po.y1==light26.y1) or (c3po.x1==light27.x1 and c3po.y1==light27.y1) or (c3po.x1==light28.x1 and c3po.y1==light28.y1):
+    if (c3po.x1==Light26.x1 and c3po.y1==Light26.y1) or (c3po.x1==Light27.x1 and c3po.y1==Light27.y1) or (c3po.x1==Light28.x1 and c3po.y1==Light28.y1):
         c3po.speed=0.001
 
 def flipColour():
