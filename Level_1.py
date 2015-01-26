@@ -130,6 +130,7 @@ class interface:
         RoboFinished==RoboFinished
         if (RoboFinished != True):
             counter=counter+1
+            stopTheBot()
             if colourChanger!=4:
                 colourChanger=colourChanger+1
                 print ("colourChanger",colourChanger)
@@ -423,13 +424,27 @@ Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 
 #changing colour
 
+
+def stopTheBot():
+    if (c3po.x1==Light1.x1 and c3po.y1==Light1.y1) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
+        c3po.speed=0.001
+    if (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==light7.y1) or (c3po.x1==light8.x1 and c3po.y1==light8.y1) or (c3po.x1==light9.x1 and c3po.y1==light9.y1) or (c3po.x1==light10.x1 and c3po.y1==light10.y1):
+        c3po.speed=0.001
+    if (c3po.x1==light11.x1 and c3po.y1==light11.y1) or (c3po.x1==light12.x1 and c3po.y1==light12.y1) or (c3po.x1==light13.x1 and c3po.y1==light13.y1) or (c3po.x1==light14.x1 and c3po.y1==light14.y1) or (c3po.x1==light15.x1 and c3po.y1==light15.y1):
+        c3po.speed=0.001
+    if (c3po.x1==light16.x1 and c3po.y1==light16.y1) or (c3po.x1==light17.x1 and c3po.y1==light17.y1) or (c3po.x1==light18.x1 and c3po.y1==light18.y1) or (c3po.x1==light19.x1 and c3po.y1==light19.y1) or (c3po.x1==light20.x1 and c3po.y1==light20.y1):
+        c3po.speed=0.001
+    if (c3po.x1==light21.x1 and c3po.y1==light21.y1) or (c3po.x1==light22.x1 and c3po.y1==light22.y1) or (c3po.x1==light23.x1 and c3po.y1==light23.y1) or (c3po.x1==light24.x1 and c3po.y1==light24.y1) or (c3po.x1==light25.x1 and c3po.y1==light25.y1):
+        c3po.speed=0.001
+    if (c3po.x1==light26.x1 and c3po.y1==light26.y1) or (c3po.x1==light27.x1 and c3po.y1==light27.y1) or (c3po.x1==light28.x1 and c3po.y1==light28.y1):
+        c3po.speed=0.001
+
 def flipColour():
     
     
 
     #group 1
     if colourChanger==1 or colourChanger==2:
-        c3po.speed=0.1
         Light1.change_colour("Red")
         Light2.change_colour("Red")
         Light3.change_colour("Red")
