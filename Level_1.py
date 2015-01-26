@@ -39,10 +39,11 @@ class objects: #The objects class defines that objects which populate the map
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
 class Landmarks(objects):#The landmark class inherits the attributes from the objects class, with added attributes 
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):#The constructor used to create the landmars
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,visited):#The constructor used to create the landmars
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
+        self.visited=visited
 
         
 class Treasure(objects):#The Treasure class inherits the attributes of the objects with its own attributes
@@ -365,12 +366,12 @@ object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
 #Landmarks
-Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True)
-Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False)
-Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False)
-Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False)
-Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False)
-Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True)
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,False)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,False)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,False)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,False)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,False)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True,False)
 
 #Treasures
 Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
