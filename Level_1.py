@@ -524,7 +524,7 @@ Light28 = lights(1040, 350, 1060, 370, "Green")#Used in group 3
 
 
 def stopTheBot():
-    if ((c3po.x1+10)==(Light1.x1+10) and (c3po.y1+10)==(Light1.y1+10)) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
+    if ( (c3po.x1>20) and (c3po.x1<50) and (c3po.y1>130) and(Light1.y1<160) ) or (c3po.x1==Light2.x1 and c3po.y1==Light2.y1) or (c3po.x1==Light3.x1 and c3po.y1==Light3.y1) or (c3po.x1==Light4.x1 and c3po.y1==Light4.y1) or (c3po.x1==Light5.x1 and c3po.y1==Light5.y1):
         c3po.speed=0.001
     if (c3po.x1==Light6.x1 and c3po.y1==Light6.y1) or (c3po.x1==Light7.x1 and c3po.y1==Light7.y1) or (c3po.x1==Light8.x1 and c3po.y1==Light8.y1) or (c3po.x1==Light9.x1 and c3po.y1==Light9.y1) or (c3po.x1==Light10.x1 and c3po.y1==Light10.y1):
         c3po.speed=0.001
@@ -573,7 +573,7 @@ def flipColour():
         Light28.change_colour("Red")
         canvas.update()
     if colourChanger==3 or colourChanger==4:
-        c3po.speed=1
+        #c3po.speed=1
         Light1.change_colour("Green")
         Light2.change_colour("Green")
         Light3.change_colour("Green")
