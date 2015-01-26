@@ -27,8 +27,8 @@ def DFS(route, start, end): #Graph and start node as arguments
             queue=route[v]+queue #Add node's neighbors at the beginning of the list
     return path
 
-class objects:
-    def __init__(self,x,y,length,width,colour,canvas):
+class objects: #The objects class defines that objects which populate the map
+    def __init__(self,x,y,length,width,colour,canvas):#The constructor which is used to create the objects on the map
         global ObjectList
         self.x = x
         self.y = y
@@ -38,18 +38,16 @@ class objects:
         self.canvas=canvas   
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class Landmarks(objects):
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):
+class Landmarks(objects):#The landmark class inherits the attributes from the objects class, with added attributes 
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure):#The constructor used to create the landmars
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
 
         
-class Treasure(objects):
-    
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+class Treasure(objects):#The Treasure class inherits the attributes of the objects with its own attributes
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):# The constructor which is used to create the Treasueres
         objects.__init__(self,x,y,length,width,colour,canvas)
-        
         self.Found = Found
         self.points = points
         
