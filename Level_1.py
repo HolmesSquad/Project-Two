@@ -20,20 +20,23 @@ randomColourChangerYellow=0
 global colourChanger
 colourChanger=0
 
-def DFS(route, start, end): #Graph and start node as arguments
-    path=[] #List of nodes in the path 
-    queue=[start] #Queue list 
-    while queue: #While list is not empty
-        v=queue.pop(0) #Remove node from list
-        if v == end:
-            return path
-        if v not in path: #If node v has not been checked yet
-            path=path+[v] #Add node to path list
-            queue=route[v]+queue #Add node's neighbors at the beginning of the list
-    return path
+def BFS(route, start, end):
+    queue = [(start, [start])]
+    while queue:
+        (vertex, path) = queue.pop(0)
+        for next in route[vertex] - set(path):
+            if next == end:
+                yield path + [next]
+            else:
+                queue.append((next, path + [next]))
+
+def ShortestPath(route, start, end):
+    try:
+        return next(BFS(route, start, end))
+    except StopIteration:
+        return None
 
 class objects:
-
     def __init__(self,x,y,length,width,colour,canvas):
         global ObjectList
         self.x = x
@@ -41,14 +44,23 @@ class objects:
         self.length = length
         self.width = width
         self.colour = colour
-        self.canvas=canvas
+        self.canvas=canvas   
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class landmarks(objects):
-   
-    def TreasurePicker(self):
-        num=random.choice(LandMarkList)
-        Treasure = canvas.create_rectangle(num.x,num.y,num.x+num.length,num.y+num.width,fill = "Yellow")      
+class Landmarks(objects):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
+        self.Road=Road
+        
+class Treasure(objects):
+    
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        
+        self.Found = Found
+        self.points = points
 
 class interface:
 
@@ -191,15 +203,37 @@ class Road:
         self.object=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2, fill=colour, width=0)
 
 class Robot:
+    
     def __init__(self,x,y,speed=1.0,size=20,colour='blue'):
         self.x1=x
         self.y1=y
         self.x2=x+size
-        
         self.y2=y+size
         self.colour=colour
         self.speed=speed
         self.size=size
+        self.city = {Road1:set([Road2, Road9, Road7, Road4, Road3, Road15]),
+                    Road2:set([Road1,Road10,Road5,Road13,Road14,Road16, Road19]),
+                    Road3:set([Road1,Road5,Road13,Road14]),
+                    Road4:set([Road1,Road5]),
+                    Road5:set([Road3, Road4]),
+                    Road6:set([Road2,Road11,Road15,Road7]),
+                    Road7:set([Road6,Road12,Road1]),
+                    Road9:set([Road1,Road10]),
+                    Road10:set([Road9,Road2,Road11]),
+                    Road11:set([Road10,Road6,Road13, Road14]),
+                    Road12:set([Road7, Road15]),
+                    Road13:set([Road2,Road11,Road15,Road3]),
+                    Road14:set([Road2,Road17,Road15,Road18, Road3,Road11]),
+                    Road15:set([Road6,Road13,Road14]),
+                    Road16:set([Road2,Road20,Road17,Road21,Road22]),
+                    Road17:set([Road14,Road16]),
+                    Road18:set([Road14,Road16]),
+                    Road19:set([Road19,Road20,Road21,Road22]),
+                    Road20:set([Road16,Road19]),
+                    Road21:set([Road16,Road19]),
+                    Road22:set([Road16,Road19])}
+        self.Route=[]
     def drawRobot(self):
         self.canvas=canvas
         self.shape=canvas.create_rectangle(self.x1,self.y1,self.x2,self.y2,fill=self.colour)
@@ -222,91 +256,146 @@ class Robot:
         for road in Roads:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
+    def TreasureChecker(self):
+        ShortestRouteLength=100
+        for landmark in ListOfLandmarks:
+            if landmark.treasure==True:
+                self.Route=ShortestPath(self.city,self.CheckPosition(),landmark.Road)
+                if len(self.Route)<ShortestRouteLength:
+                    TreasureA=landmark.Road
+                    self.ClosestLandmark=landmark
+                    ShortestRouteLength=len(self.Route)
+        return TreasureA
+    def Pathfinder(self):
+        self.Route=ShortestPath(self.city, self.CheckPosition(), self.TreasureChecker())
+        self.NextRoad=self.Route[1]
+        print len(self.Route)
     def Move(self):
-        city = {Road1:[Road2, Road9, Road7, Road4, Road3], Road2:[Road1,Road10,Road5,Road13,Road14,Road16, Road19], Road3: [Road1,Road5,Road13,Road14], Road4:[Road1,Road5], Road5:[Road3, Road4], Road6:[Road2,Road11,Road8,Road15,Road7], Road7:[Road6,Road12,Road1], Road8:[Road1,Road12,Road6], Road9:[Road1,Road10], Road10:[Road9,Road2,Road11], Road11:[Road10,Road6,Road13, Road14], Road12:[Road8,Road7], Road13:[Road2,Road11,Road15,Road3], Road14:[Road2,Road17,Road15,Road18, Road3,Road11], Road15:[Road6,Road13,Road14], Road16:[Road2,Road20,Road17,Road21,Road8,Road22], Road17:[Road14,Road16], Road18:[Road14,Road16], Road19:[Road19,Road20,Road21,Road22], Road20:[Road16,Road19], Road21: [Road16,Road19], Road22: [Road16,Road19]}
-        Route=list(DFS(city, self.CheckPosition(), Road12))
-        Route.append(Road12)
-        IteminRoute=0
-        print len(Route)
-        while IteminRoute<len(Route):
-            NextRoad=Route[IteminRoute]
-            print Route[IteminRoute]
+        '''if self.NextRoad.height>self.NextRoad.width:
+            x_destination=self.NextRoad.x1+self.NextRoad.width/2
+            if x_destination>(self.x1+(self.size/2)):
+                self.vx=self.speed
+                self.vy=0
+            elif x_destination<(self.x1+(self.size/2)):
+                self.vx=-self.speed
+                self.vy=0
+            else:
+                self.Route.remove(self.NextRoad)
+        elif self.NextRoad.height<self.NextRoad.width:
+            y_destination=self.NextRoad.y1+(self.NextRoad.height/2)
+            if y_destination>(self.y1+(self.size/2)):
+                self.vy=self.speed
+                self.vx=0
+            elif y_destination<(self.x1+(self.size/2)):
+                self.vy=-self.speed
+                self.vx=0
+            else:
+                if len(self.Route)==2:
+                    print "Now Find Treasure on Road"
+                else:
+                    self.Route.remove(self.NextRoad)
+                    self.x1+=self.vx
+                    self.x2+=self.vx
+                    self.y1+=self.vy
+                    self.y2+=self.vy
+                    self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                    self.canvas.update()
+        print self.Route'''
+        IteminRoute = 0
+        while IteminRoute<len(self.Route):
+            NextRoad=self.Route[IteminRoute]
+            print self.Route[IteminRoute]
             if NextRoad.height>NextRoad.width:
-                #print "Test 4"
+                print "Test 4"
                 x_destination=NextRoad.x1+NextRoad.width/2
                 print "X Destination:"+str(x_destination)
                 if x_destination>(self.x1+(self.size/2)):
-                    
-                    #print "Test 3"
+                    print "Test 3"
                     for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
                         self.x1+=self.speed
                         self.x2+=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
-                        
-                        time.sleep(0.01)
+                        time.sleep(0.001)
                 else: # x_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
-                        # print "Test 2"
+                        print "Test 2"
                         self.x1-=self.speed
                         self.x2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
-                        
                         time.sleep(0.01)
             else:
-                #print "Test 5"
+                print "Test 5"
                 y_destination=NextRoad.y1+(NextRoad.height/2)
                 print "Y Destination:"+str(y_destination)
                 if y_destination>(self.y1+(self.size/2)):
-                   # print "Test 7"
+                    print "Test 7"
                     for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
                         self.y1+=self.speed
                         self.y2+=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
-                        
                         time.sleep(0.01)
                 else: #if y_destination<(self.x1+(self.size/2))
                     for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
-                        #print "Test 8"
+                        print "Test 8"
                         self.y1-=self.speed
                         self.y2-=self.speed
                         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
                         self.canvas.update()
-                        
                         time.sleep(0.01)
             IteminRoute+=1
+        #Move to position of landmark on road
+        #if self.CheckPosition() == self.TreasureChecker():
+
+        if self.ClosestLandmark.x>(self.x1+(self.size/2)):
+            for t in range(0,int(self.ClosestLandmark.x-self.x1)):
+                self.x1+=self.speed
+                self.x2+=self.speed
+                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                self.canvas.update()
+                time.sleep(0.01)
+        elif self.ClosestLandmark.x<(self.x1+(self.size/2)):
+            for t in range(0,int(self.x1-self.ClosestLandmark.x)):
+                self.x1-=self.speed
+                self.x2-=self.speed
+                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
+                self.canvas.update()
+                time.sleep(0.01)
+        elif self.x1+(self.size/2)==TreasureSpot:
+            tkMessageBox.showinfo(title="Greetings", message="Hello World!")
 
 interface = interface(main)
 
 Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
 
 #Roads
-Road1=Road('Road1',10,45,1070,40)
+Road1=Road('Road1',10,45,1070,40) 
 Road2=Road('Road2',10,45,40,630)
 Road3=Road('Road3',1040,45,40,480)
 Road4=Road('Road4',945,45,40,190)
 Road5=Road('Road5',945,195,135,40)
 Road6=Road('Road6',10,195,900,40)
 Road7=Road('Road7',870,45,40,190)
-Road8=Road('Road8',479,45,40,190)
 Road9=Road('Road9',404,45,40,115)
 Road10=Road('Road10',10,120,434,40)
 Road11=Road('Road11',231.25,120,40,405)
 Road12=Road('Road12',479,120,431,40)
 Road13=Road('Road13',10,340,1070,40)
 Road14=Road('Road14',10,485,1070,40)
-Road15=Road('Road15',450.25,195,40,330)
+Road15=Road('Road15',479,45,40,480)
 Road16=Road('Road16',10,560,900,40)
 Road17=Road('Road17',326,485,40,115)
 Road18=Road('Road18',717,485,40,115)
 Road19=Road('Road19',10,635,900,40)
 Road20=Road('Road20',230.25,560,40,115)
-Road21=Road('Road21',479,560,40,115)
-Road22=Road('Road22',870,560,40,115)
+Road21=Road('Road21',479,560,40,115) 
+Road22=Road('Road22',870,560,40,115) 
+Road20=Road('Road20',230.25,560,40,115)
 
-Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
+
 
 #Objects & Landmarks
 #Top Row
@@ -314,7 +403,7 @@ pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
-object4 = landmarks(870.0,15.0,210.0,25.0, "Blue",canvas)
+object4 = objects(870.0,15.0,210.0,25.0, "Blue",canvas)
 
 #second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey",canvas)
@@ -338,7 +427,7 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
-object13 = landmarks(55.0,240.0,170.25,95.0, "Blue", canvas)
+object13 = objects(55.0,240.0,170.25,95.0, "Blue", canvas)
 pave11 = objects(270.25, 235.0, 199.25,105.0, "Light Grey",canvas)
 object14 = objects(275.0, 240.0,189.0,95.0, "Red",canvas)
 pave12 = objects(524.25,235.0,510.75,105.0, "Light Grey",canvas)
@@ -350,7 +439,7 @@ object27 = objects(55.0,385.0,170.25,95.0, "Red", canvas)
 pave22 = objects(270.25, 380.0, 199.25,105.0, "Light Grey",canvas)
 object28 = objects(275.0, 385.0,189.0,95.0, "Red",canvas)
 pave23 = objects(524.25,380.0,510.75,105.0, "Light Grey",canvas)
-object29 = landmarks(529.0,385.0,500.75,95.0, "Blue",canvas)
+object29 = objects(529.0,385.0,500.75,95.0, "Blue",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
@@ -360,7 +449,7 @@ object17 = objects(371.0,530.0,341.0,25.0,"Red",canvas)
 pave15 = objects(757.0,525.0,153.0,35.0, "Light Grey", canvas)
 object18 = objects(762.0,530.0,143.0,25.0,"Red",canvas)
 pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey",canvas)
-object19 = landmarks(915.0,530.0,160.0,140.0, "Blue",canvas)
+object19 = objects(915.0,530.0,160.0,140.0, "Blue",canvas)
 
 #Seventh Row
 pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey",canvas)
@@ -376,6 +465,15 @@ object23 = objects(10.0,680.0,200.0, 25.0, "Red",canvas)
 object24 = objects(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
+
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,Road12)
+
+ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6]
 
 #Lights
 #Column 1
@@ -509,8 +607,8 @@ def flipColour():
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
+c3po.Pathfinder()
 c3po.Move()
-
 
 
 main.mainloop()
