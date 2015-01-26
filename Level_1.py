@@ -130,7 +130,7 @@ class interface:
         RoboFinished==RoboFinished
         if (RoboFinished != True):
             counter=counter+1
-            if colourChanger!=12:
+            if colourChanger!=4:
                 colourChanger=colourChanger+1
                 print ("colourChanger",colourChanger)
             else:
@@ -428,7 +428,8 @@ def flipColour():
     
 
     #group 1
-    if colourChanger==1 or colourChanger==2 or colourChanger==3:
+    if colourChanger==1 or colourChanger==2:
+        c3po.speed=0.1
         Light1.change_colour("Red")
         Light2.change_colour("Red")
         Light3.change_colour("Red")
@@ -458,37 +459,8 @@ def flipColour():
         Light27.change_colour("Red")
         Light28.change_colour("Red")
         canvas.update()
-    if colourChanger==4 or colourChanger==10 or colourChanger==11:
-        Light1.change_colour("Yellow")
-        Light2.change_colour("Yellow")
-        Light3.change_colour("Yellow")
-        Light4.change_colour("Yellow")
-        Light5.change_colour("Yellow")
-        Light6.change_colour("Yellow")
-        Light7.change_colour("Yellow")
-        Light8.change_colour("Yellow")
-        Light9.change_colour("Yellow")
-        Light10.change_colour("Yellow")
-        Light11.change_colour("Yellow")
-        Light12.change_colour("Yellow")
-        Light13.change_colour("Yellow")
-        Light14.change_colour("Yellow")
-        Light15.change_colour("Yellow")
-        Light16.change_colour("Yellow")
-        Light17.change_colour("Yellow")
-        Light18.change_colour("Yellow")
-        Light19.change_colour("Yellow")
-        Light20.change_colour("Yellow")
-        Light21.change_colour("Yellow")
-        Light22.change_colour("Yellow")
-        Light23.change_colour("Yellow")
-        Light24.change_colour("Yellow")
-        Light25.change_colour("Yellow")
-        Light26.change_colour("Yellow")
-        Light27.change_colour("Yellow")
-        Light28.change_colour("Yellow")
-        canvas.update()
-    if colourChanger==7 or colourChanger==8 or colourChanger==9  or colourChanger==6 or colourChanger==5:
+    if colourChanger==3 or colourChanger==4:
+        c3po.speed=1
         Light1.change_colour("Green")
         Light2.change_colour("Green")
         Light3.change_colour("Green")
