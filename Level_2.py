@@ -329,11 +329,12 @@ class interface:
 
     def reset(main):
         global counter, resetpressed, RoboFinished
-        counter = 0
-        main.timerShow_label.config(text = str(counter))
-        resetpressed = True
+        #counter = 0
+       # main.timerShow_label.config(text = str(counter))
+        #resetpressed = True
         interface.start_button.place(x = 1110, y = 150)
-        RoboFinished = True
+        main.destroy()
+        import Level_2
 
     def level1(self):
         main.destroy()
