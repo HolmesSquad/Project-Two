@@ -2,6 +2,7 @@ from Tkinter import *
 import random
 import math
 import time
+
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -14,6 +15,15 @@ global programispaused
 programispaused= False
 global paused
 paused = False
+global randomColourChangerYellow
+randomColourChangerYellow=0
+global colourChanger
+colourChanger=0
+global robowait
+robowait=False
+global tempx ,tempy
+tempx=0.0
+tempy=0.0
 
 def BFS(route, start, end):
     queue = [(start, [start])]
@@ -67,6 +77,10 @@ class lights:
         self.y1 = y1
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
 
 class interface:
 
@@ -130,23 +144,22 @@ class interface:
         print "Next Level"
 
     def count(main):
-        global counter, resetpressed, pausepressed
+        global counter, resetpressed, pausepressed, colourChanger
         counter==counter
         global RoboFinished
         RoboFinished==RoboFinished
         if (RoboFinished != True):
             counter=counter+1
+            if colourChanger!=2:
+                colourChanger=colourChanger+1
+                print ("colourChanger",colourChanger)
+            else:
+                colourChanger=0
             main.timerShow_label.config(text = str(counter))
+            flipColour()
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed == True:
-            print resetpressed
-            counter=0
-            resetpressed= False
-        elif pausepressed== True:
-            print "Wololol 2"
         else:
-            print "help"
-            main.cstop()
+            main.counter_stop()
 
     def counter_label(main,self):
         
@@ -267,7 +280,9 @@ class Robot:
             print len(self.Route)
     def Move(self):
         if len(self.Route)-1<self.IteminRoute:
-            print "Test 1"
+            stopTheBot()
+           # print "Test 1"
+           
             if self.ClosestLandmark.x>(self.x1+(self.size/2)):
                 self.vx=self.speed
                 self.vy=0
@@ -280,7 +295,8 @@ class Robot:
         else:
             self.NextRoad=self.Route[self.IteminRoute]
             if self.NextRoad.height>self.NextRoad.width:
-                print "Test 2"
+                #print "Test 2"
+                stopTheBot()
                 x_destination=self.NextRoad.x1+self.NextRoad.width/2
                 if x_destination>(self.x1+(self.size/2)):
                     self.vx=self.speed
@@ -294,14 +310,19 @@ class Robot:
                 y_destination=self.NextRoad.y1+(self.NextRoad.height/2)
                 print y_destination
                 if y_destination==(self.y1+(self.size/2)):
-                    print "Test 6"
+                    stopTheBot()
+                   # print "Test 6"
+                   
                     self.IteminRoute+=1
                 elif y_destination>(self.y1+(self.size/2)):
-                    print "Test 4"
+                    stopTheBot()
+                    #print "Test 4"
                     self.vy=self.speed
                     self.vx=0
                 elif y_destination<(self.y1+(self.size/2)):
-                    print "Test 5"
+                    stopTheBot()
+                   # print "Test 5"
+                   
                     self.vy=-self.speed
                     self.vx=0
         self.x1+=self.vx
@@ -462,6 +483,113 @@ Light26 = lights(955, 55, 975, 75, "Green")
 #Column 8
 Light27 = lights(1040, 205, 1060, 225, "Green")
 Light28 = lights(1040, 350, 1060, 370, "Green")
+
+def stopTheBot():
+    global robowait
+    global tempx
+    global tempy
+    print robowait
+    if (c3po.vx!=0) or (c3po.vy!=0):
+        tempx=c3po.vx
+        tempy=c3po.vy
+    else:
+        c3po.vx=c3po.vx
+        c3po.vy=c3po.vy
+    if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+        print ("stopping")
+    elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>195) and(c3po.y1<210) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>330) and(c3po.y1<390)and (robowait==True))  or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>485) and(c3po.y1<530)and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>555) and(c3po.y1<605)and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+        print ("stopping")
+    elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>625) and(c3po.y1<675) and (robowait==True)) or ( (c3po.x1>400) and (c3po.x1<450) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>480) and(c3po.y1<525) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>550) and(c3po.y1<605) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>45) and(c3po.y1<90) and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+        print ("stopping")
+    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>115) and(c3po.y1<105) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>195) and(c3po.y1<245) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>335) and(c3po.y1<385) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>480) and(c3po.y1<530) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>630) and(c3po.y1<680) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>480) and(c3po.y1<500) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True))  or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+    elif ( (c3po.x1>940) and (c3po.x1<990) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>190) and(c3po.y1<240) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>330) and(c3po.y1<390) and (robowait==True)):
+        c3po.vx=0.0
+        c3po.vy=0.0
+    else:
+        c3po.vx=tempx
+        c3po.vy=tempy
+
+def flipColour():
+    global robowait
+    
+    
+    
+
+    #group 1
+    if colourChanger==1:
+        robowait=True
+        Light1.change_colour("Red")
+        Light2.change_colour("Red")
+        Light3.change_colour("Red")
+        Light4.change_colour("Red")
+        Light5.change_colour("Red")
+        Light6.change_colour("Red")
+        Light7.change_colour("Red")
+        Light8.change_colour("Red")
+        Light9.change_colour("Red")
+        Light10.change_colour("Red")
+        Light11.change_colour("Red")
+        Light12.change_colour("Red")
+        Light13.change_colour("Red")
+        Light14.change_colour("Red")
+        Light15.change_colour("Red")
+        Light16.change_colour("Red")
+        Light17.change_colour("Red")
+        Light18.change_colour("Red")
+        Light19.change_colour("Red")
+        Light20.change_colour("Red")
+        Light21.change_colour("Red")
+        Light22.change_colour("Red")
+        Light23.change_colour("Red")
+        Light24.change_colour("Red")
+        Light25.change_colour("Red")
+        Light26.change_colour("Red")
+        Light27.change_colour("Red")
+        Light28.change_colour("Red")
+        canvas.update()
+    if colourChanger==2:
+        c3po.speed=1
+        robowait=False
+        Light1.change_colour("Green")
+        Light2.change_colour("Green")
+        Light3.change_colour("Green")
+        Light4.change_colour("Green")
+        Light5.change_colour("Green")
+        Light6.change_colour("Green")
+        Light7.change_colour("Green")
+        Light8.change_colour("Green")
+        Light9.change_colour("Green")
+        Light10.change_colour("Green")
+        Light11.change_colour("Green")
+        Light12.change_colour("Green")
+        Light13.change_colour("Green")
+        Light14.change_colour("Green")
+        Light15.change_colour("Green")
+        Light16.change_colour("Green")
+        Light17.change_colour("Green")
+        Light18.change_colour("Green")
+        Light19.change_colour("Green")
+        Light20.change_colour("Green")
+        Light21.change_colour("Green")
+        Light22.change_colour("Green")
+        Light23.change_colour("Green")
+        Light24.change_colour("Green")
+        Light25.change_colour("Green")
+        Light26.change_colour("Green")
+        Light27.change_colour("Green")
+        Light28.change_colour("Green")
+
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
