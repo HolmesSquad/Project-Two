@@ -242,13 +242,29 @@ class Robot:
                 if len(self.Route)<ShortestRouteLength:
                     TreasureA=landmark.Road
                     self.ClosestLandmark=landmark
-                    self.LandmarkRoad=landmark.Road
                     ShortestRouteLength=len(self.Route)
         return TreasureA
     def Pathfinder(self):
-        self.Route=ShortestPath(self.city, self.CheckPosition(), self.TreasureChecker())
-        self.IteminRoute=1
-        print len(self.Route)
+        self.DistancetoLandmark=2000
+        self.FindRoute=True
+        for landmark in ListOfLandmarks:
+            if landmark.treasure==True:
+                if self.CheckPosition()==landmark.Road:
+                    if landmark.x>self.x1:
+                        if (landmark.x-self.x1)<self.DistancetoLandmark:
+                            self.DistancetoLandmark=landmark.x-self.x1
+                            self.ClosestLandmark=landmark
+                    elif landmark.x<self.x1:
+                        if (self.x1-landmark.x)<self.DistancetoLandmark:
+                            self.DistancetoLandmark=self.x1-landmark.x
+                            self.ClosestLandmark=landmark
+                    self.Route=[]
+                    self.FindRoute=False
+                    self.IteminRoute=1
+        if self.FindRoute==True:
+            self.Route=ShortestPath(self.city, self.CheckPosition(), self.TreasureChecker())
+            self.IteminRoute=1
+            print len(self.Route)
     def Move(self):
         if len(self.Route)-1<self.IteminRoute:
             print "Test 1"
@@ -294,67 +310,6 @@ class Robot:
         self.y2+=self.vy
         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
         self.canvas.update()
-'''        while IteminRoute<len(self.Route):
-            NextRoad=self.Route[IteminRoute]
-            print self.Route[IteminRoute]
-            if NextRoad.height>NextRoad.width:
-                print "Test 4"
-                x_destination=NextRoad.x1+NextRoad.width/2
-                print "X Destination:"+str(x_destination)
-                if x_destination>(self.x1+(self.size/2)):
-                    print "Test 3"
-                    for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
-                        self.x1+=self.speed
-                        self.x2+=self.speed
-                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                        self.canvas.update()
-                        time.sleep(0.01)
-                else: # x_destination<(self.x1+(self.size/2))
-                    for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
-                        print "Test 2"
-                        self.x1-=self.speed
-                        self.x2-=self.speed
-                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                        self.canvas.update()
-                        time.sleep(0.01)
-            else:
-                print "Test 5"
-                y_destination=NextRoad.y1+(NextRoad.height/2)
-                print "Y Destination:"+str(y_destination)
-                if y_destination>(self.y1+(self.size/2)):
-                    print "Test 7"
-                    for t in range(0,int((y_destination-(self.y1+(self.size/2))/self.speed))):
-                        self.y1+=self.speed
-                        self.y2+=self.speed
-                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                        self.canvas.update()
-                        time.sleep(0.01)
-                else: #if y_destination<(self.x1+(self.size/2))
-                    for t in range(0,int(((self.y1+(self.size/2)-y_destination)/self.speed))):
-                        print "Test 8"
-                        self.y1-=self.speed
-                        self.y2-=self.speed
-                        self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                        self.canvas.update()
-                        time.sleep(0.01)
-            IteminRoute+=1
-        #Move to position of landmark on road
-        #if self.CheckPosition() == self.TreasureChecker():
-        self.x_destination=self.ClosestLandmark.x
-        if self.x_destination>(self.x1+(self.size/2)):
-            for t in range(0,int((x_destination-(self.x1+(self.size/2))/self.speed))):
-                self.x1+=self.speed
-                self.x2+=self.speed
-                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                self.canvas.update()
-                time.sleep(0.01)
-        elif x_destination<(self.x1+(self.size/2)):
-            for t in range(0,int(((self.x1+(self.size/2)-x_destination)/self.speed))):
-                self.x1-=self.speed
-                self.x2-=self.speed
-                self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-                self.canvas.update()
-                time.sleep(0.01)'''
 interface = interface(main)
 
 #Roads
@@ -453,9 +408,9 @@ object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
 #Landmarks
-Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False,Road1)
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
-Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",True,Road14)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
 Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
 Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,Road12)
