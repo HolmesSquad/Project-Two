@@ -250,11 +250,11 @@ Landmark9 = Landmarks(366.0,583.0,10.0,20.0,"blue",canvas,"Lucy",False,False)
 Landmark10 = Landmarks(800,583.0,10.0,20.0,"blue",canvas,"Ben",True,False)
 
 #Treasures
-Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
-Treasure2 = Treasure(860.25,358.0,10.0,5.0,"dark green",canvas,False,100)
-Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
-Treasure4 = Treasure(90.0,138.0,10.0,5.0,"dark green", canvas, False,100)
-Treasure5 = Treasure(800.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure1 = Treasure(200.0,578.0,10.0,5.0,"orange",canvas,False,100)
+Treasure2 = Treasure(860.25,358.0,10.0,5.0,"orange",canvas,False,100)
+Treasure3 = Treasure(519.0,138.0,10.0,5.0,"orange",canvas,False,100)
+Treasure4 = Treasure(90.0,138.0,10.0,5.0,"orange", canvas, False,100)
+Treasure5 = Treasure(800.0,578.0,10.0,5.0,"orange",canvas,False,100)
 
 #Lights
 #Column 1
