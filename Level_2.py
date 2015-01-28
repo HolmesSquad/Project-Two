@@ -20,6 +20,8 @@ global Score
 Score = 0
 global TreasureRemaining
 TreasureRemaining = 4
+global Collected
+Collected = 0
 global robowait
 robowait=False
 global pausevx ,pausevy
@@ -145,6 +147,7 @@ class Robot:
         global Score
         global RoboFinished
         global TreasureRemaining
+        global Collected
         for i in ListOfTreasures:
             for Robot in RobotList:
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
@@ -161,11 +164,13 @@ class Robot:
             elif self.ClosestLandmark.x<(self.x1+(self.size/2)):
                 self.vx=-self.speed
                 self.vy=0
-            else:
+             else:
                 self.ClosestLandmark.treasure=False
                 time.sleep(1)
                 Score = Distribution + Score
                 interface.robot1Score_label.config(text = str(Score))
+                Collected = Collected + 1
+                interface.Collected_label.config(text = str(Collected))
                 if Score > 350:
                     RoboFinished = True
                     print ("If statement achieived")
@@ -294,6 +299,12 @@ class interface:
 
         self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))
         self.robot1Score_label.place(x = 1110, y = 420)
+        
+        self.Collected_label = Label(name, text = "Treasures Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.Collected_label.place(x = 1110, y = 480)
+
+        self.Collected_label = Label(name, text = Collected, width = 16, font = ("Arial", 12))
+        self.Collected_label.place(x = 1110, y = 500)
 
     def start(self):
         global resetpressed, RoboFinished
