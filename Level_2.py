@@ -25,6 +25,8 @@ robowait=False
 global pausevx ,pausevy
 pausevx=0
 pausevy=0
+global RoboFinished
+RoboFinished = False
 
 def BFS(route, start, end):
     queue = [(start, [start])]
@@ -141,11 +143,16 @@ class Robot:
             print len(self.Route)
     def Move(self):
         global Score
+        global RoboFinished
         global TreasureRemaining
         for i in ListOfTreasures:
             for Robot in RobotList:
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
                     Treasure.clearTreasure(i,"DarkGrey")
+                    if Score == 400:
+                        RoboFinished = True
+                    else:
+                        RoboFinished = False
                     #ListOfTreasures.remove[i]
         if len(self.Route)-1<self.IteminRoute:
             stopTheBot()
