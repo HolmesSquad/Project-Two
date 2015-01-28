@@ -2,6 +2,7 @@ from Tkinter import *
 import random
 import math
 import time
+
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
@@ -14,6 +15,12 @@ global programispaused
 programispaused= False
 global paused
 paused = False
+global randomColourChangerYellow
+randomColourChangerYellow=0
+global colourChanger
+colourChanger=0
+global robowait
+robowait=False
 
 def DFS(route, start, end): #Graph and start node as arguments
     path=[] #List of nodes in the path 
@@ -59,9 +66,6 @@ class interface:
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
-        self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
-        self.pause_button.place(x = 1110, y = 200)
-
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
@@ -95,17 +99,6 @@ class interface:
         interface.start_button.place_forget()
         interface.counter_label(interface)
         c3po.Move()
-
-    def pause(main):
-        global paused, programispaused, pausebuffer
-        if paused:
-            programispaused = False
-        else:
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused            
 
     def reset(main):
         global counter, resetpressed, RoboFinished
