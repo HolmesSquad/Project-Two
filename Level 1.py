@@ -21,6 +21,8 @@ global colourChanger
 colourChanger=0
 global robowait
 robowait=False
+global RoboFinished
+RoboFinished = False
 
 
 def BFS(route, start, end):
@@ -152,7 +154,7 @@ class interface:
         global counter, resetpressed, pausepressed, colourChanger
         counter==counter
         global RoboFinished
-        RoboFinished==RoboFinished
+        print RoboFinished
         if (RoboFinished != True):
             counter=counter+1
             if colourChanger!=2:
@@ -491,25 +493,30 @@ Light28 = lights(1040, 350, 1060, 370, "Green")
 
 def stopTheBot():
     global robowait
+    global RoboFinished
    
     if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+        
     elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>195) and(c3po.y1<210) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>330) and(c3po.y1<390)and (robowait==True))  or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>485) and(c3po.y1<530)and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>555) and(c3po.y1<605)and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+        
     elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>625) and(c3po.y1<675) and (robowait==True)) or ( (c3po.x1>400) and (c3po.x1<450) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>480) and(c3po.y1<525) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>550) and(c3po.y1<605) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>45) and(c3po.y1<90) and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+        
     elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>115) and(c3po.y1<105) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>195) and(c3po.y1<245) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>335) and(c3po.y1<385) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>480) and(c3po.y1<530) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+       
     elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>630) and(c3po.y1<680) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>480) and(c3po.y1<500) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True))  or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+        
     elif ( (c3po.x1>940) and (c3po.x1<990) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>190) and(c3po.y1<240) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>330) and(c3po.y1<390) and (robowait==True)):
         time.sleep(1)
-        print ("you sleep now")
+
+    if (c3po.x1>41) and (c3po.x1<71) and (c3po.x1>51) and (c3po.x1<99):
+        RoboFinished=True
+        print RoboFinished
+        
     
 
 def flipColour():
