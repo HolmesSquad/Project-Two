@@ -149,14 +149,16 @@ class Robot:
             for Robot in RobotList:
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
                     Treasure.clearTreasure(i,"DarkGrey")
-                    if Score == 400:
+                    print Score
+                    if Score > 350:
                         RoboFinished = True
+                        print ("If statement achieived")
                     else:
                         RoboFinished = False
+                    
                     #ListOfTreasures.remove[i]
         if len(self.Route)-1<self.IteminRoute:
             stopTheBot()
-            print "Test 1"
             if self.ClosestLandmark.x>(self.x1+(self.size/2)):
                 self.vx=self.speed
                 self.vy=0
@@ -355,7 +357,7 @@ class interface:
         global counter, resetpressed, pausepressed, colourChanger
         counter==counter
         global RoboFinished
-        RoboFinished==RoboFinished
+        print RoboFinished
         if (RoboFinished != True):
             counter=counter+1
             if colourChanger!=3:
@@ -368,6 +370,9 @@ class interface:
             main.timerShow_label.after(1000, main.count) 
         else:
             main.counter_stop()
+
+    def counter_stop(main,self):
+        print ("The Program has finished")
 
 
     def counter_label(main,self):
@@ -576,7 +581,7 @@ def stopTheBot():
     elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>115) and(c3po.y1<105) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>195) and(c3po.y1<245) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>335) and(c3po.y1<385) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>480) and(c3po.y1<530) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True)):
         time.sleep(1)
         flipColour()
-    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>630) and(c3po.y1<680) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>480) and(c3po.y1<500) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True))  or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)):
+    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>630) and(c3po.y1<680) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)):
         time.sleep(1)
         flipColour()
     elif ( (c3po.x1>940) and (c3po.x1<990) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>190) and(c3po.y1<240) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>330) and(c3po.y1<390) and (robowait==True)):
