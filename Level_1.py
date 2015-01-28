@@ -23,6 +23,8 @@ global robowait
 robowait=False
 global RoboFinished
 RoboFinished = False
+global Score
+Score=0
 
 
 def BFS(route, start, end):
@@ -88,11 +90,9 @@ class interface:
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
-        self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
-        self.pause_button.place(x = 1110, y = 200)
+    
 
-        self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
-        self.reset_button.place(x = 1110, y = 250)
+       
 
         self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
         self.nextLevel_button.place(x = 1110, y = 300)
@@ -128,24 +128,9 @@ class interface:
                     Robot.Move()
                     time.sleep(0.0025)
 
-    def pause(main):
-        global paused, programispaused, pausebuffer
-        if paused:
-            programispaused = False
-        else:
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused            
+              
 
-    def reset(main):
-        global counter, resetpressed, RoboFinished
-        counter = 0
-        main.timerShow_label.config(text = str(counter))
-        resetpressed = True
-        interface.start_button.place(x = 1110, y = 150)
-        RoboFinished = True
+    
 
     def nextLevel(self):
         print "Next Level"
@@ -167,6 +152,12 @@ class interface:
             main.timerShow_label.after(1000, main.count) 
         else:
             main.counter_stop()
+
+    def counter_stop(main):
+        print ("the program has finished")
+        Score=100
+        interface.robot1Score_label.config(text = str(Score))
+        interface.treasureShow_label.config(text= "0")
 
     def counter_label(main,self):
         
