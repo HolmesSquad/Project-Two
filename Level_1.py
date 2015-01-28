@@ -90,7 +90,7 @@ class interface:
 
         self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
         self.pause_button.place(x = 1110, y = 200)
-#ndmarks(
+
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
