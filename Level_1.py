@@ -21,6 +21,9 @@ global colourChanger
 colourChanger=0
 global robowait
 robowait=False
+global RoboFinished
+RoboFinished = False
+
 
 def BFS(route, start, end):
     queue = [(start, [start])]
@@ -37,9 +40,9 @@ def ShortestPath(route, start, end):
         return next(BFS(route, start, end))
     except StopIteration:
         return None
-        
-class objects: #The objects class defines that objects which populate the map
-    def __init__(self,x,y,length,width,colour,canvas):#The constructor which is used to create the objects on the map
+
+class objects:
+    def __init__(self,x,y,length,width,colour,canvas):
         global ObjectList
         self.x = x
         self.y = y
@@ -55,14 +58,29 @@ class Landmarks(objects):
         self.Id=Id
         self.treasure=treasure
         self.Road=Road
-
         
-class Treasure(objects):#The Treasure class inherits the attributes of the objects with its own attributes
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):# The constructor which is used to create the Treasueres
+class Treasure(objects):
+    
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):
         objects.__init__(self,x,y,length,width,colour,canvas)
+        
         self.Found = Found
         self.points = points
         
+
+class lights:
+
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
 
 class interface:
 
@@ -70,14 +88,14 @@ class interface:
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
+        self.pause_button = Button(name, text = "Pause/Unpause", width = 20, command = self.pause, bg = "Light Blue")
+        self.pause_button.place(x = 1110, y = 200)
+#ndmarks(
         self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
         self.reset_button.place(x = 1110, y = 250)
 
-        self.level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
-        self.level2_button.place(x = 1110, y = 300)
-
-        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
-        self.level3_button.place(x = 1110, y = 350)
+        self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
+        self.nextLevel_button.place(x = 1110, y = 300)
 
         self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
         self.timerShow_label.place(x = 1170, y = 30)
@@ -92,17 +110,34 @@ class interface:
         self.treasureShow_label.place(x = 1110, y = 100)
 
         self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 400)
+        self.robot1Score_label.place(x = 1110, y = 350)
 
         self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
-        self.robot1Score_label.place(x = 1110, y = 420)
+        self.robot1Score_label.place(x = 1110, y = 370)
         
     def start(self):
         global resetpressed, RoboFinished
         print "Start"
         interface.start_button.place_forget()
         interface.counter_label(interface)
-        c3po.Move()
+        for t in range (0,10000):
+            for Robot in RobotList:
+                if Robot.vx==0 and Robot.vy==0:
+                    break
+                else:
+                    Robot.Move()
+                    time.sleep(0.0025)
+
+    def pause(main):
+        global paused, programispaused, pausebuffer
+        if paused:
+            programispaused = False
+        else:
+            pausebuffer = 1
+            main.pause_button.place_forget()
+            programispaused = True
+            main.negcounter()          
+        paused = not paused            
 
     def reset(main):
         global counter, resetpressed, RoboFinished
@@ -112,32 +147,26 @@ class interface:
         interface.start_button.place(x = 1110, y = 150)
         RoboFinished = True
 
-    def level2(self):
-        main.destroy()
-        import Level_2
-        
-    def level3(self):
-        main.destroy()
-        import Level_3
+    def nextLevel(self):
+        print "Next Level"
 
     def count(main):
-        global counter, resetpressed, pausepressed
+        global counter, resetpressed, pausepressed, colourChanger
         counter==counter
         global RoboFinished
-        RoboFinished==RoboFinished
+        print RoboFinished
         if (RoboFinished != True):
             counter=counter+1
+            if colourChanger!=2:
+                colourChanger=colourChanger+1
+                print ("colourChanger",colourChanger)
+            else:
+                colourChanger=0
             main.timerShow_label.config(text = str(counter))
+            flipColour()
             main.timerShow_label.after(1000, main.count) 
-        elif resetpressed == True:
-            print resetpressed
-            counter=0
-            resetpressed= False
-        elif pausepressed== True:
-            print "Wololol 2"
         else:
-            print "help"
-            main.cstop()
+            main.counter_stop()
 
     def counter_label(main,self):
         
@@ -156,20 +185,6 @@ class interface:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
-
-class lights(interface):
-
-    def __init__(self,x0,y0,x1,y1,colour):
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
-
-    def change_colour(self, colour):
-        canvas.itemconfig(self.object, fill=colour)
-        canvas.update()
 
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
@@ -325,41 +340,39 @@ class Robot:
         self.canvas.update()
 interface = interface(main)
 
-Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey", canvas)
-
 #Roads
-Road1=Road('Road1',10,45,1070,40)
+Road1=Road('Road1',10,45,1070,40) 
 Road2=Road('Road2',10,45,40,630)
 Road3=Road('Road3',1040,45,40,480)
 Road4=Road('Road4',945,45,40,190)
 Road5=Road('Road5',945,195,135,40)
 Road6=Road('Road6',10,195,900,40)
 Road7=Road('Road7',870,45,40,190)
-Road8=Road('Road8',479,45,40,190)
 Road9=Road('Road9',404,45,40,115)
 Road10=Road('Road10',10,120,434,40)
 Road11=Road('Road11',231.25,120,40,405)
 Road12=Road('Road12',479,120,431,40)
 Road13=Road('Road13',10,340,1070,40)
 Road14=Road('Road14',10,485,1070,40)
-Road15=Road('Road15',450.25,195,40,330)
+Road15=Road('Road15',479,45,40,480)
 Road16=Road('Road16',10,560,900,40)
 Road17=Road('Road17',326,485,40,115)
 Road18=Road('Road18',717,485,40,115)
 Road19=Road('Road19',10,635,900,40)
 Road20=Road('Road20',230.25,560,40,115)
-Road21=Road('Road21',479,560,40,115)
-Road22=Road('Road22',870,560,40,115)
+Road21=Road('Road21',479,560,40,115) 
+Road22=Road('Road22',870,560,40,115) 
+Road20=Road('Road20',230.25,560,40,115)
 
-Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
 
-#Objects 
+#Objects & Landmarks
 #Top Row
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
-object4 = objects(870.0,15.0,210.0,25.0, "red",canvas)
+object4 = objects(870.0,15.0,210.0,25.0, "Red",canvas)
 
 #second row
 pave2 = objects(50.0,85.0,354.0,35.0, "Light Grey",canvas)
@@ -370,8 +383,8 @@ pave4 = objects(519.0,85.0,351.0,35.0,"Light Grey",canvas)
 object7 = objects(524.0,90.0,341.0,25.0,"Red",canvas)
 pave5 = objects(910.0,85.0,35.0,150.0,"Light Grey",canvas)
 object8 = objects(915.0,90.0,25.0,140.0,"Red",canvas)
-pave6 = objects(985.0,85.0,35.0,110.0,"Light Grey",canvas)
-object9 = objects(990.0,90.0,25.0,100.0, "Red",canvas)
+pave6 = objects(985.0,85.0,55.0,110.0,"Light Grey",canvas)
+object9 = objects(990.0,90.0,45.0,100.0, "Red",canvas)
 
 #Third Row
 pave7 = objects(50.0,160.0,180.25,35.0,"Light Grey", canvas)
@@ -384,18 +397,18 @@ object12 = objects(524.0,165.0,341.0,25.0,"Red",canvas)
 #Fourth Row
 pave10 = objects(50.0,235.0,180.25,105.0, "Light Grey", canvas)
 object13 = objects(55.0,240.0,170.25,95.0, "red", canvas)
-pave11 = objects(270.25, 235.0, 199.25,105.0, "Light Grey",canvas)
-object14 = objects(275.0, 240.0,189.0,95.0, "Red",canvas)
-pave12 = objects(524.25,235.0,510.75,105.0, "Light Grey",canvas)
-object15 = objects(529.25,240.0,500.75,95.0, "Red",canvas)
+pave11 = objects(270.25, 235.0, 208.75,105.0, "Light Grey",canvas)
+object14 = objects(275.0, 240.0,198.5,95.0, "Red",canvas)
+pave12 = objects(524.25,235.0,515.75,105.0, "Light Grey",canvas)
+object15 = objects(529.25,240.0,505.75,95.0, "Red",canvas)
 
 #Fifth Row
 pave21 = objects(50.0,380.0,180.25,105.0, "Light Grey",canvas)
 object27 = objects(55.0,385.0,170.25,95.0, "Red", canvas)
-pave22 = objects(270.25, 380.0, 199.25,105.0, "Light Grey",canvas)
-object28 = objects(275.0, 385.0,189.0,95.0, "Red",canvas)
-pave23 = objects(524.25,380.0,510.75,105.0, "Light Grey",canvas)
-object29 = objects(529.0,385.0,500.75,95.0, "red",canvas)
+pave22 = objects(270.25, 380.0, 208.75,105.0, "Light Grey",canvas)
+object28 = objects(275.0, 385.0,198.5,95.0, "Red",canvas)
+pave23 = objects(524.25,380.0,515.75,105.0, "Light Grey",canvas)
+object29 = objects(529.0,385.0,505.75,95.0, "Red",canvas)
 
 #Sixth Row
 pave13 = objects(50.0,525.0,276.5,35.0, "Light Grey",canvas)
@@ -405,7 +418,7 @@ object17 = objects(371.0,530.0,341.0,25.0,"Red",canvas)
 pave15 = objects(757.0,525.0,153.0,35.0, "Light Grey", canvas)
 object18 = objects(762.0,530.0,143.0,25.0,"Red",canvas)
 pave16 = objects(910.0,525.0,170.0,150.0, "Light Grey",canvas)
-object19 = objects(915.0,530.0,160.0,140.0, "red",canvas)
+object19 = objects(915.0,530.0,160.0,140.0, "Red",canvas)
 
 #Seventh Row
 pave17 = objects(50.0,600.0,180.25,35.0,"Light Grey",canvas)
@@ -423,16 +436,15 @@ object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
 #Landmarks
-Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,False)
-Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,False)
-Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,False)
-Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,False)
-Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,False)
-Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,False)
+Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
+Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
+Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
+Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
+Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
+Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,Road12)
 ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6]
-
 #Treasures
-Treasure1 = Treasure(55.0,62.0,10.0,5.0,"orange",canvas,False,100)
+Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
 
 #Lights
 #Column 1
@@ -479,104 +491,104 @@ Light26 = lights(955, 55, 975, 75, "Green")
 Light27 = lights(1040, 205, 1060, 225, "Green")
 Light28 = lights(1040, 350, 1060, 370, "Green")
 
-#change light colour
-def flipColour():
-    
-    
-    randomColourChanger=random.randrange(1,7)
-    print randomColourChanger
-    #group 1
-    if randomColourChanger==1:
-        Light1.change_colour("Red")
-        Light8.change_colour("Red")
-        Light13.change_colour("Red")
-        Light26.change_colour("Red")
-        canvas.update()
-    else:
-        Light1.change_colour("Green")
-        Light8.change_colour("Green")
-        Light13.change_colour("Green")
-        Light26.change_colour("Green")
-        canvas.update()
+def stopTheBot():
+    global robowait
+    global RoboFinished
+   
+    if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
+        time.sleep(1)
+        
+    elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>195) and(c3po.y1<210) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>330) and(c3po.y1<390)and (robowait==True))  or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>485) and(c3po.y1<530)and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>555) and(c3po.y1<605)and (robowait==True)):
+        time.sleep(1)
+        
+    elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>625) and(c3po.y1<675) and (robowait==True)) or ( (c3po.x1>400) and (c3po.x1<450) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>480) and(c3po.y1<525) and (robowait==True)) or ( (c3po.x1>320) and (c3po.x1<370) and (c3po.y1>550) and(c3po.y1<605) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>45) and(c3po.y1<90) and (robowait==True)):
+        time.sleep(1)
+        
+    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>115) and(c3po.y1<105) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>195) and(c3po.y1<245) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>335) and(c3po.y1<385) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>480) and(c3po.y1<530) and (robowait==True)) or ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True)):
+        time.sleep(1)
+       
+    elif ( (c3po.x1>475) and (c3po.x1<520) and (c3po.y1>630) and(c3po.y1<680) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>480) and(c3po.y1<500) and (robowait==True)) or ( (c3po.x1>710) and (c3po.x1<760) and (c3po.y1>555) and(c3po.y1<605) and (robowait==True))  or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>865) and (c3po.x1<915) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)):
+        time.sleep(1)
+        
+    elif ( (c3po.x1>940) and (c3po.x1<990) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>190) and(c3po.y1<240) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>330) and(c3po.y1<390) and (robowait==True)):
+        time.sleep(1)
 
-    #group 2
-    if randomColourChanger==2:
-            Light2.change_colour("Red")
-            Light9.change_colour("Red")
-            Light14.change_colour("Red")
-            Light27.change_colour("Red")
-            canvas.update()
-    else:
-            Light2.change_colour("Green")
-            Light9.change_colour("Green")
-            Light14.change_colour("Green")
-            Light27.change_colour("Green")
-            canvas.update()
-    #group 3
-    if randomColourChanger==3:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 4
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 5
-    if randomColourChanger==4:
-            Light4.change_colour("Red")
-            Light11.change_colour("Red")
-            Light16.change_colour("Red")
-            Light25.change_colour("Red")
-            canvas.update()
-    else:
-            Light4.change_colour("Green")
-            Light11.change_colour("Green")
-            Light16.change_colour("Green")
-            Light25.change_colour("Green")
-            canvas.update()
-    #group 6
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
-    #group 7
-    if randomColourChanger==4:
-            Light3.change_colour("Red")
-            Light10.change_colour("Red")
-            Light15.change_colour("Red")
-            Light28.change_colour("Red")
-            canvas.update()
-    else:
-            Light3.change_colour("Green")
-            Light10.change_colour("Green")
-            Light15.change_colour("Green")
-            Light28.change_colour("Green")
-            canvas.update()
+    if (c3po.x1>41) and (c3po.x1<71) and (c3po.x1>51) and (c3po.x1<99):
+        RoboFinished=True
+        print RoboFinished
+        
+    
+
+def flipColour():
+    global robowait
+    
+    
+    
+
+    #group 1
+    if colourChanger==1:
+        robowait=True
+        Light1.change_colour("Red")
+        Light2.change_colour("Red")
+        Light3.change_colour("Red")
+        Light4.change_colour("Red")
+        Light5.change_colour("Red")
+        Light6.change_colour("Red")
+        Light7.change_colour("Red")
+        Light8.change_colour("Red")
+        Light9.change_colour("Red")
+        Light10.change_colour("Red")
+        Light11.change_colour("Red")
+        Light12.change_colour("Red")
+        Light13.change_colour("Red")
+        Light14.change_colour("Red")
+        Light15.change_colour("Red")
+        Light16.change_colour("Red")
+        Light17.change_colour("Red")
+        Light18.change_colour("Red")
+        Light19.change_colour("Red")
+        Light20.change_colour("Red")
+        Light21.change_colour("Red")
+        Light22.change_colour("Red")
+        Light23.change_colour("Red")
+        Light24.change_colour("Red")
+        Light25.change_colour("Red")
+        Light26.change_colour("Red")
+        Light27.change_colour("Red")
+        Light28.change_colour("Red")
+        canvas.update()
+    if colourChanger==2:
+        c3po.speed=1
+        robowait=False
+        Light1.change_colour("Green")
+        Light2.change_colour("Green")
+        Light3.change_colour("Green")
+        Light4.change_colour("Green")
+        Light5.change_colour("Green")
+        Light6.change_colour("Green")
+        Light7.change_colour("Green")
+        Light8.change_colour("Green")
+        Light9.change_colour("Green")
+        Light10.change_colour("Green")
+        Light11.change_colour("Green")
+        Light12.change_colour("Green")
+        Light13.change_colour("Green")
+        Light14.change_colour("Green")
+        Light15.change_colour("Green")
+        Light16.change_colour("Green")
+        Light17.change_colour("Green")
+        Light18.change_colour("Green")
+        Light19.change_colour("Green")
+        Light20.change_colour("Green")
+        Light21.change_colour("Green")
+        Light22.change_colour("Green")
+        Light23.change_colour("Green")
+        Light24.change_colour("Green")
+        Light25.change_colour("Green")
+        Light26.change_colour("Green")
+        Light27.change_colour("Green")
+        Light28.change_colour("Green")
+
 
 #Robot
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
@@ -584,5 +596,6 @@ c3po.RandomPosition()
 c3po.drawRobot()
 c3po.Pathfinder()
 RobotList = [c3po]
+
 
 main.mainloop()
