@@ -118,6 +118,13 @@ class interface:
         print "Start"
         interface.start_button.place_forget()
         interface.counter_label(interface)
+        for t in range (0,10000):
+            for Robot in RobotList:
+                if Robot.vx==0 and Robot.vy==0:
+                    break
+                else:
+                    Robot.Move()
+                    time.sleep(0.0025)
 
     def pause(main):
         global paused, programispaused, pausebuffer
@@ -583,11 +590,5 @@ c3po.drawRobot()
 c3po.Pathfinder()
 RobotList = [c3po]
 
-for t in range (0,10000):
-    for Robot in RobotList:
-        if Robot.vx==0 and Robot.vy==0:
-            break
-        else:
-            Robot.Move()
-            time.sleep(0.0025)
+
 main.mainloop()
