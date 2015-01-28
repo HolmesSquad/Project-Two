@@ -94,6 +94,7 @@ class interface:
         print "Start"
         interface.start_button.place_forget()
         interface.counter_label(interface)
+        c3po.Move()
 
     def pause(main):
         global paused, programispaused, pausebuffer
@@ -524,6 +525,6 @@ def flipColour():
 c3po = Robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.RandomPosition()
 c3po.drawRobot()
-c3po.Move()
+
 
 main.mainloop()
