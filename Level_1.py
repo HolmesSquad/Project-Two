@@ -49,12 +49,12 @@ class objects: #The objects class defines that objects which populate the map
         self.canvas=canvas   
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class Landmarks(objects):#The landmark class inherits the attributes from the objects class, with added attributes 
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,visited):#The constructor used to create the landmars
+class Landmarks(objects):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
-        self.visited=visited
+        self.Road=Road
 
         
 class Treasure(objects):#The Treasure class inherits the attributes of the objects with its own attributes
