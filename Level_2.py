@@ -150,11 +150,7 @@ class Robot:
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
                     Treasure.clearTreasure(i,"DarkGrey")
                     print Score
-                    if Score > 350:
-                        RoboFinished = True
-                        print ("If statement achieived")
-                    else:
-                        RoboFinished = False
+                    
                     
                     #ListOfTreasures.remove[i]
         if len(self.Route)-1<self.IteminRoute:
@@ -170,6 +166,11 @@ class Robot:
                 time.sleep(1)
                 Score = Distribution + Score
                 interface.robot1Score_label.config(text = str(Score))
+                if Score > 350:
+                    RoboFinished = True
+                    print ("If statement achieived")
+                else:
+                    RoboFinished = False
                 TreasureRemaining = TreasureRemaining - 1
                 interface.treasureShow_label.config(text = str(TreasureRemaining))            
                 for landmark in ListOfLandmarks:
@@ -371,7 +372,7 @@ class interface:
         else:
             main.counter_stop()
 
-    def counter_stop(main,self):
+    def counter_stop(main):
         print ("The Program has finished")
 
 
