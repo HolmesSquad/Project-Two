@@ -1,4 +1,4 @@
-from Tkinter import *
+ffrom Tkinter import *
 import random
 import time
 main = Tk(className = "Level 2")
@@ -16,10 +16,10 @@ global randomColourChangerYellow
 randomColourChangerYellow=0
 global colourChanger
 colourChanger=0
-global Score
-Score = 0
-global Score1
-Score1 = 0
+global ScoreW
+ScoreW = 0
+global ScoreY
+ScoreY = 0
 global TreasureRemaining
 TreasureRemaining = 4
 global robowait
@@ -144,16 +144,16 @@ class Robot:
             self.IteminRoute=1
             print len(self.Route)
     def Move(self):
-        global Score
-        global Score1
+        global ScoreY
+        global ScoreW
         global RoboFinished
         global TreasureRemaining
         for i in ListOfTreasures:
             for Robot in RobotList:
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
                     Treasure.clearTreasure(i,"DarkGrey")
-                    print Score
-                    if Score > 350:
+                    
+                    if ScoreW > 350 or ScoreY > 350:
                         RoboFinished = True
                         print ("If statement achieived")
                     else:
@@ -171,10 +171,10 @@ class Robot:
             else:
                 self.ClosestLandmark.treasure=False
                 time.sleep(1)
-                ScoreY = Distribution + Score
-                ScoreW = Distribution + Score
+                ScoreY = Distribution + ScoreY
+                ScoreW = Distribution + ScoreW
                 interface.robot1Score_label.config(text = str(ScoreY))
-                interface.robot1Score_label.config(text = str(ScoreW))
+                interface.robot2Score_label.config(text = str(ScoreW))
                 TreasureRemaining = TreasureRemaining - 1
                 interface.treasureShow_label.config(text = str(TreasureRemaining))
                 self.ClosestLandmark.treasure=False
@@ -253,7 +253,7 @@ class Treasure(objects): #class that defines the Treasures that are hidden in se
         
         self.Found = Found
         self.points = points
-        self.points2 = points2
+
 
     def clearTreasure(self, colour="DarkGrey"):
         canvas.itemconfig(self.object, fill=colour,width=0)
@@ -298,13 +298,13 @@ class interface:
         self.robot1Score_label = Label(name, text = "Yellow Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
         self.robot1Score_label.place(x = 1110, y = 400)
 
-        self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))
+        self.robot1Score_label = Label(name, text = ScoreY, width = 16, font = ("Arial", 12))
         self.robot1Score_label.place(x = 1110, y = 420)
 
         self.robot2Score_label = Label(name, text = "White Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
         self.robot2Score_label.place(x = 1110, y = 480)
 
-        self.robot2Score_label = Label(name, text = Score1, width = 16, font = ("Arial", 12))
+        self.robot2Score_label = Label(name, text = ScoreW, width = 16, font = ("Arial", 12))
         self.robot2Score_label.place(x = 1110, y = 500)
 
     def start(self):
