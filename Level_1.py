@@ -374,7 +374,7 @@ Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,False)
 Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",True,False)
 
 #Treasures
-Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
+Treasure1 = Treasure(55.0,62.0,10.0,5.0,"orange",canvas,False,100)
 
 #Lights
 #Column 1
