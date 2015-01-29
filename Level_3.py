@@ -1,4 +1,4 @@
-ffrom Tkinter import *
+from Tkinter import *
 import random
 import time
 main = Tk(className = "Level 2")
@@ -150,16 +150,23 @@ class Robot:
         global TreasureRemaining
         for i in ListOfTreasures:
             for Robot in RobotList:
-                if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
-                    Treasure.clearTreasure(i,"DarkGrey")
+                if (i.x >= c3po.x1 and (i.x+i.width)<=c3po.x2) and (i.y >= c3po.y1 and (i.y+i.length)<=c3po.y2) and i.Found == False:
+                    Treasure.clearTreasure1(i,"DarkGrey")
+                    TreasureRemaining = TreasureRemaining - 1
+                    interface.treasureShow_label.config(text = str(TreasureRemaining))
+
+                if (i.x >= r2d2.x1 and (i.x+i.width)<=r2d2.x2) and (i.y >= r2d2.y1 and (i.y+i.length)<=r2d2.y2) and i.Found == False:
+                    Treasure.clearTreasure2(i,"DarkGrey")
+                    TreasureRemaining = TreasureRemaining - 1
+                    interface.treasureShow_label.config(text = str(TreasureRemaining))
+
                     
                     if ScoreW > 350 or ScoreY > 350:
                         RoboFinished = True
-                        print ("If statement achieived")
                     else:
                         RoboFinished = False
+               
                     
-                    #ListOfTreasures.remove[i]
         if len(self.Route)-1<self.IteminRoute:
             stopTheBot()
             if self.ClosestLandmark.x>(self.x1+(self.size/2)):
@@ -171,12 +178,7 @@ class Robot:
             else:
                 self.ClosestLandmark.treasure=False
                 time.sleep(1)
-                ScoreY = Distribution + ScoreY
-                ScoreW = Distribution + ScoreW
-                interface.robot1Score_label.config(text = str(ScoreY))
-                interface.robot2Score_label.config(text = str(ScoreW))
-                TreasureRemaining = TreasureRemaining - 1
-                interface.treasureShow_label.config(text = str(TreasureRemaining))
+                
                 self.ClosestLandmark.treasure=False
                 for landmark in ListOfLandmarks:
                     if landmark.treasure==True:
@@ -255,9 +257,25 @@ class Treasure(objects): #class that defines the Treasures that are hidden in se
         self.points = points
 
 
-    def clearTreasure(self, colour="DarkGrey"):
+    def clearTreasure1(self, colour="DarkGrey"):
+        global ScoreY
         canvas.itemconfig(self.object, fill=colour,width=0)
+        ScoreY = self.points + ScoreY
+        self.points = 0
+        interface.robot1Score_label.config(text = str(ScoreY))
+        self.Found = True
         canvas.update()
+        
+    def clearTreasure2(self, colour="DarkGrey"):
+        global ScoreW
+        canvas.itemconfig(self.object, fill=colour,width=0)
+        ScoreW = self.points + ScoreW
+        self.points = 0 
+        interface.robot2Score_label.config(text = str(ScoreW))
+        self.Found = True
+
+        canvas.update()
+        
 
                              
         
@@ -404,7 +422,8 @@ class interface:
             if pausebuffer<0:
                 main.pause_button.place(x = 1110, y = 200)
             main.timerShow_label.after(1000, main.negcounter)
-        else: print "placeholder"
+        else:
+            print "placeholder"
 
 
 class lights(interface):
