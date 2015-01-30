@@ -42,8 +42,8 @@ def ShortestPath(route, start, end):
     except StopIteration:
         return None
 
-class objects:
-    def __init__(self,x,y,length,width,colour,canvas):
+class objects: #This class is used for the obstacles the robot needs to avoid
+    def __init__(self,x,y,length,width,colour,canvas): #This is the constructor which is used to actually create the obstacles
         global ObjectList
         self.x = x
         self.y = y
@@ -53,16 +53,16 @@ class objects:
         self.canvas=canvas   
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
 
-class Landmarks(objects):
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
+class Landmarks(objects): #This is the class which is used for the landmarks the robot needs to visit
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):# This is the constructor which is used to generate the landmarks and place them on the map
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
         self.Road=Road
         
-class Treasure(objects):
+class Treasure(objects): # This is the class which is used for the treasure that the robot needs to collect
     
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which is used to generate the treasure for the robot to find
         objects.__init__(self,x,y,length,width,colour,canvas)
         
         self.Found = Found
@@ -356,8 +356,10 @@ Road20=Road('Road20',230.25,560,40,115)
 Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road9,Road10,Road11,Road12,Road13,Road14,Road15,Road16,Road17,Road18,Road19,Road20,Road21,Road22]
 
 #Objects & Landmarks
+#The following section of code utilises the constructor saw earlier on in the program to create objects for the robot to avoid
 #Top Row
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
+#Everything encased in brackets relates to a variable pre defined in the constructor
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
@@ -425,7 +427,10 @@ object25 = objects(580.0,680.0,200.0,25.0, "Red",canvas)
 object26 = objects(870.0,680.0,210.0,25.0, "Red",canvas)
 
 #Landmarks
+#This section of code relates to the constructor in the landmark class, it generates landmarks that the robot should visit
+#if a treasure is present
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",True,Road1)
+#Everything encased in brackets relates to a variable pre-defined in the constructor
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",False,Road16)
 Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
@@ -433,7 +438,10 @@ Landmark5 = Landmarks(990.0,67.0,10.0,20.0,"blue",canvas,"Pete",False,Road1)
 Landmark6 = Landmarks(519.0,143.0,10.0,20.0,"blue",canvas,"Rose",False,Road12)
 ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6]
 #Treasures
+#This section of code relates to the constructor in the Treasure class, it generates treasures that the robot should
+#collected
 Treasure1 = Treasure(55.0,62.0,10.0,5.0,"dark green",canvas,False,100)
+#Everything encased in brackets relates to a variable pre-defined in the constructor
 
 #Lights
 #Column 1
