@@ -156,13 +156,21 @@ class Robot:
         global TreasureRemaining
         for i in ListOfTreasures:
             for Robot in RobotList:
+                #This statement checks if the treasures coordinates are greater than or less that specifc coordinates
+                #of one of the robot, if everything is correct
                 if (i.x >= c3po.x1 and (i.x+i.width)<=c3po.x2) and (i.y >= c3po.y1 and (i.y+i.length)<=c3po.y2) and i.Found == False:
+                    #it then runs this function which is defined later on in the program
                     Treasure.clearTreasure1(i,"DarkGrey")
+                    #This code updates the variable "TreasureRemaining" so the label for the amount of treasures 
+                    #remaining is updated by - 1
                     TreasureRemaining = TreasureRemaining - 1
                     interface.treasureShow_label.config(text = str(TreasureRemaining))
+                    #This code updates the variable "YCollected" by + 1 so the label for the amount of treasure that 
+                    #robot has collected is updated
                     YCollected = YCollected + 1
                     interface.YCollected_label.config(text = str(YCollected))
-
+                    #This section works the same as the previous statement but with the second robot and all its related 
+                    #labels and variables
                 if (i.x >= r2d2.x1 and (i.x+i.width)<=r2d2.x2) and (i.y >= r2d2.y1 and (i.y+i.length)<=r2d2.y2) and i.Found == False:
                     Treasure.clearTreasure2(i,"DarkGrey")
                     TreasureRemaining = TreasureRemaining - 1
@@ -241,7 +249,7 @@ class Robot:
 
 class objects: #class that defines the objects that populate the map
 
-    def __init__(self,x,y,length,width,colour,canvas):
+    def __init__(self,x,y,length,width,colour,canvas):#This is the constructor which generates the objects on the map
         self.x = x
         self.y = y
         self.length = length
@@ -250,8 +258,10 @@ class objects: #class that defines the objects that populate the map
         self.canvas=canvas
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
         
-class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
+class Landmark(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road): #This is the constructor which generates the 
+                                                                        #landmarks the robot should visit, if a treasure
+                                                                        #is present
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
@@ -259,7 +269,8 @@ class Landmarks(objects): #class that defines the Landmarks that may contain tre
 
 class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
     
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which generates the treasures
+                                                                    #the robot should collect
         objects.__init__(self,x,y,length,width,colour,canvas)
         
         self.Found = Found
@@ -267,15 +278,21 @@ class Treasure(objects): #class that defines the Treasures that are hidden in se
 
 
     def clearTreasure1(self, colour="DarkGrey"):
+        # this function is for robot 1, it is run if the robot collects a treasure.
         global ScoreY
+        #it then creates the illustion the treasure has been removed from the map
         canvas.itemconfig(self.object, fill=colour,width=0)
+        #and updates the variable "ScoreY" by the amount of points that have been given when creating a specific treasure
         ScoreY = self.points + ScoreY
         self.points = 0
+        #It then updates the score label
         interface.robot1Score_label.config(text = str(ScoreY))
+        #and sets the treasure to "Found"
         self.Found = True
         canvas.update()
         
     def clearTreasure2(self, colour="DarkGrey"):
+        #This function works the same as the previous one, only its for robot 2 and all its related labels and variables
         global ScoreW
         canvas.itemconfig(self.object, fill=colour,width=0)
         ScoreW = self.points + ScoreW
@@ -414,7 +431,9 @@ Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey",canvas)
 
 
 #Top Row
+#This section of code utilises the constructor in the object class to generate objects the robot should avoid
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
+#everything encased in the brackets relates to a variable pre-defined in the Object class
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
@@ -501,7 +520,10 @@ Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road1
 
 
 #Landmarks
+#This section of code uses the constructor in the the landmark class to generate the landmarks the robot should visit
+#if a treasure is present
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False,Road1)
+#Everything encased in brackets relates to variables pre-defined in the landmark class
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True,Road16)
 Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
@@ -516,7 +538,9 @@ ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6,Lan
 
 
 #Treasures
+#This section utilises the constructor in the treasure class to create the treasures the robot should collect
 Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+#everything encased in brackets relates to a variable pre-defined in the treasure class
 Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
 Treasure4 = Treasure(90.0,138.0,10.0,5.0,"dark green", canvas, False,100)
 Treasure5 = Treasure(800.0,578.0,10.0,5.0,"dark green",canvas,False,100)
