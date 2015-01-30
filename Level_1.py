@@ -1,20 +1,11 @@
 from Tkinter import *
 import random
-import math
 import time
 
 main = Tk(className = "Level 1")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
 
-global resetpressed
-resetpressed=False
-global pausepressed
-pausepressed=False
-global programispaused
-programispaused= False
-global paused
-paused = False
 global randomColourChangerYellow
 randomColourChangerYellow=0
 global colourChanger
@@ -26,7 +17,7 @@ RoboFinished = False
 global Score
 Score=0
 
-def BFS(route, start, end):
+def breadthFirstSearch(route, start, end):
     queue = [(start, [start])]
     while queue:
         (vertex, path) = queue.pop(0)
@@ -38,134 +29,10 @@ def BFS(route, start, end):
 
 def shortestPath(route, start, end):
     try:
-        return next(BFS(route, start, end))
+        return next(breadthFirstSearch(route, start, end))
     except StopIteration:
         return None
 
-class Object: #This class is used for the obstacles the robot needs to avoid
-    def __init__(self,x,y,length,width,colour,canvas): #This is the constructor which is used to actually create the obstacles
-        global ObjectList
-        self.x = x
-        self.y = y
-        self.length = length
-        self.width = width
-        self.colour = colour
-        self.canvas=canvas   
-        self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
-
-class landmark(Object): #This is the class which is used for the landmarks the robot needs to visit
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):# This is the constructor which is used to generate the landmarks and place them on the map
-        Object.__init__(self,x,y,length,width,colour,canvas)
-        self.Id=Id
-        self.treasure=treasure
-        self.Road=Road
-        
-class treasure(Object): # This is the class which is used for the treasure that the robot needs to collect
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which is used to generate the treasure for the robot to find
-        Object.__init__(self,x,y,length,width,colour,canvas)
-        self.Found = Found
-        self.points = points
-        
-class interface: #This is the class for all interface elements
-    def __init__(self, name):
-        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")#This is the constructor for the start button 
-        self.start_button.place(x = 1110, y = 150)#Places the button at those x & y coords       
-
-        self.Level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
-        self.Level2_button.place(x = 1110, y = 250)
-
-        self.Level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
-        self.Level3_button.place(x = 1110, y = 300)
-
-        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
-        self.timerShow_label.place(x = 1170, y = 30)
-
-        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
-        self.timer_label.place(x = 1110, y = 30)
-
-        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
-        self.treasures_label.place(x = 1110, y = 70)
-
-        self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
-        self.treasureShow_label.place(x = 1110, y = 100)
-
-        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 350)
-
-        self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
-        self.robot1Score_label.place(x = 1110, y = 370)
-        
-    def start(self):#Starts the robot and timer
-        global resetpressed, RoboFinished
-        interface.start_button.place_forget()#Makes the button disappear when the button is pressed
-        interface.counterLabel(interface)
-        for t in range (0,10000):
-            for robot in RobotList:
-                if robot.vx==0 and robot.vy==0:
-                    break
-                else:
-                    robot.move()
-                    time.sleep(0.0025)
-
-    def level2():
-        destroy.main()#Destroys the window
-        import Level_2 #Imports Level 2
-
-    def level3():
-        destroy.main()
-        import Level_3
-
-    def count(main):
-        global counter, resetpressed, pausepressed, colourChanger
-        counter==counter
-        global RoboFinished
-        if (RoboFinished != True):
-            counter=counter+1
-            if colourChanger!=2:
-                colourChanger=colourChanger+1
-            else:
-                colourChanger=0
-            main.timerShow_label.config(text = str(counter))
-            flipColour()
-            main.timerShow_label.after(1000, main.count) 
-        else:
-            main.counterStop()
-
-    def counterStop(main):
-        Score=100
-        interface.robot1Score_label.config(text = str(Score))
-        interface.treasureShow_label.config(text= "0")
-
-    def counterLabel(main,self):
-        
-            global counter, RoboFinished
-            counter=0
-            RoboFinished=False
-            if counter!=1000000:
-                interface.count()
-                
-    def negcounter(main):
-        global programispaused, counter, pausebuffer
-        if programispaused==True:
-            counter=counter-1
-            pausebuffer=pausebuffer-1
-            if pausebuffer<0:
-                main.pause_button.place(x = 1110, y = 200)
-            main.timerShow_label.after(1000, main.negcounter)
-        else: print "placeholder"
-
-class light(interface):#This class is used for the lights that the robot has to obey
-    def __init__(self,x0,y0,x1,y1,colour):#This is the constructor which is used to actually create the lights
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
-
-    def changeColour(self, colour):#This is the function that changes the lights colour
-        canvas.itemconfig(self.object, fill=colour)
-        canvas.update()
 
 class road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
@@ -314,6 +181,120 @@ class robot:
         self.y2+=self.vy
         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
         self.canvas.update()
+
+class Object: #This class is used for the obstacles the robot needs to avoid
+    def __init__(self,x,y,length,width,colour,canvas): #This is the constructor which is used to actually create the obstacles
+        global ObjectList
+        self.x = x
+        self.y = y
+        self.length = length
+        self.width = width
+        self.colour = colour
+        self.canvas=canvas   
+        self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
+
+class landmark(Object): #This is the class which is used for the landmarks the robot needs to visit
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):# This is the constructor which is used to generate the landmarks and place them on the map
+        Object.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
+        self.Road=Road
+        
+class treasure(Object): # This is the class which is used for the treasure that the robot needs to collect
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which is used to generate the treasure for the robot to find
+        Object.__init__(self,x,y,length,width,colour,canvas)
+        self.Found = Found
+        self.points = points
+        
+class interface: #This is the class for all interface elements
+    def __init__(self, name):
+        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")#This is the constructor for the start button 
+        self.start_button.place(x = 1110, y = 150)#Places the button at those x & y coords       
+
+        self.Level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
+        self.Level2_button.place(x = 1110, y = 200)
+
+        self.Level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
+        self.Level3_button.place(x = 1110, y = 250)
+
+        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
+        self.timerShow_label.place(x = 1170, y = 30)
+
+        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
+        self.timer_label.place(x = 1110, y = 30)
+
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
+        self.treasures_label.place(x = 1110, y = 70)
+
+        self.treasureShow_label = Label(name, text = "1", width = 16, font = ("Arial", 12))
+        self.treasureShow_label.place(x = 1110, y = 100)
+
+        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.robot1Score_label.place(x = 1110, y = 300)
+
+        self.robot1Score_label = Label(name, text = "0", width = 16, font = ("Arial", 12))
+        self.robot1Score_label.place(x = 1110, y = 320)
+        
+    def start(self):#Starts the robot and timer
+        global RoboFinished
+        interface.start_button.place_forget()#Makes the button disappear when the button is pressed
+        interface.counterLabel(interface)
+        for t in range (0,10000):
+            for robot in RobotList:
+                if robot.vx==0 and robot.vy==0:
+                    break
+                else:
+                    robot.move()
+                    time.sleep(0.0025)
+
+    def level2():
+        destroy.main()#Destroys the window
+        import Level_2 #Imports Level 2
+
+    def level3():
+        destroy.main()
+        import Level_3
+
+    def count(main):
+        global counter, colourChanger
+        counter==counter
+        global RoboFinished
+        if (RoboFinished != True):
+            counter=counter+1
+            if colourChanger!=2:
+                colourChanger=colourChanger+1
+            else:
+                colourChanger=0
+            main.timerShow_label.config(text = str(counter))
+            flipColour()
+            main.timerShow_label.after(1000, main.count) 
+        else:
+            main.counterStop()
+
+    def counterStop(main):
+        Score=100
+        interface.robot1Score_label.config(text = str(Score))
+        interface.treasureShow_label.config(text= "0")
+
+    def counterLabel(main,self):
+            global counter, RoboFinished
+            counter=0
+            RoboFinished=False
+            if counter!=1000000:
+                interface.count()
+
+class light(interface):#This class is used for the lights that the robot has to obey
+    def __init__(self,x0,y0,x1,y1,colour):#This is the constructor which is used to actually create the lights
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+
+    def changeColour(self, colour):#This is the function that changes the lights colour
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
 
 interface = interface(main)
 
