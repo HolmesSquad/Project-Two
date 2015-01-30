@@ -26,7 +26,6 @@ RoboFinished = False
 global Score
 Score=0
 
-
 def BFS(route, start, end):
     queue = [(start, [start])]
     while queue:
@@ -69,7 +68,6 @@ class Treasure(objects):
         self.Found = Found
         self.points = points
         
-
 class lights:
 
     def __init__(self,x0,y0,x1,y1,colour):
@@ -88,14 +86,13 @@ class interface:
 
     def __init__(self, name):
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
-        self.start_button.place(x = 1110, y = 150)
+        self.start_button.place(x = 1110, y = 150)       
 
-    
+        self.Level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
+        self.Level2_button.place(x = 1110, y = 250)
 
-       
-
-        self.nextLevel_button = Button(name, text="Next Level", width = 20, command=self.nextLevel, bg = "Yellow")
-        self.nextLevel_button.place(x = 1110, y = 300)
+        self.Level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
+        self.Level3_button.place(x = 1110, y = 300)
 
         self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
         self.timerShow_label.place(x = 1170, y = 30)
@@ -128,12 +125,13 @@ class interface:
                     Robot.Move()
                     time.sleep(0.0025)
 
-              
+    def level2():
+        destroy.main()
+        import Level_2
 
-    
-
-    def nextLevel(self):
-        print "Next Level"
+    def level3():
+        destroy.main()
+        import Level_3
 
     def count(main):
         global counter, resetpressed, pausepressed, colourChanger

@@ -275,13 +275,6 @@ class Treasure(objects): #class that defines the Treasures that are hidden in se
         self.Found = True
 
         canvas.update()
-        
-
-                             
-        
-
-
-
 
 class interface:
 
@@ -289,17 +282,11 @@ class interface:
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
 
-        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
-        self.pause_button.place(x = 1110, y = 200)
-
-        self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
-        self.reset_button.place(x = 1110, y = 250)
-
         self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
         self.level1_button.place(x = 1110, y = 300)
 
-        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
-        self.level3_button.place(x = 1110, y = 350)
+        self.level2_button = Button(name, text="Level 2", width = 20, command=self.level2, bg = "Yellow")
+        self.level2_button.place(x = 1110, y = 350)
 
         self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
         self.timerShow_label.place(x = 1170, y = 30)
@@ -335,54 +322,13 @@ class interface:
                 Robot.Move()
                 time.sleep(0.0025)
 
-    def pause(main):
-        '''global paused, programispaused, pausebuffer
-        if paused:
-            programispaused = False
-        else:
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused
-        
-        '''
-        global paused, programispaused, pausebuffer , pausevx, pausevy 
-        
-        if paused:
-            programispaused = False
-            
-            c3po.speed=pausevy
-            print ("speed 1a is ",c3po.speed)
-            
-        else:
-            
-            pausevy=c3po.speed
-            print ("speed 1 is ",c3po.speed)
-            c3po.speed=0
-            
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused  
-
-    def reset(main):
-        global counter, resetpressed, RoboFinished
-        #counter = 0
-       # main.timerShow_label.config(text = str(counter))
-        #resetpressed = True
-        interface.start_button.place(x = 1110, y = 150)
-        main.destroy()
-        import Level_2
-
     def level1(self):
         main.destroy()
         import Level_1
 
-    def level3(self):
+    def level2(self):
         main.destroy()
-        import Level_3
+        import Level_2
 
     def count(main):
         global counter, resetpressed, pausepressed, colourChanger
