@@ -22,6 +22,10 @@ global ScoreY
 ScoreY = 0
 global TreasureRemaining
 TreasureRemaining = 4
+global WCollected
+WCollected = 0
+global YCollected
+YCollected = 0
 global robowait
 robowait=False
 global pausevx ,pausevy
@@ -144,8 +148,10 @@ class Robot:
             self.IteminRoute=1
             print len(self.Route)
     def Move(self):
-        global ScoreY
+       global ScoreY
+        global YCollected
         global ScoreW
+        global WCollected
         global RoboFinished
         global TreasureRemaining
         for i in ListOfTreasures:
@@ -154,12 +160,15 @@ class Robot:
                     Treasure.clearTreasure1(i,"DarkGrey")
                     TreasureRemaining = TreasureRemaining - 1
                     interface.treasureShow_label.config(text = str(TreasureRemaining))
+                    YCollected = YCollected + 1
+                    interface.YCollected_label.config(text = str(YCollected))
 
                 if (i.x >= r2d2.x1 and (i.x+i.width)<=r2d2.x2) and (i.y >= r2d2.y1 and (i.y+i.length)<=r2d2.y2) and i.Found == False:
                     Treasure.clearTreasure2(i,"DarkGrey")
                     TreasureRemaining = TreasureRemaining - 1
                     interface.treasureShow_label.config(text = str(TreasureRemaining))
-
+                    WCollected = WCollected + 1
+                    interface.WCollected_label.config(text = str(WCollected))
                     
                     if ScoreW > 350 or ScoreY > 350:
                         RoboFinished = True
@@ -311,6 +320,18 @@ class interface:
 
         self.robot2Score_label = Label(name, text = ScoreW, width = 16, font = ("Arial", 12))
         self.robot2Score_label.place(x = 1110, y = 500)
+        
+        self.YCollected_label = Label(name, text = "Yellow Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.YCollected_label.place(x = 1110, y = 560)
+
+        self.YCollected_label = Label(name, text = YCollected, width = 16, font = ("Arial", 12))
+        self.YCollected_label.place(x = 1110, y = 580)
+
+        self.WCollected_label = Label(name, text = "White Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.WCollected_label.place(x = 1110, y = 640)
+
+        self.WCollected_label = Label(name, text = WCollected, width = 16, font = ("Arial", 12))
+        self.WCollected_label.place(x = 1110, y = 660)
 
     def start(self):
         global resetpressed, RoboFinished
