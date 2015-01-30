@@ -148,7 +148,7 @@ class Robot:
             self.IteminRoute=1
             print len(self.Route)
     def Move(self):
-       global ScoreY
+        global ScoreY
         global YCollected
         global ScoreW
         global WCollected
