@@ -150,9 +150,12 @@ class Robot:
         global Collected
         for i in ListOfTreasures:
             for Robot in RobotList:
+                #These conditions mean that if the robots coordinates are greater than and less than specific treasure
+                #coordinates
                 if (i.x >= Robot.x1 and (i.x+i.width)<=Robot.x2) and (i.y >= Robot.y1 and (i.y+i.length)<=Robot.y2):
+                    #It will run this function which is defined later on
                     Treasure.clearTreasure(i,"DarkGrey")
-                    print Score
+                    
                     
                     
                     #ListOfTreasures.remove[i]
@@ -167,8 +170,10 @@ class Robot:
             else:
                 self.ClosestLandmark.treasure=False
                 time.sleep(1)
+                #This section is used to update the label for the Robots score
                 Score = Distribution + Score
                 interface.robot1Score_label.config(text = str(Score))
+                #as well as the treasures collected
                 Collected = Collected + 1
                 interface.Collected_label.config(text = str(Collected))
                 if Score > 350:
@@ -230,7 +235,7 @@ class Robot:
 
 class objects: #class that defines the objects that populate the map
 
-    def __init__(self,x,y,length,width,colour,canvas):
+    def __init__(self,x,y,length,width,colour,canvas):#This is the constructor which generates the objects on the map
         self.x = x
         self.y = y
         self.length = length
@@ -240,7 +245,9 @@ class objects: #class that defines the objects that populate the map
         self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
         
 class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):#This is the constructor which generates the 
+                                                                        #landmarks the robot should visit if a treasure
+                                                                        #Is present
         objects.__init__(self,x,y,length,width,colour,canvas)
         self.Id=Id
         self.treasure=treasure
@@ -248,13 +255,16 @@ class Landmarks(objects): #class that defines the Landmarks that may contain tre
 
 class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
     
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which generates the treasure
+                                                                    #the robot should collected
         objects.__init__(self,x,y,length,width,colour,canvas)
         
         self.Found = Found
         self.points = points
 
     def clearTreasure(self, colour="DarkGrey"):
+        #This function gives the impression that the treasure is removed from the map, which is used in the movement 
+        #function
         canvas.itemconfig(self.object, fill=colour,width=0)
         canvas.update()
 
@@ -372,7 +382,9 @@ Map = objects(10.0, 10.0, 1070.0, 700.0,"Dark Grey",canvas)
 Robot1 = objects(20.0,55.0,20.0,20.0,"Cyan",canvas)
 
 #Top Row
+#This section of code utilises the constructor in the object class to create the obstacles
 pave1 = objects(10.0,10.0,1070.0,35.0, "Light Grey",canvas)
+#Everything encased in brackets relates to a variable pre-defined in the object class
 object1 = objects(10.0,15.0,200.0, 25.0, "Red",canvas)
 object2 = objects(290.0,15.0,200.0,25.0, "Red",canvas)
 object3 = objects(580.0,15.0,200.0,25.0, "Red",canvas)
@@ -458,7 +470,10 @@ Road22=Road('Road22',870,560,40,115)
 Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road16,Road17,Road19,Road20,Road21,Road22]
 
 #Landmarks
+#This section of code uses the constructor in the Landmark class to create the landmarks the robot should visit if a 
+#treasure is present
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False,Road1)
+#Everything encased in brackets relates to a variable pre-defined in the Landmark class
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True,Road16)
 Landmark3 = Landmarks(383.0,508.0,10.0,20.0,"blue",canvas,"Kim",False,Road14)
 Landmark4 = Landmarks(860.25,363.0,10.0,20.0,"blue",canvas,"Matt",False,Road13)
@@ -472,7 +487,9 @@ Landmark10 = Landmarks(800,583.0,10.0,20.0,"BLUE",canvas,"Ben",True,Road16)
 ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6,Landmark7,Landmark8,Landmark9,Landmark10]
 
 #Treasures
+#This section uses the constructor to generate the treasure the robots need to collect
 Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
+#Everything encased in brackets relates to a variable pre-defined in the treasure class
 Treasure3 = Treasure(519.0,138.0,10.0,5.0,"dark green",canvas,False,100)
 Treasure4 = Treasure(90.0,138.0,10.0,5.0,"dark green", canvas, False,100)
 Treasure5 = Treasure(800.0,578.0,10.0,5.0,"dark green",canvas,False,100)
