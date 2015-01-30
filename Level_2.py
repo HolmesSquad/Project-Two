@@ -164,7 +164,7 @@ class Robot:
             elif self.ClosestLandmark.x<(self.x1+(self.size/2)):
                 self.vx=-self.speed
                 self.vy=0
-             else:
+            else:
                 self.ClosestLandmark.treasure=False
                 time.sleep(1)
                 Score = Distribution + Score
@@ -258,23 +258,11 @@ class Treasure(objects): #class that defines the Treasures that are hidden in se
         canvas.itemconfig(self.object, fill=colour,width=0)
         canvas.update()
 
-                             
-        
-
-
-
-
 class interface:
 
     def __init__(self, name):
         self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
         self.start_button.place(x = 1110, y = 150)
-
-        self.pause_button = Button(name, text = "Pause", width = 20, command = self.pause, bg = "Light Blue")
-        self.pause_button.place(x = 1110, y = 200)
-
-        self.reset_button = Button(name, text="Reset", width = 20, command=self.reset, bg = "Orange")
-        self.reset_button.place(x = 1110, y = 250)
 
         self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
         self.level1_button.place(x = 1110, y = 300)
@@ -315,47 +303,6 @@ class interface:
             for Robot in RobotList:
                 Robot.Move()
                 time.sleep(0.0025)
-
-    def pause(main):
-        '''global paused, programispaused, pausebuffer
-        if paused:
-            programispaused = False
-        else:
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused
-        
-        '''
-        global paused, programispaused, pausebuffer , pausevx, pausevy 
-        
-        if paused:
-            programispaused = False
-            
-            c3po.speed=pausevy
-            print ("speed 1a is ",c3po.speed)
-            
-        else:
-            
-            pausevy=c3po.speed
-            print ("speed 1 is ",c3po.speed)
-            c3po.speed=0
-            
-            pausebuffer = 1
-            main.pause_button.place_forget()
-            programispaused = True
-            main.negcounter()          
-        paused = not paused  
-
-    def reset(main):
-        global counter, resetpressed, RoboFinished
-        #counter = 0
-       # main.timerShow_label.config(text = str(counter))
-        #resetpressed = True
-        interface.start_button.place(x = 1110, y = 150)
-        main.destroy()
-        import Level_2
 
     def level1(self):
         main.destroy()
@@ -405,7 +352,6 @@ class interface:
             main.timerShow_label.after(1000, main.negcounter)
         else: print "placeholder"
 
-
 class lights(interface):
 
     def __init__(self,x0,y0,x1,y1,colour):
@@ -419,7 +365,6 @@ class lights(interface):
     def change_colour(self, colour):
         canvas.itemconfig(self.object, fill=colour)
         canvas.update()
-
 
 interface = interface(main)
 
@@ -512,7 +457,6 @@ Road22=Road('Road22',870,560,40,115)
 
 Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road16,Road17,Road19,Road20,Road21,Road22]
 
-
 #Landmarks
 Landmark1 = Landmarks(55.0,67.0,10.0,20.0,"blue",canvas,"Dave",False,Road1)
 Landmark2 = Landmarks(200.0,583.0,10.0,20.0,"blue",canvas,"Jason",True,Road16)
@@ -526,7 +470,6 @@ Landmark9 = Landmarks(366.0,583.0,10.0,20.0,"blue",canvas,"Lucy",False,Road16)
 Landmark10 = Landmarks(800,583.0,10.0,20.0,"BLUE",canvas,"Ben",True,Road16)
 
 ListOfLandmarks=[Landmark1,Landmark2,Landmark3,Landmark4,Landmark5,Landmark6,Landmark7,Landmark8,Landmark9,Landmark10]
-
 
 #Treasures
 Treasure1 = Treasure(200.0,578.0,10.0,5.0,"dark green",canvas,False,100)
@@ -598,16 +541,12 @@ def stopTheBot():
         flipColour()
     elif ( (c3po.x1>940) and (c3po.x1<990) and (c3po.y1>40) and(c3po.y1<90) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>190) and(c3po.y1<240) and (robowait==True)) or ( (c3po.x1>1020) and (c3po.x1<1080) and (c3po.y1>330) and(c3po.y1<390) and (robowait==True)):
         time.sleep(1)
-        flipColour()
-    
+        flipColour()   
 
 def flipColour():
     global robowait
-    
-    
-    
 
-    #group 1
+    #Group 1
     if colourChanger==1:
         robowait=True
         Light1.change_colour("Red")
