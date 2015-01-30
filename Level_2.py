@@ -334,8 +334,8 @@ class interface:#Adds and defines buttons, labels and their functions
         if counter!=1000000:
             interface.count()
                 
-class light(interface):#
-    def __init__(self,x0,y0,x1,y1,colour):
+class light(interface):#This class is used for the lights that the robot has to obey
+    def __init__(self,x0,y0,x1,y1,colour):#This is the constructor which is used to actually create the lights
         self.x0 = x0
         self.y0 = y0
         self.x1 = x1
@@ -343,7 +343,7 @@ class light(interface):#
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
         
-    def change_colour(self, colour):
+    def change_colour(self, colour):#This is the function that changes the lights colour
         canvas.itemconfig(self.object, fill=colour)
         canvas.update()
 
@@ -467,7 +467,10 @@ Distribution = Total / 4
 
 #Lights
 #Column 1
+#The following section of code utilises the constructor in the light class used to create lights
+#for the robot to obey
 Light1 = light(20, 130, 40, 150, "Green")
+#Everything encased in brackets relates to a variable pre defined in the constructor
 Light2 = light(20, 205, 40, 225, "Green")
 Light3 = light(20, 350, 40, 370, "Green")
 Light4 = light(20, 495, 40, 515, "Green")
@@ -506,7 +509,7 @@ Light26 = light(955, 55, 975, 75, "Green")
 Light27 = light(1040, 205, 1060, 225, "Green")
 Light28 = light(1040, 350, 1060, 370, "Green")
 
-def stopTheBot():
+def stopTheBot(): #Stops the robot if a red light is present at its coords
     global robowait
     if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
         time.sleep(1)
@@ -617,6 +620,7 @@ def flipColour():
         Light27.change_colour("Yellow")
         Light28.change_colour("Yellow")
 
+#Robot
 c3po = robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.randomPosition()
 c3po.drawRobot()

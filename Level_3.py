@@ -288,11 +288,10 @@ class treasure(Object): #class that defines the Treasures that are hidden in sel
 
         canvas.update()
 
-class interface:
-
+class interface:#This is the class for all interface elements
     def __init__(self, name):
-        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
-        self.start_button.place(x = 1110, y = 150)
+        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")#This is the constructor for the start button 
+        self.start_button.place(x = 1110, y = 150)#Places the button at those x & y coords
 
         self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
         self.level1_button.place(x = 1110, y = 200)
@@ -336,18 +335,18 @@ class interface:
         self.WCollected_label = Label(name, text = WCollected, width = 16, font = ("Arial", 12))
         self.WCollected_label.place(x = 1110, y = 500)
 
-    def start(self):
+    def start(self):#Starts the robot and timer
         global RoboFinished
-        interface.start_button.place_forget()
+        interface.start_button.place_forget()#Makes the button disappear when the button is pressed
         interface.counterLabel(interface)
         while TreasureRemaining>0:
             for robot in RobotList:
                 robot.move()
                 time.sleep(0.0025)
 
-    def level1(self):
-        main.destroy()
-        import Level_1
+    def level1(self):#Function for the level 1 button
+        main.destroy()#Destroys the window
+        import Level_1#Imports Level 1
 
     def level2(self):
         main.destroy()
@@ -379,8 +378,8 @@ class interface:
             if counter!=1000000:
                 interface.count()
 
-class light(interface):
-    def __init__(self,x0,y0,x1,y1,colour):
+class light(interface):#This class is used for the lights that the robot has to obey
+    def __init__(self,x0,y0,x1,y1,colour):#This is the constructor which is used to actually create the lights
         self.x0 = x0
         self.y0 = y0
         self.x1 = x1
@@ -388,11 +387,36 @@ class light(interface):
         self.colour = colour
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
         
-    def change_colour(self, colour):
+    def change_colour(self, colour):#This is the function that changes the lights colour
         canvas.itemconfig(self.object, fill=colour)
         canvas.update()
 
 interface = interface(main)
+
+#Roads
+Road1=road('Road1',10,45,1070,40) 
+Road2=road('Road2',10,45,40,630)
+Road3=road('Road3',1040,45,40,480)
+Road4=road('Road4',945,45,40,190)
+Road5=road('Road5',945,195,135,40)
+Road6=road('Road6',10,195,900,40)
+Road7=road('Road7',870,45,40,190)
+Road8=road('Road8',450.25,340,40,145)
+Road9=road('Road9',404,45,40,115)
+Road10=road('Road10',10,120,434,40)
+Road11=road('Road11',231.25,195,40,330)
+Road12=road('Road12',479,120,431,40)
+Road13=road('Road13',10,340,1070,40)
+Road14=road('Road14',10,485,1070,40)
+Road15=road('Road15',479,45,40,190)
+Road16=road('Road16',10,560,900,40)
+Road17=road('Road17',326,485,40,115)
+Road19=road('Road19',10,635,900,40)
+Road20=road('Road20',230.25,560,40,115)
+Road21=road('Road21',479,560,40,115) 
+Road22=road('Road22',870,560,40,115) 
+
+Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road16,Road17,Road19,Road20,Road21,Road22]
 
 #Top Row
 #This section of code utilises the constructor in the object class to generate objects the robot should avoid
@@ -457,31 +481,6 @@ object23 = Object(10.0,680.0,200.0, 25.0, "Red",canvas)
 object24 = Object(290.0,680.0,200.0,25.0, "Red",canvas)
 object25 = Object(580.0,680.0,500.0,25.0, "Red",canvas)
 
-#Roads
-Road1=road('Road1',10,45,1070,40) 
-Road2=road('Road2',10,45,40,630)
-Road3=road('Road3',1040,45,40,480)
-Road4=road('Road4',945,45,40,190)
-Road5=road('Road5',945,195,135,40)
-Road6=road('Road6',10,195,900,40)
-Road7=road('Road7',870,45,40,190)
-Road8=road('Road8',450.25,340,40,145)
-Road9=road('Road9',404,45,40,115)
-Road10=road('Road10',10,120,434,40)
-Road11=road('Road11',231.25,195,40,330)
-Road12=road('Road12',479,120,431,40)
-Road13=road('Road13',10,340,1070,40)
-Road14=road('Road14',10,485,1070,40)
-Road15=road('Road15',479,45,40,190)
-Road16=road('Road16',10,560,900,40)
-Road17=road('Road17',326,485,40,115)
-Road19=road('Road19',10,635,900,40)
-Road20=road('Road20',230.25,560,40,115)
-Road21=road('Road21',479,560,40,115) 
-Road22=road('Road22',870,560,40,115) 
-
-Roads=[Road1,Road2,Road3,Road4,Road5,Road6,Road7,Road8,Road9,Road10,Road11,Road12,Road13,Road14,Road16,Road17,Road19,Road20,Road21,Road22]
-
 #Landmarks
 #This section of code uses the constructor in the the landmark class to generate the landmarks the robot should visit
 #if a treasure is present
@@ -511,8 +510,10 @@ Total = Treasure1.points  + Treasure3.points + Treasure4.points + Treasure5.poin
 Distribution = Total / 4
 
 #Lights
+#The following section of code utilises the constructor in the light class used to create lights for the robot to obey
 #Column 1
 Light1 = light(20, 130, 40, 150, "Green")
+#Everything encased in brackets relates to a variable pre defined in the constructor
 Light2 = light(20, 205, 40, 225, "Green")
 Light3 = light(20, 350, 40, 370, "Green")
 Light4 = light(20, 495, 40, 515, "Green")
@@ -551,7 +552,7 @@ Light26 = light(955, 55, 975, 75, "Green")
 Light27 = light(1040, 205, 1060, 225, "Green")
 Light28 = light(1040, 350, 1060, 370, "Green")
 
-def stopTheBot():
+def stopTheBot():#Stops the robot if a red light is present at its coords
     global robowait
     if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
         time.sleep(1)
@@ -680,6 +681,7 @@ def flipColour():
         Light27.change_colour("Yellow")
         Light28.change_colour("Yellow")
 
+#Robots
 c3po = robot(0, 0, speed = 1, size=20, colour='yellow')
 c3po.randomPosition()
 c3po.drawRobot()

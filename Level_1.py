@@ -33,7 +33,6 @@ def shortestPath(route, start, end):
     except StopIteration:
         return None
 
-
 class road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
         self.name=name
@@ -247,7 +246,7 @@ class interface: #This is the class for all interface elements
                     robot.move()
                     time.sleep(0.0025)
 
-    def level2():
+    def level2():#Function for the level 2 button
         destroy.main()#Destroys the window
         import Level_2 #Imports Level 2
 
