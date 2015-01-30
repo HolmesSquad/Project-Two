@@ -46,6 +46,146 @@ def ShortestPath(route, start, end):
     except StopIteration:
         return None
 
+class objects: #class that defines the objects that populate the map
+
+    def __init__(self,x,y,length,width,colour,canvas):#This is the constructor which generates the objects on the map
+        self.x = x
+        self.y = y
+        self.length = length
+        self.width = width
+        self.colour = colour
+        self.canvas=canvas
+        self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
+        
+class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
+    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):#This is the constructor which generates the 
+                                                                        #landmarks the robot should visit if a treasure
+                                                                        #Is present
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        self.Id=Id
+        self.treasure=treasure
+        self.Road=Road
+
+class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
+    
+    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which generates the treasure
+                                                                    #the robot should collected
+        objects.__init__(self,x,y,length,width,colour,canvas)
+        
+        self.Found = Found
+        self.points = points
+
+    def clearTreasure(self, colour="DarkGrey"):
+        #This function gives the impression that the treasure is removed from the map, which is used in the movement 
+        #function
+        canvas.itemconfig(self.object, fill=colour,width=0)
+        canvas.update()
+
+class interface:#Adds and defines buttons, labels and their functions
+    def __init__(self, name):
+        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
+        self.start_button.place(x = 1110, y = 150)
+
+        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
+        self.level1_button.place(x = 1110, y = 300)
+
+        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
+        self.level3_button.place(x = 1110, y = 350)
+
+        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
+        self.timerShow_label.place(x = 1170, y = 30)
+
+        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
+        self.timer_label.place(x = 1110, y = 30)
+
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
+        self.treasures_label.place(x = 1110, y = 70)
+
+        self.treasureShow_label = Label(name, text = TreasureRemaining, width = 16, font = ("Arial", 12))
+        self.treasureShow_label.place(x = 1110, y = 100)
+
+        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.robot1Score_label.place(x = 1110, y = 400)
+
+        self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))
+        self.robot1Score_label.place(x = 1110, y = 420)
+        
+        self.Collected_label = Label(name, text = "Treasures Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
+        self.Collected_label.place(x = 1110, y = 480)
+
+        self.Collected_label = Label(name, text = Collected, width = 16, font = ("Arial", 12))
+        self.Collected_label.place(x = 1110, y = 500)
+
+    def start(self):#Starts the robot and timer
+        global resetpressed, RoboFinished
+        interface.start_button.place_forget()#Jides the button once its been placed
+        interface.counter_label(interface)
+        while TreasureRemaining>0: #Runs the robots movement while treasures are remaining
+            for Robot in RobotList:
+                Robot.Move()
+                time.sleep(0.0025)
+
+    def level1(self):#Allows the user to move to level 2
+        main.destroy()
+        import Level_1
+
+    def level3(self):
+        main.destroy()
+        import Level_3
+
+    def count(main):
+        global counter, resetpressed, pausepressed, colourChanger
+        counter==counter
+        global RoboFinished
+        print RoboFinished
+        if (RoboFinished != True):
+            counter=counter+1
+            if colourChanger!=3:
+                colourChanger=colourChanger+1
+                print ("colourChanger",colourChanger)
+            else:
+                colourChanger=0
+            main.timerShow_label.config(text = str(counter))
+            flipColour()
+            main.timerShow_label.after(1000, main.count) 
+        else:
+            main.counter_stop()
+
+    def counter_stop(main):
+        print ("The Program has finished")
+
+    def counter_label(main,self):
+        
+            global counter, RoboFinished
+            counter=0
+            RoboFinished=False
+            if counter!=1000000:
+                interface.count()
+                
+    def negcounter(main):
+        global programispaused, counter, pausebuffer
+        if programispaused==True:
+            counter=counter-1
+            pausebuffer=pausebuffer-1
+            if pausebuffer<0:
+                main.pause_button.place(x = 1110, y = 200)
+            main.timerShow_label.after(1000, main.negcounter)
+        else: print "placeholder"
+
+class lights(interface):#
+
+    def __init__(self,x0,y0,x1,y1,colour):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+        self.colour = colour
+        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
+        
+    def change_colour(self, colour):
+        canvas.itemconfig(self.object, fill=colour)
+        canvas.update()
+        
 class Road:
     def __init__(self,name,x,y,width,height,colour="darkgrey"):
         self.name=name
@@ -231,150 +371,6 @@ class Robot:
         self.y2+=self.vy
         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
         self.canvas.update()
-
-
-class objects: #class that defines the objects that populate the map
-
-    def __init__(self,x,y,length,width,colour,canvas):#This is the constructor which generates the objects on the map
-        self.x = x
-        self.y = y
-        self.length = length
-        self.width = width
-        self.colour = colour
-        self.canvas=canvas
-        self.object = canvas.create_rectangle(self.x,self.y,self.x+self.length,self.y+self.width,fill = self.colour)
-        
-class Landmarks(objects): #class that defines the Landmarks that may contain treasures - inherits from objects
-    def __init__(self,x,y,length,width,colour,canvas,Id,treasure,Road):#This is the constructor which generates the 
-                                                                        #landmarks the robot should visit if a treasure
-                                                                        #Is present
-        objects.__init__(self,x,y,length,width,colour,canvas)
-        self.Id=Id
-        self.treasure=treasure
-        self.Road=Road
-
-class Treasure(objects): #class that defines the Treasures that are hidden in selected landmarks - inherits from objects
-    
-    def __init__(self,x,y,length,width,colour,canvas,Found,points):#This is the constructor which generates the treasure
-                                                                    #the robot should collected
-        objects.__init__(self,x,y,length,width,colour,canvas)
-        
-        self.Found = Found
-        self.points = points
-
-    def clearTreasure(self, colour="DarkGrey"):
-        #This function gives the impression that the treasure is removed from the map, which is used in the movement 
-        #function
-        canvas.itemconfig(self.object, fill=colour,width=0)
-        canvas.update()
-
-class interface:
-
-    def __init__(self, name):
-        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
-        self.start_button.place(x = 1110, y = 150)
-
-        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
-        self.level1_button.place(x = 1110, y = 300)
-
-        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
-        self.level3_button.place(x = 1110, y = 350)
-
-        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
-        self.timerShow_label.place(x = 1170, y = 30)
-
-        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
-        self.timer_label.place(x = 1110, y = 30)
-
-        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
-        self.treasures_label.place(x = 1110, y = 70)
-
-        self.treasureShow_label = Label(name, text = TreasureRemaining, width = 16, font = ("Arial", 12))
-        self.treasureShow_label.place(x = 1110, y = 100)
-
-        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 400)
-
-        self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))
-        self.robot1Score_label.place(x = 1110, y = 420)
-        
-        self.Collected_label = Label(name, text = "Treasures Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.Collected_label.place(x = 1110, y = 480)
-
-        self.Collected_label = Label(name, text = Collected, width = 16, font = ("Arial", 12))
-        self.Collected_label.place(x = 1110, y = 500)
-
-    def start(self):
-        global resetpressed, RoboFinished
-        print "Start"
-        interface.start_button.place_forget()
-        interface.counter_label(interface)
-        while TreasureRemaining>0:
-            for Robot in RobotList:
-                Robot.Move()
-                time.sleep(0.0025)
-
-    def level1(self):
-        main.destroy()
-        import Level_1
-
-    def level3(self):
-        main.destroy()
-        import Level_3
-
-    def count(main):
-        global counter, resetpressed, pausepressed, colourChanger
-        counter==counter
-        global RoboFinished
-        print RoboFinished
-        if (RoboFinished != True):
-            counter=counter+1
-            if colourChanger!=3:
-                colourChanger=colourChanger+1
-                print ("colourChanger",colourChanger)
-            else:
-                colourChanger=0
-            main.timerShow_label.config(text = str(counter))
-            flipColour()
-            main.timerShow_label.after(1000, main.count) 
-        else:
-            main.counter_stop()
-
-    def counter_stop(main):
-        print ("The Program has finished")
-
-
-    def counter_label(main,self):
-        
-            global counter, RoboFinished
-            counter=0
-            RoboFinished=False
-            if counter!=1000000:
-                interface.count()
-                
-    def negcounter(main):
-        global programispaused, counter, pausebuffer
-        if programispaused==True:
-            counter=counter-1
-            pausebuffer=pausebuffer-1
-            if pausebuffer<0:
-                main.pause_button.place(x = 1110, y = 200)
-            main.timerShow_label.after(1000, main.negcounter)
-        else: print "placeholder"
-
-class lights(interface):
-
-    def __init__(self,x0,y0,x1,y1,colour):
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
-        self.colour = colour
-        self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
-        
-    def change_colour(self, colour):
-        canvas.itemconfig(self.object, fill=colour)
-        canvas.update()
 
 interface = interface(main)
 
