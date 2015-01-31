@@ -246,12 +246,12 @@ class interface: #This is the class for all interface elements
                     robot.move()
                     time.sleep(0.0025)
 
-    def level2():#Function for the level 2 button
-        destroy.main()#Destroys the window
+    def level2(self):#Function for the level 2 button
+        main.destroy()#Destroys the window
         import Level_2 #Imports Level 2
 
-    def level3():
-        destroy.main()
+    def level3(self):
+        main.destroy()
         import Level_3
 
     def count(main):
