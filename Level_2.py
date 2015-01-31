@@ -6,22 +6,22 @@ main = Tk(className = "Level 2")
 canvas = Canvas(main, width = 1280, height = 720, bg = "Black")
 canvas.pack()
 
-global randomColourChangerYellow
+global randomColourChangerYellow # Creates a variable called randomColourChangerYellow which is used to change the lights to yellow
 randomColourChangerYellow=0
-global colourChanger
+global colourChanger # Creates a variable called colourChanger which is used to change the lights from red to green
 colourChanger=0
-global Score
+global Score # Creates a variable called Score which is used to count the robots score
 Score = 0
-global TreasureRemaining
+global TreasureRemaining # Creates a variable called TreasureRemaining
 TreasureRemaining = 4
-global Collected
+global Collected # Creates a variable called Collected 
 Collected = 0
-global robowait
+global robowait # Creates a variable called robowait which is used to stop the robot at the red lights
 robowait=False
 global pausevx ,pausevy
 pausevx=0
 pausevy=0
-global RoboFinished
+global RoboFinished # Creates a variable called RoboFinished which is used to stop the counter when the robot is finished
 RoboFinished = False
 
 def breadthFirstSearch(route, start, end):
@@ -258,76 +258,79 @@ class treasure(Object): #class that defines the Treasures that are hidden in sel
 
 class interface:#Adds and defines buttons, labels and their functions
     def __init__(self, name):
-        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")
-        self.start_button.place(x = 1110, y = 150)
+        self.start_button = Button(name, text="Start", width = 20, command=self.start, bg = "Green")#This is the constructor for the start button 
+        self.start_button.place(x = 1110, y = 150)#Places the button at those x & y coords  
 
-        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")
-        self.level1_button.place(x = 1110, y = 200)
+        self.level1_button = Button(name, text="Level 1", width = 20, command=self.level1, bg = "Yellow")#This is the constructor for the Level1 button 
+        self.level1_button.place(x = 1110, y = 200)#Places the button at those x & y coords 
 
-        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")
-        self.level3_button.place(x = 1110, y = 250)
+        self.level3_button = Button(name, text="Level 3", width = 20, command=self.level3, bg = "Yellow")#This is the constructor for the Level3 button
+        self.level3_button.place(x = 1110, y = 250)#Places the button at those x & y coords 
 
-        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))
-        self.timerShow_label.place(x = 1170, y = 30)
+        self.timerShow_label = Label(name, text = "", width = 7, font = ("Arial", 16))#This is the constructor for the 1st Timer label
+        self.timerShow_label.place(x = 1170, y = 30)#Places the label at those x & y coords   
 
-        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))
-        self.timer_label.place(x = 1110, y = 30)
+        self.timer_label= Label(name,text ="Timer", width = 5, font = ("Arial", 16))#This is the constructor for the 2nd Timer label
+        self.timer_label.place(x = 1110, y = 30)#Places the label at those x & y coords   
 
-        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)
-        self.treasures_label.place(x = 1110, y = 70)
+        self.treasures_label = Label(name, text = "Treasure Remaining: ", width = 16, height = 2, font = ("Arial", 12), anchor = N)#This is the constructor for the Treasures remaining label
+        self.treasures_label.place(x = 1110, y = 70)#Places the label at those x & y coords   
 
-        self.treasureShow_label = Label(name, text = TreasureRemaining, width = 16, font = ("Arial", 12))
-        self.treasureShow_label.place(x = 1110, y = 100)
+        self.treasureShow_label = Label(name, text = TreasureRemaining, width = 16, font = ("Arial", 12))#This is the constructor for the 2nd Treasures remaining label
+        self.treasureShow_label.place(x = 1110, y = 100)#Places the label at those x & y coords   
 
-        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.robot1Score_label.place(x = 1110, y = 300)
+        self.robot1Score_label = Label(name, text = "Robot Score: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)#This is the constructor for the Robot Score label
+        self.robot1Score_label.place(x = 1110, y = 300)#Places the label at those x & y coords   
 
-        self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))
-        self.robot1Score_label.place(x = 1110, y = 320)
+        self.robot1Score_label = Label(name, text = Score, width = 16, font = ("Arial", 12))#This is the constructor for the 2nd Robot Score label
+        self.robot1Score_label.place(x = 1110, y = 320)#Places the label at those x & y coords   
         
         self.Collected_label = Label(name, text = "Treasures Collected: ", width = 16, height = 1, font = ("Arial", 12), anchor = N)
-        self.Collected_label.place(x = 1110, y = 360)
+        self.Collected_label.place(x = 1110, y = 360)#Places the label at those x & y coords   
 
         self.Collected_label = Label(name, text = Collected, width = 16, font = ("Arial", 12))
-        self.Collected_label.place(x = 1110, y = 380)
+        self.Collected_label.place(x = 1110, y = 380)#Places the label at those x & y coords   
 
     def start(self):#Starts the robot and timer
         global RoboFinished
         interface.start_button.place_forget()#Jides the button once its been placed
-        interface.counterLabel(interface)
+        interface.counterLabel(interface)#starts the counter function
         while TreasureRemaining>0: #Runs the robots movement while treasures are remaining
             for robot in RobotList:
                 robot.move()
                 time.sleep(0.0025)
 
-    def level1(self):#Allows the user to move to level 2
+    def level1(self):#Allows the user to move to level 1
         main.destroy()
         import Level_1
 
-    def level3(self):
+    def level3(self):#Allows the user to move to level 3
         main.destroy()
         import Level_3
-
+        
+#Starts and controls the timer functions and the timer finish function
+     #creates a variable called counter
+        #works almost identically to the level 1 code
     def count(main):
         global counter, colourChanger
         counter==counter
         global RoboFinished
         if (RoboFinished != True):
             counter=counter+1
-            if colourChanger!=3:
+            if colourChanger!=3: # the colourchanger variable now counts to 3
                 colourChanger=colourChanger+1
             else:
                 colourChanger=0
-            main.timerShow_label.config(text = str(counter))
+            main.timerShow_label.config(text = str(counter))#updates the timer label with the variable counter
             flipColour()
-            main.timerShow_label.after(1000, main.count) 
+            main.timerShow_label.after(1000, main.count) #calls the count function every 1000ms;1 second
         else:
             main.counterStop()
 
-    def counterStop(main):
+    def counterStop(main): #stops the counter
         return True
 
-    def counterLabel(main,self):
+    def counterLabel(main,self): #this function starts the Timer function going and set up all of the require variables
         global counter, RoboFinished
         counter=0
         RoboFinished=False
@@ -344,7 +347,7 @@ class light(interface):#This class is used for the lights that the robot has to 
         self.object = canvas.create_oval(self.x0,self.y0,self.x1,self.y1,fill = self.colour)
         
     def change_colour(self, colour):#This is the function that changes the lights colour
-        canvas.itemconfig(self.object, fill=colour)
+        canvas.itemconfig(self.object, fill=colour)#changes the colour of the object to the variable past in the function
         canvas.update()
 
 interface = interface(main)
@@ -510,10 +513,12 @@ Light27 = light(1040, 205, 1060, 225, "Green")
 Light28 = light(1040, 350, 1060, 370, "Green")
 
 def stopTheBot(): #Stops the robot if a red light is present at its coords
+    #these if statements control where the robot stops for all of the traffic lights on the map by using x,y cordinates and robowait
+   
     global robowait
     if ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>199) and(c3po.y1<231) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>310) and(c3po.y1<360) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>490) and(c3po.y1<520) and (robowait==True)) or ( (c3po.x1>10) and (c3po.x1<60) and (c3po.y1>550) and(c3po.y1<600) and (robowait==True)):
-        time.sleep(1)
-        flipColour()
+        time.sleep(1)#stops the program for 1 second
+        flipColour()#calls the flipcolour function
     elif ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>110) and(c3po.y1<170) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>195) and(c3po.y1<210) and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>330) and(c3po.y1<390)and (robowait==True))  or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>485) and(c3po.y1<530)and (robowait==True)) or ( (c3po.x1>225) and (c3po.x1<275) and (c3po.y1>555) and(c3po.y1<605)and (robowait==True)):
         time.sleep(1)
         flipColour()
@@ -530,9 +535,9 @@ def stopTheBot(): #Stops the robot if a red light is present at its coords
         time.sleep(1)
         flipColour()   
 
-def flipColour():
+def flipColour(): #this controls the robot's colour
     global robowait
-    if colourChanger==1:
+    if colourChanger==1: # if the variable colourChanger is the traffic lights will be set to red
         robowait=True
         Light1.change_colour("Red")
         Light2.change_colour("Red")
@@ -561,7 +566,7 @@ def flipColour():
         Light27.change_colour("Red")
         Light28.change_colour("Red")
         canvas.update()
-    if colourChanger==2:
+    if colourChanger==2: # if the variable colourChanger is the traffic lights will be set to Green
         c3po.speed=1
         robowait=False
         Light1.change_colour("Green")
@@ -590,7 +595,7 @@ def flipColour():
         Light26.change_colour("Green")
         Light27.change_colour("Green")
         Light28.change_colour("Green")
-    if colourChanger==3:
+    if colourChanger==3: # if the variable colourChanger is the traffic lights will be set to Yellow
         c3po.speed=1
         robowait=False
         Light1.change_colour("Yellow")
