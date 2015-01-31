@@ -249,15 +249,10 @@ class interface: #This is the class for all interface elements
         main.destroy()#Destroys the window
         import Level_2 #Imports Level 2
 
-<<<<<<< HEAD
+
     def level3(): #Function for the level 3 button
         destroy.main() #Destroys the window
         import Level_3 #Imports Level 3
-=======
-    def level3(self):
-        main.destroy()
-        import Level_3
->>>>>>> origin/master
 
 #Starts and controls the timer functions and the timer finish function
      #creates a variable called counter
