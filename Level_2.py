@@ -24,7 +24,7 @@ pausevy=0
 global RoboFinished # Creates a variable called RoboFinished which is used to stop the counter when the robot is finished
 RoboFinished = False
 
-def breadthFirstSearch(route, start, end):
+def breadthFirstSearch(route, start, end): # This function searches through the route which is the graph of the roads and once it has found the end goal, it will return a path that goes to the route
     queue = [(start, [start])]
     while queue:
         (vertex, path) = queue.pop(0)
@@ -34,7 +34,7 @@ def breadthFirstSearch(route, start, end):
             else:
                 queue.append((next, path + [next]))
 
-def shortestPath(route, start, end):
+def shortestPath(route, start, end): # This function will go through all the various paths and will return the shortest route
     try:
         return next(breadthFirstSearch(route, start, end))
     except StopIteration:
