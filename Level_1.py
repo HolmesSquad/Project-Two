@@ -97,26 +97,31 @@ class robot:
             self.y2=self.y1+self.size
             self.x1=random.randrange((RandRoad.x1+(self.size/2)),(RandRoad.x2-self.size))
             self.x2=self.x1+self.size
-
+#Function to check which road the Robot is currently on
     def checkPosition(self):
         for road in Roads:
             if self.x1>=road.x1 and self.x2<=road.x2 and self.y1>=road.y1 and self.y2<=road.y2:
                 return road
-
+#Function to find the closest landmark with treasure
     def treasureChecker(self):
         ShortestRouteLength=100
-        for landmark in ListOfLandmarks:
+        for landmark in ListOfLandmarks: #Check every landmark
+        #Check every landmark
+#If it has treasure, check to see if it is shorter (less nodes) than all routes checked so far, if so set TreasureA variable to the road which the landmark is on, the ClosestLandmark variable to be that landmark and the ShortestRouteLength variable to be the length of that landmark
+
             if landmark.treasure==True:
                 self.Route=shortestPath(self.city,self.checkPosition(),landmark.Road)
                 if len(self.Route)<ShortestRouteLength:
                     TreasureA=landmark.Road
                     self.ClosestLandmark=landmark
                     ShortestRouteLength=len(self.Route)
+        #Once all landmarks have been checked return the road on which the closest landmark is located
         return TreasureA
-    
+    #Pathfinder Function    
     def pathfinder(self):
         self.DistancetoLandmark=2000
         self.FindRoute=True
+        #Check to see if the robot is already on the same road as a landmark, if so return distance to landmark and ClosestLandmark variables
         for landmark in ListOfLandmarks:
             if landmark.treasure==True:
                 if self.checkPosition()==landmark.Road:
@@ -131,11 +136,13 @@ class robot:
                     self.Route=[]
                     self.FindRoute=False
                     self.IteminRoute=1
+        #If it isn’t, find the shortest route (least roads) to the landmark
         if self.FindRoute==True:
             self.Route=shortestPath(self.city, self.checkPosition(), self.treasureChecker())
             self.IteminRoute=1
-            
+    #Movement Function  
     def move(self):
+        #If the Robot is on the same road as a landmark, go to that landmark
         if len(self.Route)-1<self.IteminRoute:
             stopTheBot()          
             if self.ClosestLandmark.x>(self.x1+(self.size/2)):
@@ -147,6 +154,7 @@ class robot:
             else:
                 self.vx=0
                 self.vy=0
+        #Otherwise go to the coordinates of the intersection with the next road
         else:
             self.NextRoad=self.Route[self.IteminRoute]
             if self.NextRoad.height>self.NextRoad.width:
@@ -159,6 +167,7 @@ class robot:
                     self.vx=-self.speed
                     self.vy=0
                 else:
+                    #Once there, go to the next road in the route
                     self.IteminRoute+=1
             elif self.NextRoad.height<self.NextRoad.width:
                 y_destination=self.NextRoad.y1+(self.NextRoad.height/2)
@@ -173,12 +182,13 @@ class robot:
                     stopTheBot()
                     self.vy=-self.speed
                     self.vx=0
+        #Changse the robots coordinates to move it
         self.x1+=self.vx
         self.x2+=self.vx
         self.y1+=self.vy
         self.y2+=self.vy
         self.canvas.coords(self.shape,self.x1,self.y1,self.x2,self.y2)
-        self.canvas.update()
+        self.canvas.update() #Updates the canvas so the change to the robots coordinates is visible
 
 class Object: #This class is used for the obstacles the robot needs to avoid
     def __init__(self,x,y,length,width,colour,canvas): #This is the constructor which is used to actually create the obstacles
