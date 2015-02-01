@@ -16,7 +16,7 @@ RoboFinished = False
 global Score # Creates a variable called Score which is used to count the robots score
 Score=0
 
-def breadthFirstSearch(route, start, end):
+def breadthFirstSearch(route, start, end): # This function searches through the route which is the graph of the roads and once it has found the end goal, it will return a path that goes to the route
     queue = [(start, [start])]
     while queue:
         (vertex, path) = queue.pop(0)
@@ -26,7 +26,7 @@ def breadthFirstSearch(route, start, end):
             else:
                 queue.append((next, path + [next]))
 
-def shortestPath(route, start, end):
+def shortestPath(route, start, end): # This function will go through all the various paths and will return the shortest route
     try:
         return next(breadthFirstSearch(route, start, end))
     except StopIteration:
@@ -249,7 +249,7 @@ class interface: #This is the class for all interface elements
         main.destroy()#Destroys the window
         import Level_2 #Imports Level 2
 
-    def level3(): #Function for the level 3 button
+    def level3(self): #Function for the level 3 button
         main.destroy() #Destroys the window
         import Level_3 #Imports Level 3
 
